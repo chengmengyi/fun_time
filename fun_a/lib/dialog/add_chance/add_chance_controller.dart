@@ -8,13 +8,13 @@ import 'package:fun_base/util/util.dart';
 class AddChanceController extends BaseController{
 
   clickVideo(WinnerType winnerType){
-    AdHep.instance.showAd(
-      adType: AdType.reward,
-      closeAd: (){
-        RouterUtils.back();
-        _addPlayNum(winnerType, true);
-      },
-    );
+    // AdHep.instance.showAd(
+    //   adType: AdType.reward,
+    //   closeAd: (){
+    //     RouterUtils.back();
+    //     _addPlayNum(winnerType, true);
+    //   },
+    // );
   }
 
   clickCoins(WinnerType winnerType){

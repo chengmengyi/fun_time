@@ -8,8 +8,9 @@ import 'package:fun_base/widget/local_image_widget.dart';
 import 'package:fun_base/widget/text_widget.dart';
 
 class UpLevelDialog extends BaseDialog<UpLevelController>{
+  bool showFinger;
   Function() dismiss;
-  UpLevelDialog({required this.dismiss});
+  UpLevelDialog({required this.showFinger,required this.dismiss});
   @override
   UpLevelController createController() => UpLevelController();
 
@@ -50,7 +51,7 @@ class UpLevelDialog extends BaseDialog<UpLevelController>{
                   children: [
                     LocalImageWidget(image: "up3", width: 120.w, height: 20.h),
                     LocalImageWidget(image: "up4", width: 116.w, height: 16.h),
-                    TextWidget(data: "3/3", color: "#FFFFFF", size: 14.sp,fontWeight: FontWeight.bold,),
+                    TextWidget(data: showFinger?"3/3":"${UserInfoHep.instance.getUserDiamond()%3}/3", color: "#FFFFFF", size: 14.sp,fontWeight: FontWeight.bold,),
                   ],
                 ),
                 SizedBox(width: 8.w,),
@@ -68,6 +69,7 @@ class UpLevelDialog extends BaseDialog<UpLevelController>{
             LocalImageWidget(image: "up5", width: 100.w, height: 100.h),
             TextWidget(data: "+800", color: "#FFD725", size: 21.sp,fontWeight: FontWeight.bold,fontStyle: FontStyle.italic,),
             SizedBox(height: 24.h,),
+            showFinger?
             InkWell(
               onTap: (){
                 ftController.clickGet(dismiss);
@@ -78,6 +80,30 @@ class UpLevelDialog extends BaseDialog<UpLevelController>{
                   LocalImageWidget(image: "add4", width: 218.w, height: 38.h),
                   TextWidget(data: "Claim", color: "#FFFFFF", size: 18.sp,fontWeight: FontWeight.bold,)
                 ],
+              ),
+            ):
+            InkWell(
+              onTap: (){
+                showToast("Collect 2 more diamonds to level up, Scratch it！");
+              },
+              child: SizedBox(
+                width: 218.w,
+                height: 38.h,
+                child: Stack(
+                  children: [
+                    LocalImageWidget(image: "up6", width: 218.w, height: 38.h),
+                    Align(
+                      child: TextWidget(data: "Claim", color: "#FFFFFF", size: 18.sp,fontWeight: FontWeight.bold,),
+                    ),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Container(
+                        margin: EdgeInsets.only(left: 12.w),
+                        child: LocalImageWidget(image: "icon_lock", width: 24.w, height: 24.w),
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
             SizedBox(height: 20.h,),

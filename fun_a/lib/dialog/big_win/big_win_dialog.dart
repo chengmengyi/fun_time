@@ -62,13 +62,13 @@ class BigWinDialog extends BaseDialog<BigWinController>{
           child: Stack(
             children: [
               LocalImageWidget(image: "big4", width: 200.w, height: 58.h),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Container(
-                  margin: EdgeInsets.only(left: 20.w),
-                  child: LocalImageWidget(image: "icon_video", width: 20.w, height: 20.w),
-                ),
-              ),
+              // Align(
+              //   alignment: Alignment.centerLeft,
+              //   child: Container(
+              //     margin: EdgeInsets.only(left: 20.w),
+              //     child: LocalImageWidget(image: "icon_video", width: 20.w, height: 20.w),
+              //   ),
+              // ),
               Align(
                 child: TextWidget(data: "${reward*2}", color: "#FFFFFF", size: 24.sp,fontWeight: FontWeight.bold,),
               )

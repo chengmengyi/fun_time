@@ -68,7 +68,7 @@ class CasinoRushPage extends BaseWidget<CasinoRushController>{
           margin: EdgeInsets.only(left: 12.w,right: 12.w,top: 102.h),
           child: Scratcher(
             enabled: true,
-            brushSize: 40,
+            brushSize: 80,
             threshold: 70,
             key: ftController.key,
             color: Colors.transparent,
@@ -137,7 +137,12 @@ class CasinoRushPage extends BaseWidget<CasinoRushController>{
                                                 width: 32.w,
                                                 height: 32.h,
                                                 alignment: Alignment.center,
-                                                child: LocalImageWidget(image: bean.iconList[i], width: 20.w, height: 20.h),
+                                                child: bean.winner&&bean.iconList[i]=="rush3"?
+                                                ScaleTransition(
+                                                  scale: ftController.scaleController,
+                                                  child: LocalImageWidget(image: bean.iconList[i], width: 20.w, height: 20.h),
+                                                ):
+                                                LocalImageWidget(image: bean.iconList[i], width: 20.w, height: 20.h),
                                               );
                                             },
                                             staggeredTileBuilder: (int index) => const StaggeredTile.fit(1),

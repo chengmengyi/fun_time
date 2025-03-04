@@ -1,5 +1,5 @@
 import 'package:audioplayers/audioplayers.dart';
-import 'package:flutter_ad_ios_plugins/data/storage_data.dart';
+import 'package:fun_base/util/storage_data.dart';
 
 StorageData<bool> playBgStorage=StorageData(key: "playBgStorage", defaultValue: true);
 StorageData<bool> playGkStorage=StorageData(key: "playGkStorage", defaultValue: true);

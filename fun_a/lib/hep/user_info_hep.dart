@@ -17,7 +17,17 @@ class UserInfoHep{
     var db = await BaseSqlHep.instance.initSql();
     var list = await db.query(SqlTableName.userInfoA);
     if(list.isEmpty){
-      _userInfoBean=UserInfoBean(coinsNum: 0,diamondNum: 0,winnerGamePlayNum: 3,fruitMatchPlayNum: 3,chasingLuckPlayNum: 3,casinoRushPlayNum: 3,winOrLosePlayNum: 3,luckyNumberPlayNum: 3,bettingHighPlayNum: 3,);
+      _userInfoBean=UserInfoBean(
+        coinsNum: 0,
+        diamondNum: 0,
+        winnerGamePlayNum: 8,
+        fruitMatchPlayNum: 8,
+        chasingLuckPlayNum: 8,
+        casinoRushPlayNum: 8,
+        winOrLosePlayNum: 8,
+        luckyNumberPlayNum: 8,
+        bettingHighPlayNum: 8,
+      );
       var id = await db.insert(SqlTableName.userInfoA, _userInfoBean?.toJson()??{});
       _userInfoBean?.id=id;
       return;
@@ -64,11 +74,11 @@ class UserInfoHep{
   updateCanPlayNum(int num,WinnerType winnerType,{bool fromVideo=false})async{
     var coinsNum = _userInfoBean?.coinsNum??0;
     if(num>0&&!fromVideo){
-      if(coinsNum<num*1000){
+      if(coinsNum<num*100){
         showToast("Your gold coins are insufficient");
         return;
       }
-      _userInfoBean?.coinsNum=coinsNum-num*1000;
+      _userInfoBean?.coinsNum=coinsNum-num*100;
     }
     switch(winnerType){
       case WinnerType.winnerGame:

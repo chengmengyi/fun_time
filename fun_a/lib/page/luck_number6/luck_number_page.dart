@@ -69,7 +69,7 @@ class LuckNumberPage extends BaseWidget<LuckNumberController>{
           margin: EdgeInsets.only(left: 12.w,right: 12.w,top: 102.h),
           child: Scratcher(
             enabled: true,
-            brushSize: 40,
+            brushSize: 80,
             threshold: 70,
             key: ftController.key,
             color: Colors.transparent,
@@ -118,6 +118,11 @@ class LuckNumberPage extends BaseWidget<LuckNumberController>{
                                 child: Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
+                                    bean.winner?
+                                    ScaleTransition(
+                                      scale: ftController.scaleController,
+                                      child: TextWidget(data: bean.iconList.first, color: bean.winner?"#FFFB24":"#D7DCE1", size: 30.sp,fontWeight: FontWeight.bold,fontFamily: "ft",fontStyle: FontStyle.italic,),
+                                    ):
                                     TextWidget(data: bean.iconList.first, color: bean.winner?"#FFFB24":"#D7DCE1", size: 30.sp,fontWeight: FontWeight.bold,fontFamily: "ft",fontStyle: FontStyle.italic,),
                                     bean.winType==WinType.coins?
                                     TextWidget(data: "${bean.rewardNum}", color: "#FFD725", size: 14.sp,fontWeight: FontWeight.bold,fontStyle: FontStyle.italic,):

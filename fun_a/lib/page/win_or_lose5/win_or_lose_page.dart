@@ -68,7 +68,7 @@ class WinOrLosePage extends BaseWidget<WinOrLoseController>{
           margin: EdgeInsets.only(left: 12.w,right: 12.w,top: 102.h),
           child: Scratcher(
             enabled: true,
-            brushSize: 40,
+            brushSize: 80,
             threshold: 70,
             key: ftController.key,
             color: Colors.transparent,
@@ -123,7 +123,14 @@ class WinOrLosePage extends BaseWidget<WinOrLoseController>{
                                         height: (maxHeight-20.h)/4,
                                         alignment: Alignment.center,
                                         child: i<2?
-                                        LocalImageWidget(image: bean.iconList[i], width: 34.w, height: 46.h):
+                                        (
+                                        bean.winner?
+                                        ScaleTransition(
+                                          scale: ftController.scaleController,
+                                          child: LocalImageWidget(image: bean.iconList[i], width: 34.w, height: 46.h),
+                                        ):
+                                        LocalImageWidget(image: bean.iconList[i], width: 34.w, height: 46.h)
+                                        ):
                                         (bean.winType==WinType.coins?
                                         TextWidget(data: "${bean.rewardNum}", color: "#FFD725", size: 14.sp,fontWeight: FontWeight.bold,fontStyle: FontStyle.italic,):
                                         Row(

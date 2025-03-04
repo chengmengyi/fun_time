@@ -47,11 +47,9 @@ class _DiamondWidgetState extends State<DiamondWidget>{
   @override
   Widget build(BuildContext context) => InkWell(
     onTap: (){
-      if(!showFinger){
-        return;
-      }
       RouterUtils.dialog(
         widget: UpLevelDialog(
+          showFinger: showFinger,
           dismiss: (){
             showFinger=false;
             showLevelFinger.save(false);

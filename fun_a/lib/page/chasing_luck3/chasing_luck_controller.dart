@@ -35,6 +35,8 @@ class ChasingLuckController extends BaseController with GetTickerProviderStateMi
   Offset? iconOffset;
   AutoScratch? autoScratch;
 
+  late AnimationController scaleController;
+
   @override
   void onInit() {
     super.onInit();
@@ -48,6 +50,20 @@ class ChasingLuckController extends BaseController with GetTickerProviderStateMi
           showDiamondAnimator=false;
           update(["diamond"]);
           _reset();
+        }
+      });
+
+    scaleController=AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 500),
+      lowerBound: 1,
+      upperBound: 1.2,
+    )
+      ..addStatusListener((status) {
+        if(status==AnimationStatus.completed){
+          scaleController.reverse();
+        }else if(status==AnimationStatus.dismissed){
+          scaleController.forward();
         }
       });
   }
@@ -183,11 +199,15 @@ class ChasingLuckController extends BaseController with GetTickerProviderStateMi
       update(["gold_icon"]);
     });
     key.currentState?.reveal();
-    await Future.delayed(const Duration(milliseconds: 800));
+    if(_winnerBackBean.winNum>0){
+      scaleController..reset()..forward();
+    }
+    await Future.delayed(const Duration(milliseconds: 1600));
     _checkResult();
   }
 
   _checkResult(){
+    scaleController.stop();
     AchHep.instance.updateAchPro(AchType.chasing);
     PlayedNumHep.instance.updatePlayedNum(winnerType);
     var totalReward = winnerRewardList.where((bean) => bean.winner).fold(0, (previousValue, element) => previousValue + element.rewardNum);
@@ -295,6 +315,7 @@ class ChasingLuckController extends BaseController with GetTickerProviderStateMi
 
   @override
   void onClose() {
+    scaleController.dispose();
     diamondLottieController.dispose();
     super.onClose();
   }

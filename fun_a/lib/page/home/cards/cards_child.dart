@@ -131,8 +131,8 @@ class CardsChild extends BaseWidget<CardsController>{
               ftController.clickItem(index);
             },
             child: Container(
-              margin: EdgeInsets.only(left: 16.w),
-              child: LocalImageWidget(image: index==ftController.chooseIndex?bean.sel:bean.uns, width: 72.w, height: 88.h),
+              margin: EdgeInsets.only(left: 12.w),
+              child: LocalImageWidget(image: index==ftController.chooseIndex?bean.sel:bean.uns, width: 68.w, height: 88.h),
             ),
           );
         },

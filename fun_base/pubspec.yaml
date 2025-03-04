@@ -21,7 +21,7 @@ dependencies:
   webview_flutter: 4.7.0
   url_launcher: 6.3.1
   fluttertoast: 8.0.9
-  flutter_ad_ios_plugins: 0.0.6
+#  flutter_ad_ios_plugins: 0.0.6
   audioplayers: 6.1.0
   scratcher:
     path: plugins/scratcher-2.5.0

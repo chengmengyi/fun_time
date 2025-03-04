@@ -1,4 +1,5 @@
 import 'package:fun_a/bean/winner_back_bean.dart';
+import 'package:fun_a/bean/winner_reward_bean.dart';
 import 'package:fun_a/page/betting_high7/betting_high_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:fun_a/widget/play_num_widget.dart';
@@ -68,7 +69,7 @@ class BettingHighPage extends BaseWidget<BettingHighController>{
           margin: EdgeInsets.only(left: 12.w,right: 12.w,top: 102.h),
           child: Scratcher(
             enabled: true,
-            brushSize: 40,
+            brushSize: 80,
             threshold: 70,
             key: ftController.key,
             color: Colors.transparent,
@@ -117,18 +118,12 @@ class BettingHighPage extends BaseWidget<BettingHighController>{
                                 height: maxHeight/5,
                                 child: Row(
                                   children: [
-                                    Container(
-                                      width: width,
-                                      height: double.infinity,
-                                      alignment: Alignment.center,
-                                      child: TextWidget(data: bean.iconList.first, color: bean.winner?"#FFFB24":"#D7DCE1", size: 22.sp,fontWeight: FontWeight.bold,fontFamily: "ft",fontStyle: FontStyle.italic,),
-                                    ),
-                                    Container(
-                                      width: width,
-                                      height: double.infinity,
-                                      alignment: Alignment.center,
-                                      child: TextWidget(data: bean.iconList.last, color: bean.winner?"#FFFB24":"#D7DCE1", size: 22.sp,fontWeight: FontWeight.bold,fontFamily: "ft",fontStyle: FontStyle.italic,),
-                                    ),
+                                    bean.winner?
+                                    ScaleTransition(
+                                      scale: ftController.scaleController,
+                                      child: _rewardWidget(width, bean),
+                                    ):
+                                    _rewardWidget(width, bean),
                                     Container(
                                       width: 60.w,
                                       height: double.infinity,
@@ -176,6 +171,24 @@ class BettingHighPage extends BaseWidget<BettingHighController>{
         )
       ],
     ),
+  );
+
+  _rewardWidget(double width,WinnerRewardBean bean)=>Row(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Container(
+        width: width,
+        height: double.infinity,
+        alignment: Alignment.center,
+        child: TextWidget(data: bean.iconList.first, color: bean.winner?"#FFFB24":"#D7DCE1", size: 22.sp,fontWeight: FontWeight.bold,fontFamily: "ft",fontStyle: FontStyle.italic,),
+      ),
+      Container(
+        width: width,
+        height: double.infinity,
+        alignment: Alignment.center,
+        child: TextWidget(data: bean.iconList.last, color: bean.winner?"#FFFB24":"#D7DCE1", size: 22.sp,fontWeight: FontWeight.bold,fontFamily: "ft",fontStyle: FontStyle.italic,),
+      )
+    ],
   );
 
   _numWidget()=>GetBuilder<BettingHighController>(

@@ -7,15 +7,18 @@ import 'package:fun_base/util/util.dart';
 class BigWinController extends BaseController{
 
   clickDou(int reward,Function() dismiss){
-    AdHep.instance.showAd(
-      adType: AdType.reward,
-      closeAd: (){
-        UserInfoHep.instance.updateUserCoins(reward*2);
-        RouterUtils.back();
-        dismiss.call();
-      },
-    );
+    // AdHep.instance.showAd(
+    //   adType: AdType.reward,
+    //   closeAd: (){
+    //     UserInfoHep.instance.updateUserCoins(reward*2);
+    //     RouterUtils.back();
+    //     dismiss.call();
+    //   },
+    // );
 
+    UserInfoHep.instance.updateUserCoins(reward*2);
+    RouterUtils.back();
+    dismiss.call();
   }
 
   clickSingle(int reward,Function() dismiss){

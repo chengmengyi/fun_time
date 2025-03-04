@@ -68,7 +68,7 @@ class WinnerGamePage extends BaseWidget<WinnerGameController>{
           margin: EdgeInsets.only(left: 12.w,right: 12.w,top: 106.h),
           child: Scratcher(
             enabled: true,
-            brushSize: 40,
+            brushSize: 80,
             threshold: 70,
             key: ftController.key,
             color: Colors.transparent,
@@ -132,7 +132,8 @@ class WinnerGamePage extends BaseWidget<WinnerGameController>{
                                 itemCount: ftController.winnerRewardList.length,
                                 physics: const NeverScrollableScrollPhysics(),
                                 itemBuilder: (context,index){
-                                  var iconList = ftController.winnerRewardList[index].iconList;
+                                  var rewardBean = ftController.winnerRewardList[index];
+                                  var iconList = rewardBean.iconList;
                                   return SizedBox(
                                     width: double.infinity,
                                     height: maxHeight/4,
@@ -141,7 +142,12 @@ class WinnerGamePage extends BaseWidget<WinnerGameController>{
                                         width: maxWidth/4,
                                         height: maxHeight/4,
                                         alignment: Alignment.center,
-                                        child: LocalImageWidget(image: iconList[i], width: 52.w, height: 52.h),
+                                        child: rewardBean.winner?
+                                        ScaleTransition(
+                                          scale: ftController.scaleController,
+                                          child: LocalImageWidget(image: iconList[i], width: 52.w, height: 52.h),
+                                        ):
+                                        LocalImageWidget(image: iconList[i], width: 52.w, height: 52.h),
                                       )),
                                     ),
                                   );

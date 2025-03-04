@@ -68,7 +68,7 @@ class FruitMatchPage extends BaseWidget<FruitMatchController>{
           margin: EdgeInsets.only(left: 12.w,right: 12.w,top: 134.h),
           child: Scratcher(
             enabled: true,
-            brushSize: 40,
+            brushSize: 80,
             threshold: 70,
             key: ftController.key,
             color: Colors.transparent,
@@ -116,6 +116,11 @@ class FruitMatchPage extends BaseWidget<FruitMatchController>{
                                       child: Column(
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
+                                          bean.winner?
+                                          ScaleTransition(
+                                            scale: ftController.scaleController,
+                                            child: LocalImageWidget(image: bean.iconList.first, width: 36.w, height: 36.w),
+                                          ):
                                           LocalImageWidget(image: bean.iconList.first, width: 36.w, height: 36.w),
                                           bean.winType==WinType.coins?
                                           TextWidget(data: "${bean.rewardNum}", color: "#FFD725", size: 14.sp,fontWeight: FontWeight.bold,fontStyle: FontStyle.italic,):

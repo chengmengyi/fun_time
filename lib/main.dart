@@ -4,6 +4,7 @@ import 'package:fun_a/hep/game_config_hep.dart';
 import 'package:fun_a/hep/local_data.dart';
 import 'package:fun_a/hep/user_info_hep.dart';
 import 'package:fun_a/routers/_routers_list.dart';
+import 'package:fun_b/routers/_routers_list.dart';
 import 'package:fun_base/routers/base_routers/base_routers_list.dart';
 import 'package:fun_base/routers/base_routers/base_routers_name.dart';
 import 'package:fun_base/util/ad_hep.dart';
@@ -39,7 +40,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var list=BaseRoutersList.baseList+ARoutersList.aList;
+    var list=BaseRoutersList.baseList+ARoutersList.aList+BRoutersList.bList;
     return ScreenUtilInit(
       designSize: const Size(360, 780),
       builder: (c,child)=>GetMaterialApp(

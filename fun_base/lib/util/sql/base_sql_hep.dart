@@ -14,13 +14,20 @@ class BaseSqlHep{
           db.execute('CREATE TABLE ${SqlTableName.userInfoA} (id INTEGER PRIMARY KEY AUTOINCREMENT, coinsNum INTEGER, diamondNum INTEGER, winnerGamePlayNum INTEGER, fruitMatchPlayNum INTEGER, chasingLuckPlayNum INTEGER, casinoRushPlayNum INTEGER, winOrLosePlayNum INTEGER, luckyNumberPlayNum INTEGER, bettingHighPlayNum INTEGER)');
           db.execute('CREATE TABLE ${SqlTableName.playedNumA} (id INTEGER PRIMARY KEY AUTOINCREMENT, playedNum INTEGER, startTime INTEGER, gameType TEXT)');
           db.execute('CREATE TABLE ${SqlTableName.achA} (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, currentPro INTEGER, totalPro INTEGER,achType TEXT,status INTEGER)');
+
+          _createVersion2DB(db);
         },
-        // onUpgrade: (db,oldVersion,newVersion){
-        //   if(newVersion==2){
-        //     _createVersion2DB(db);
-        //   }
-        // }
+        onUpgrade: (db,oldVersion,newVersion){
+          if(newVersion==2){
+            _createVersion2DB(db);
+          }
+        }
     );
     return database;
+  }
+
+  _createVersion2DB(Database db){
+    db.execute('CREATE TABLE ${SqlTableName.userInfoB} (id INTEGER PRIMARY KEY AUTOINCREMENT, coinsNum INTEGER, diamondNum INTEGER, winnerGamePlayNum INTEGER, fruitMatchPlayNum INTEGER, chasingLuckPlayNum INTEGER, casinoRushPlayNum INTEGER, winOrLosePlayNum INTEGER, luckyNumberPlayNum INTEGER, bettingHighPlayNum INTEGER)');
+    db.execute('CREATE TABLE ${SqlTableName.playedNumB} (id INTEGER PRIMARY KEY AUTOINCREMENT, playedNum INTEGER, startTime INTEGER, gameType TEXT)');
   }
 }

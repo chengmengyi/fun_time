@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fun_base/base/base_controller.dart';
 import 'package:fun_base/routers/a_routers_name.dart';
+import 'package:fun_base/routers/b_routers_name.dart';
 import 'package:fun_base/routers/routers_utils.dart';
 import 'package:get/get.dart';
 
@@ -27,7 +28,8 @@ class LaunchController extends BaseController with GetSingleTickerProviderStateM
       })
       ..addStatusListener((status) {
         if(status==AnimationStatus.completed){
-          RouterUtils.toNamed(routersName: ARoutersName.home);
+          // RouterUtils.toNamed(routersName: ARoutersName.home);
+          RouterUtils.toNamed(routersName: BRoutersName.home);
         }
       });
   }

@@ -39,6 +39,8 @@ dependencies:
     path: fun_base
   fun_a:
     path: fun_a
+  fun_b:
+    path: fun_b
 
 dev_dependencies:
   flutter_test:

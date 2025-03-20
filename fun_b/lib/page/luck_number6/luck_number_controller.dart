@@ -251,7 +251,7 @@ class LuckNumberController extends BaseController with GetTickerProviderStateMix
   EventResult? initEventResult() => EventResult(
       call: (data){
         switch(data.code){
-          case EventCode.updatePlayNumA:
+          case EventCode.updatePlayNumB:
             update(["num"]);
             break;
         }

@@ -2,6 +2,9 @@ PODS:
   - Ads-Global (6.5.0.8):
     - Ads-Global/BUAdSDK (= 6.5.0.8)
   - Ads-Global/BUAdSDK (6.5.0.8)
+  - applovin_max (4.2.1):
+    - AppLovinSDK (= 13.0.1)
+    - Flutter
   - AppLovinMediationBidMachineAdapter (3.2.0.0.0):
     - AppLovinSDK (>= 13.0.0)
     - BidMachine (= 3.2.0)
@@ -46,6 +49,10 @@ PODS:
   - ChartboostSDK (9.8.1)
   - FBAudienceNetwork (6.17.0)
   - Flutter (1.0.0)
+  - flutter_ad_ios_plugins (0.0.1):
+    - Flutter
+  - flutter_local_notifications (0.0.1):
+    - Flutter
   - fluttertoast (0.0.2):
     - Flutter
     - Toast
@@ -88,6 +95,7 @@ PODS:
     - Flutter
 
 DEPENDENCIES:
+  - applovin_max (from `.symlinks/plugins/applovin_max/ios`)
   - AppLovinMediationBidMachineAdapter
   - AppLovinMediationBigoAdsAdapter
   - AppLovinMediationByteDanceAdapter
@@ -101,6 +109,8 @@ DEPENDENCIES:
   - AppLovinMediationVungleAdapter
   - audioplayers_darwin (from `.symlinks/plugins/audioplayers_darwin/ios`)
   - Flutter (from `Flutter`)
+  - flutter_ad_ios_plugins (from `.symlinks/plugins/flutter_ad_ios_plugins/ios`)
+  - flutter_local_notifications (from `.symlinks/plugins/flutter_local_notifications/ios`)
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
   - fun_a (from `.symlinks/plugins/fun_a/ios`)
   - fun_b (from `.symlinks/plugins/fun_b/ios`)
@@ -141,10 +151,16 @@ SPEC REPOS:
     - VungleAds
 
 EXTERNAL SOURCES:
+  applovin_max:
+    :path: ".symlinks/plugins/applovin_max/ios"
   audioplayers_darwin:
     :path: ".symlinks/plugins/audioplayers_darwin/ios"
   Flutter:
     :path: Flutter
+  flutter_ad_ios_plugins:
+    :path: ".symlinks/plugins/flutter_ad_ios_plugins/ios"
+  flutter_local_notifications:
+    :path: ".symlinks/plugins/flutter_local_notifications/ios"
   fluttertoast:
     :path: ".symlinks/plugins/fluttertoast/ios"
   fun_a:
@@ -164,6 +180,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Ads-Global: a5f72fa6a7de699d8190c22fbcb3cd39a42440f0
+  applovin_max: cee1150e05e836e6f978ec67d67e802f633dd889
   AppLovinMediationBidMachineAdapter: d7f9c6e5c391215ad5f5ec14275f6373999bb5c6
   AppLovinMediationBigoAdsAdapter: 9250d5fb076255188d9550529f07b4994bdc76e0
   AppLovinMediationByteDanceAdapter: a08b5c8d4bfcff434079a5c35fc1be14bd9d3b95
@@ -182,6 +199,8 @@ SPEC CHECKSUMS:
   ChartboostSDK: 5d387aeccf2748cd71c0b033e6c2cad4a558b308
   FBAudienceNetwork: 0f84c13e480f480a1290ca998f82533a3f476c14
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
+  flutter_ad_ios_plugins: 39f145153e9fe06753e9b28fb7b43925ae399a71
+  flutter_local_notifications: 395056b3175ba4f08480a7c5de30cd36d69827e4
   fluttertoast: 61c4d04b244937570e728fcd5f541ddc8b58d01c
   fun_a: cbe9f1a8e80fe16429d5e4aecea649cc00e34361
   fun_b: 55ed90b13a4d9245e428c97a3370f23968850043

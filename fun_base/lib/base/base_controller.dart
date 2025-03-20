@@ -1,8 +1,10 @@
+import 'package:flutter/material.dart';
 import 'package:fun_base/util/event/event_result.dart';
 import 'package:get/get.dart';
 
 class BaseController extends GetxController{
   EventResult? _eventResult;
+  late BuildContext context;
 
   @override
   void onInit() {

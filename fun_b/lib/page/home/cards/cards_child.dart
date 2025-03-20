@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:fun_b/dialog/set/set_dialog.dart';
 import 'package:fun_b/hep/user_info_hep.dart';
 import 'package:fun_b/page/home/cards/cards_controller.dart';
+import 'package:fun_b/widget/box/box_widget.dart';
 import 'package:fun_b/widget/coins_widget.dart';
 import 'package:fun_b/widget/diamond_widget.dart';
+import 'package:fun_b/widget/pops_widget.dart';
 import 'package:fun_b/widget/win_up_widget.dart';
 import 'package:fun_base/base/base_widget.dart';
 import 'package:fun_base/routers/routers_utils.dart';
 import 'package:fun_base/util/util.dart';
+import 'package:fun_base/widget/finger_widget.dart';
 import 'package:fun_base/widget/local_image_widget.dart';
 import 'package:fun_base/widget/text_widget.dart';
 
@@ -23,6 +26,7 @@ class CardsChild extends BaseWidget<CardsController>{
         child: Column(
           children: [
             _topWidget(),
+            SizedBox(height: 20.h,),
             _selListWidget(),
             SizedBox(height: 16.h,),
             _centerWidget(),
@@ -33,11 +37,17 @@ class CardsChild extends BaseWidget<CardsController>{
               onTap: (){
                 ftController.toPlay();
               },
-              child: LocalImageWidget(image: "play", width: 248.w, height: 84.h),
+              child: SizedBox(
+                key: ftController.playGlobalKey,
+                child: LocalImageWidget(image: "play", width: 248.w, height: 84.h),
+              ),
             )
           ],
         ),
       ),
+      _boxFingerWidget(),
+      _playFingerWidget(),
+      PopsWidget(),
     ],
   );
 
@@ -92,7 +102,12 @@ class CardsChild extends BaseWidget<CardsController>{
         builder: (_)=>Stack(
           alignment: Alignment.bottomCenter,
           children: [
-            LocalImageWidget(image: ftController.homeList[ftController.chooseIndex].center, width: 234.w, height: 330.h),
+            InkWell(
+              onTap: (){
+                ftController.test();
+              },
+              child: LocalImageWidget(image: ftController.homeList[ftController.chooseIndex].center, width: 234.w, height: 330.h),
+            ),
             Container(
               margin: EdgeInsets.only(bottom: 33.h),
               child: WinUpWidget(
@@ -150,11 +165,56 @@ class CardsChild extends BaseWidget<CardsController>{
       const Spacer(),
       InkWell(
         onTap: (){
-          RouterUtils.dialog(widget: SetDialog());
+          ftController.clickBox();
         },
-        child: LocalImageWidget(image: "icon_set", width: 32.w, height: 32.w),
+        child: SizedBox(
+          key: ftController.boxGlobalKey,
+          child: BoxWidget(),
+        ),
       ),
       SizedBox(width: 16.w,),
     ],
+  );
+
+  _boxFingerWidget()=>GetBuilder<CardsController>(
+    id: "box_finger",
+    builder: (_){
+      var offset = ftController.boxFingerOffset;
+      var x = (offset?.dx??0)+10.w;
+      var y = (offset?.dy??0)+10.h;
+      return Visibility(
+        visible: null!=ftController.boxFingerOffset,
+        child: Container(
+          margin: EdgeInsets.only(left: x,top: y),
+          child: InkWell(
+            onTap: (){
+              ftController.clickBox();
+            },
+            child: FingerWidget(),
+          ),
+        ),
+      );
+    },
+  );
+
+  _playFingerWidget()=>GetBuilder<CardsController>(
+    id: "play_finger",
+    builder: (_){
+      var offset = ftController.playFingerOffset;
+      var x = (offset?.dx??0)+120.w;
+      var y = (offset?.dy??0)+42.h;
+      return Visibility(
+        visible: null!=ftController.playFingerOffset,
+        child: Container(
+          margin: EdgeInsets.only(left: x,top: y),
+          child: InkWell(
+            onTap: (){
+              ftController.toPlay();
+            },
+            child: FingerWidget(),
+          ),
+        ),
+      );
+    },
   );
 }

@@ -20,7 +20,7 @@ class _CoinsWidgetState extends State<CoinsWidget>{
   void initState() {
     super.initState();
     _ss=eventBus.on<EventData>().listen((event) {
-      if(event.code==EventCode.updateUserCoinsA){
+      if(event.code==EventCode.updateUserCoinsB){
         setState(() {});
       }
     });

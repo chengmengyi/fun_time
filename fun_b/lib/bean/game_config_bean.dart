@@ -1,6 +1,6 @@
 class GameConfigBean {
   GameConfigBean({
-      this.cardsRange, 
+      this.cardsRange,
       this.cardsWinnerGame, 
       this.cardsFruitMatch, 
       this.cardsChaseLucky, 
@@ -107,25 +107,26 @@ class CardsBettingHigh {
 class RewardMoney {
   RewardMoney({
       this.type, 
-      this.scale,});
+      this.scale, 
+      this.rewardNormal,});
 
   RewardMoney.fromJson(dynamic json) {
     type = json['type'];
     scale = json['scale'];
+    rewardNormal = json['reward_normal'];
   }
   int? type;
   int? scale;
+  int? rewardNormal;
+
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['type'] = type;
     map['scale'] = scale;
+    map['reward_normal'] = rewardNormal;
     return map;
   }
 
-  @override
-  String toString() {
-    return 'RewardMoney{type: $type, scale: $scale}';
-  }
 }
 
 class RewardNumber {
@@ -147,10 +148,6 @@ class RewardNumber {
     return map;
   }
 
-  @override
-  String toString() {
-    return 'RewardNumber{number: $number, scale: $scale}';
-  }
 }
 
 class CardsLuckyNumber {
@@ -199,15 +196,14 @@ class CardsLuckyNumber {
   }
 
 }
+
 class CardsWinLose {
   CardsWinLose({
-      this.rewardNormal, 
       this.bigwinNumber, 
       this.rewardNumber, 
       this.rewardMoney,});
 
   CardsWinLose.fromJson(dynamic json) {
-    rewardNormal = json['reward_normal'];
     bigwinNumber = json['bigwin_number'];
     if (json['reward_number'] != null) {
       rewardNumber = [];
@@ -222,14 +218,12 @@ class CardsWinLose {
       });
     }
   }
-  int? rewardNormal;
   int? bigwinNumber;
   List<RewardNumber>? rewardNumber;
   List<RewardMoney>? rewardMoney;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['reward_normal'] = rewardNormal;
     map['bigwin_number'] = bigwinNumber;
     if (rewardNumber != null) {
       map['reward_number'] = rewardNumber?.map((v) => v.toJson()).toList();
@@ -244,13 +238,11 @@ class CardsWinLose {
 
 class CardsCasinoRush {
   CardsCasinoRush({
-      this.rewardNormal, 
       this.bigwinNumber, 
       this.rewardNumber, 
       this.rewardMoney,});
 
   CardsCasinoRush.fromJson(dynamic json) {
-    rewardNormal = json['reward_normal'];
     bigwinNumber = json['bigwin_number'];
     if (json['reward_number'] != null) {
       rewardNumber = [];
@@ -265,14 +257,12 @@ class CardsCasinoRush {
       });
     }
   }
-  int? rewardNormal;
   int? bigwinNumber;
   List<RewardNumber>? rewardNumber;
   List<RewardMoney>? rewardMoney;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['reward_normal'] = rewardNormal;
     map['bigwin_number'] = bigwinNumber;
     if (rewardNumber != null) {
       map['reward_number'] = rewardNumber?.map((v) => v.toJson()).toList();
@@ -287,13 +277,11 @@ class CardsCasinoRush {
 
 class CardsChaseLucky {
   CardsChaseLucky({
-      this.rewardNormal, 
       this.bigwinNumber, 
       this.rewardNumber, 
       this.rewardMoney,});
 
   CardsChaseLucky.fromJson(dynamic json) {
-    rewardNormal = json['reward_normal'];
     bigwinNumber = json['bigwin_number'];
     if (json['reward_number'] != null) {
       rewardNumber = [];
@@ -308,14 +296,12 @@ class CardsChaseLucky {
       });
     }
   }
-  int? rewardNormal;
   int? bigwinNumber;
   List<RewardNumber>? rewardNumber;
   List<RewardMoney>? rewardMoney;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['reward_normal'] = rewardNormal;
     map['bigwin_number'] = bigwinNumber;
     if (rewardNumber != null) {
       map['reward_number'] = rewardNumber?.map((v) => v.toJson()).toList();
@@ -328,16 +314,13 @@ class CardsChaseLucky {
 
 }
 
-
 class CardsFruitMatch {
   CardsFruitMatch({
-      this.rewardNormal, 
       this.bigwinNumber, 
       this.rewardNumber, 
       this.rewardMoney,});
 
   CardsFruitMatch.fromJson(dynamic json) {
-    rewardNormal = json['reward_normal'];
     bigwinNumber = json['bigwin_number'];
     if (json['reward_number'] != null) {
       rewardNumber = [];
@@ -352,14 +335,12 @@ class CardsFruitMatch {
       });
     }
   }
-  int? rewardNormal;
   int? bigwinNumber;
   List<RewardNumber>? rewardNumber;
   List<RewardMoney>? rewardMoney;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['reward_normal'] = rewardNormal;
     map['bigwin_number'] = bigwinNumber;
     if (rewardNumber != null) {
       map['reward_number'] = rewardNumber?.map((v) => v.toJson()).toList();
@@ -374,13 +355,11 @@ class CardsFruitMatch {
 
 class CardsWinnerGame {
   CardsWinnerGame({
-      this.rewardNormal, 
       this.bigwinNumber, 
       this.rewardNumber, 
       this.rewardMoney,});
 
   CardsWinnerGame.fromJson(dynamic json) {
-    rewardNormal = json['reward_normal'];
     bigwinNumber = json['bigwin_number'];
     if (json['reward_number'] != null) {
       rewardNumber = [];
@@ -395,14 +374,12 @@ class CardsWinnerGame {
       });
     }
   }
-  int? rewardNormal;
   int? bigwinNumber;
   List<RewardNumber>? rewardNumber;
   List<RewardMoney>? rewardMoney;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['reward_normal'] = rewardNormal;
     map['bigwin_number'] = bigwinNumber;
     if (rewardNumber != null) {
       map['reward_number'] = rewardNumber?.map((v) => v.toJson()).toList();

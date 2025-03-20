@@ -12,14 +12,28 @@ abstract class BaseDialog<T extends BaseController> extends StatelessWidget{
   Widget build(BuildContext context) {
     ftController=Get.put(createController());
     if(_firstInit){
+      ftController.context=context;
       initView();
     }
     _firstInit=false;
     return Material(
       type: MaterialType.transparency,
       child: WillPopScope(
-        child: Center(
-          child: createWidget(),
+        child: InkWell(
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+          onTap: (){
+            if(hideKeyboard()){
+              var node = FocusScope.of(context);
+              if(!node.hasPrimaryFocus&&node.focusedChild!=null){
+                FocusManager.instance.primaryFocus?.unfocus();
+              }
+            }
+          },
+          child: Container(
+            alignment: Alignment.center,
+            child: createWidget(),
+          ),
         ),
         onWillPop: ()async{
           return false;
@@ -33,4 +47,6 @@ abstract class BaseDialog<T extends BaseController> extends StatelessWidget{
   Widget createWidget();
 
   T createController();
+
+  bool hideKeyboard()=>false;
 }

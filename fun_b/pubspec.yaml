@@ -13,6 +13,7 @@ dependencies:
   plugin_platform_interface: ^2.0.2
   fun_base:
     path: ../fun_base
+  flutter_local_notifications: 18.0.1
 
 dev_dependencies:
   flutter_test:

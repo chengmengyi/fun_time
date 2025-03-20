@@ -27,7 +27,7 @@ class _DiamondWidgetState extends State<DiamondWidget>{
   @override
   void initState() {
     super.initState();
-    showFinger=showLevelFinger.get();
+    showFinger=showLevelFinger.getData();
     _ss=eventBus.on<EventData>().listen((event) {
       switch(event.code){
         case EventCode.updateUserDiamondA:
@@ -36,7 +36,7 @@ class _DiamondWidgetState extends State<DiamondWidget>{
         case EventCode.showLevelFingerA:
           if(!showFinger){
             showFinger=true;
-            showLevelFinger.save(true);
+            showLevelFinger.saveData(true);
             setState(() {});
           }
           break;
@@ -52,7 +52,7 @@ class _DiamondWidgetState extends State<DiamondWidget>{
           showFinger: showFinger,
           dismiss: (){
             showFinger=false;
-            showLevelFinger.save(false);
+            showLevelFinger.saveData(false);
             setState(() {});
           },
         ),

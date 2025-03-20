@@ -4,8 +4,10 @@ final EventBus eventBus=EventBus();
 
 class EventData{
   int code;
+  int? intValue;
   EventData({
     required this.code,
+    this.intValue,
   });
 
   send(){

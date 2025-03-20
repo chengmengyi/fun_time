@@ -9,6 +9,8 @@ class TextWidget extends StatelessWidget{
   String? fontFamily;
   FontStyle? fontStyle;
   TextOverflow? overflow;
+  double? colorOpacity;
+  TextAlign? textAlign;
 
   TextWidget({
     required this.data,
@@ -18,13 +20,16 @@ class TextWidget extends StatelessWidget{
     this.fontFamily,
     this.fontStyle,
     this.overflow,
+    this.colorOpacity,
+    this.textAlign,
 });
 
   @override
   Widget build(BuildContext context) => Text(
     data,
+    textAlign: textAlign,
     style: TextStyle(
-      color: color.toColor(),
+      color: null==colorOpacity?color.toColor():color.toColor().withOpacity(colorOpacity!),
       fontSize: size,
       fontWeight: fontWeight,
       fontFamily: fontFamily,

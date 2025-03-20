@@ -5,6 +5,7 @@ import 'package:fun_b/widget/coins_widget.dart';
 import 'package:fun_b/widget/diamond_widget.dart';
 import 'package:fun_base/base/base_widget.dart';
 import 'package:fun_base/util/util.dart';
+import 'package:fun_base/widget/finger_widget.dart';
 import 'package:fun_base/widget/local_image_widget.dart';
 import 'package:fun_base/widget/text_widget.dart';
 
@@ -17,16 +18,23 @@ class HomePage extends BaseWidget<HomeController>{
     body: GetBuilder<HomeController>(
       id: "page",
       builder: (_)=>Stack(
-        alignment: Alignment.bottomCenter,
         children: [
           IndexedStack(
             index: ftController.chooseIndex,
             children: ftController.pageList,
           ),
-          _bottomWidget(),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: _bottomWidget(),
+          ),
+          Align(
+            alignment: Alignment.bottomRight,
+            child: _cashFingerWidget(),
+          ),
         ],
       ),
     ),
+    resizeToAvoidBottomInset: false,
   );
 
   _bottomWidget()=>SizedBox(
@@ -63,5 +71,23 @@ class HomePage extends BaseWidget<HomeController>{
         ],
       ),
     ),
+  );
+
+  _cashFingerWidget()=>GetBuilder<HomeController>(
+    id: "cash_finger",
+    builder: (_){
+      return Visibility(
+        visible: ftController.showCashFinger,
+        child: Container(
+          margin: EdgeInsets.only(right: 60.w),
+          child: InkWell(
+            onTap: (){
+              ftController.clickBottom(1);
+            },
+            child: FingerWidget(),
+          ),
+        ),
+      );
+    },
   );
 }

@@ -304,7 +304,7 @@ class ChasingLuckController extends BaseController with GetTickerProviderStateMi
   EventResult? initEventResult() => EventResult(
       call: (data){
         switch(data.code){
-          case EventCode.updatePlayNumA:
+          case EventCode.updatePlayNumB:
             update(["num"]);
             break;
         }

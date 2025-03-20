@@ -1,5 +1,8 @@
 import 'package:fun_b/bean/user_info_bean.dart';
+import 'package:fun_b/hep/cash_hep.dart';
 import 'package:fun_b/hep/game_config_hep.dart';
+import 'package:fun_b/hep/level_hep.dart';
+import 'package:fun_b/hep/storage/storage_bean.dart';
 import 'package:fun_base/util/event/event_code.dart';
 import 'package:fun_base/util/event/event_data.dart';
 import 'package:fun_base/util/sql/base_sql_hep.dart';
@@ -14,7 +17,7 @@ class UserInfoHep{
 
   initUserInfo()async{
     var db = await BaseSqlHep.instance.initSql();
-    var list = await db.query(SqlTableName.userInfoA);
+    var list = await db.query(SqlTableName.userInfoB);
     if(list.isEmpty){
       _userInfoBean=UserInfoBean(
         coinsNum: 0,
@@ -27,7 +30,7 @@ class UserInfoHep{
         luckyNumberPlayNum: 8,
         bettingHighPlayNum: 8,
       );
-      var id = await db.insert(SqlTableName.userInfoA, _userInfoBean?.toJson()??{});
+      var id = await db.insert(SqlTableName.userInfoB, _userInfoBean?.toJson()??{});
       _userInfoBean?.id=id;
       return;
     }
@@ -37,7 +40,13 @@ class UserInfoHep{
   updateUserCoins(int coins){
     var coinsNum = _userInfoBean?.coinsNum??0;
     _userInfoBean?.coinsNum=coinsNum+coins;
-    EventData(code: EventCode.updateUserCoinsA).send();
+    EventData(code: EventCode.updateUserCoinsB).send();
+    if(coins>0&&firstGetReward.getData()){
+      EventData(code: EventCode.firstGetReward).send();
+    }
+    if(coins>0){
+      CashHep.instance.checkShowAccountDialog();
+    }
   }
 
   updateUserDiamond(int add)async{
@@ -45,10 +54,11 @@ class UserInfoHep{
     var lastLevel = diamondNum~/3;
     _userInfoBean?.diamondNum=diamondNum+add;
     await _saveUserInfo();
-    EventData(code: EventCode.updateUserDiamondA).send();
+    EventData(code: EventCode.updateUserDiamondB).send();
     var nowLevel = (_userInfoBean?.diamondNum??0)~/3;
     if(nowLevel>lastLevel){
-      EventData(code: EventCode.showLevelFingerA).send();
+      EventData(code: EventCode.showLevelFingerB).send();
+      LevelHep.instance.updateLevelData(nowLevel, LevelStatus.canReceive);
     }
   }
 
@@ -126,15 +136,15 @@ class UserInfoHep{
         break;
     }
     await _saveUserInfo();
-    EventData(code: EventCode.updatePlayNumA).send();
+    EventData(code: EventCode.updatePlayNumB).send();
     if(!fromVideo){
-      EventData(code: EventCode.updateUserCoinsA).send();
+      EventData(code: EventCode.updateUserCoinsB).send();
     }
   }
 
   _saveUserInfo()async{
     var db = await BaseSqlHep.instance.initSql();
-    await db.update(SqlTableName.userInfoA, _userInfoBean?.toJson()??{},where: '"id" = ?', whereArgs: [_userInfoBean?.id]);
+    await db.update(SqlTableName.userInfoB, _userInfoBean?.toJson()??{},where: '"id" = ?', whereArgs: [_userInfoBean?.id]);
   }
 
 

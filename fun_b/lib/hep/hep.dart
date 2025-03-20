@@ -1,5 +1,5 @@
 import 'package:fun_b/hep/game_config_hep.dart';
-import 'package:fun_base/routers/a_routers_name.dart';
+import 'package:fun_base/routers/b_routers_name.dart';
 import 'package:fun_base/routers/routers_utils.dart';
 
 class Hep{
@@ -7,25 +7,25 @@ class Hep{
     String routerName="";
     switch(winnerType){
       case WinnerType.winnerGame:
-        routerName=ARoutersName.winnerGame;
+        routerName=BRoutersName.winnerGame;
         break;
       case WinnerType.fruitMatch:
-        routerName=ARoutersName.fruitMatch;
+        routerName=BRoutersName.fruitMatch;
         break;
       case WinnerType.chasingLuck:
-        routerName=ARoutersName.chasingLuck;
+        routerName=BRoutersName.chasingLuck;
         break;
       case WinnerType.casinoRush:
-        routerName=ARoutersName.casinoRush;
+        routerName=BRoutersName.casinoRush;
         break;
       case WinnerType.winOrLose:
-        routerName=ARoutersName.winOrLose;
+        routerName=BRoutersName.winOrLose;
         break;
       case WinnerType.luckyNumber:
-        routerName=ARoutersName.luckNumber;
+        routerName=BRoutersName.luckNumber;
         break;
       case WinnerType.bettingHigh:
-        routerName=ARoutersName.bettingHigh;
+        routerName=BRoutersName.bettingHigh;
         break;
       default:
 

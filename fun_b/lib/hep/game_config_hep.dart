@@ -43,49 +43,49 @@ class GameConfigHep {
       case WinnerType.winnerGame:
         var winnerGame = _gameConfigBean?.cardsWinnerGame;
         bigWin=winnerGame?.bigwinNumber??200;
-        rewardNormal=winnerGame?.rewardNormal??100;
+        // rewardNormal=winnerGame?.rewardNormal??100;
         rewardNumberList.addAll(winnerGame?.rewardNumber??[]);
         rewardMoneyList.addAll(winnerGame?.rewardMoney??[]);
         break;
       case WinnerType.fruitMatch:
         var winnerGame = _gameConfigBean?.cardsFruitMatch;
         bigWin=winnerGame?.bigwinNumber??200;
-        rewardNormal=winnerGame?.rewardNormal??100;
+        // rewardNormal=winnerGame?.rewardNormal??100;
         rewardNumberList.addAll(winnerGame?.rewardNumber??[]);
         rewardMoneyList.addAll(winnerGame?.rewardMoney??[]);
         break;
       case WinnerType.chasingLuck:
         var winnerGame = _gameConfigBean?.cardsChaseLucky;
         bigWin=winnerGame?.bigwinNumber??200;
-        rewardNormal=winnerGame?.rewardNormal??100;
+        // rewardNormal=winnerGame?.rewardNormal??100;
         rewardNumberList.addAll(winnerGame?.rewardNumber??[]);
         rewardMoneyList.addAll(winnerGame?.rewardMoney??[]);
         break;
       case WinnerType.casinoRush:
         var winnerGame = _gameConfigBean?.cardsCasinoRush;
         bigWin=winnerGame?.bigwinNumber??200;
-        rewardNormal=winnerGame?.rewardNormal??100;
+        // rewardNormal=winnerGame?.rewardNormal??100;
         rewardNumberList.addAll(winnerGame?.rewardNumber??[]);
         rewardMoneyList.addAll(winnerGame?.rewardMoney??[]);
         break;
       case WinnerType.winOrLose:
         var winnerGame = _gameConfigBean?.cardsWinLose;
         bigWin=winnerGame?.bigwinNumber??200;
-        rewardNormal=winnerGame?.rewardNormal??100;
+        // rewardNormal=winnerGame?.rewardNormal??100;
         rewardNumberList.addAll(winnerGame?.rewardNumber??[]);
         rewardMoneyList.addAll(winnerGame?.rewardMoney??[]);
         break;
       case WinnerType.luckyNumber:
         var winnerGame = _gameConfigBean?.cardsLuckyNumber;
         bigWin=winnerGame?.bigwinNumber??200;
-        rewardNormal=winnerGame?.rewardNormal??100;
+        // rewardNormal=winnerGame?.rewardNormal??100;
         rewardNumberList.addAll(winnerGame?.rewardNumber??[]);
         rewardMoneyList.addAll(winnerGame?.rewardMoney??[]);
         break;
       case WinnerType.bettingHigh:
         var winnerGame = _gameConfigBean?.cardsBettingHigh;
         bigWin=winnerGame?.bigwinNumber??200;
-        rewardNormal=winnerGame?.rewardNormal??100;
+        // rewardNormal=winnerGame?.rewardNormal??100;
         rewardNumberList.addAll(winnerGame?.rewardNumber??[]);
         rewardMoneyList.addAll(winnerGame?.rewardMoney??[]);
         break;
@@ -97,6 +97,7 @@ class GameConfigHep {
       return WinnerBackBean(winNum: 0, bigWin: bigWin, coinsNum: 0, winType: WinType.coins,rewardNormal: rewardNormal);
     }
     var randomRewardMoney = _randomRewardMoney(rewardMoneyList);
+    rewardNormal=randomRewardMoney?.rewardNormal??100;
     var randomRewardNumber = _randomRewardNumber(rewardNumberList);
     var winType = randomRewardMoney?.type==0?WinType.coins:WinType.diamond;
     if(randomRewardNumber?.number==0){
@@ -104,7 +105,6 @@ class GameConfigHep {
     }
     var winProbability = _getWinProbability(randomRewardMoney, rewardMoneyList);
     var coinsNum=(rewardNormal*winProbability*(randomRewardNumber?.number??0)).toInt();
-    print("kk=====${randomRewardMoney}===${randomRewardNumber}====${rewardNormal}===${winProbability}====${coinsNum}");
     return WinnerBackBean(winNum: randomRewardNumber?.number??0, bigWin: bigWin, coinsNum: coinsNum, winType: winType,rewardNormal: rewardNormal);
   }
 

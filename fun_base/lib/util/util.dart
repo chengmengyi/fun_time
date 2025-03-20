@@ -9,9 +9,10 @@ export 'package:get_storage/get_storage.dart';
 export 'package:get/get.dart';
 export 'package:scratcher/scratcher.dart';
 export 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-// export 'package:flutter_ad_ios_plugins/flutter_ios_ad_hep.dart';
-// export 'package:flutter_ad_ios_plugins/data/config_ad_data.dart';
-// export 'package:flutter_ad_ios_plugins/hep/ad_type.dart';
+export 'package:flutter_ad_ios_plugins/flutter_ios_ad_hep.dart';
+export 'package:flutter_ad_ios_plugins/data/config_ad_data.dart';
+export 'package:flutter_ad_ios_plugins/hep/ad_type.dart';
+export 'package:flutter_ad_ios_plugins/data/storage_data.dart';
 export 'package:url_launcher/url_launcher.dart';
 
 

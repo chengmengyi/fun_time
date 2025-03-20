@@ -3,6 +3,7 @@ import 'package:fun_b/page/casino_rush4/casino_rush_page.dart';
 import 'package:fun_b/page/chasing_luck3/chasing_luck_page.dart';
 import 'package:fun_b/page/fruit_match2/fruit_match_page.dart';
 import 'package:fun_b/page/home/home_page.dart';
+import 'package:fun_b/page/level/level_page.dart';
 import 'package:fun_b/page/luck_number6/luck_number_page.dart';
 import 'package:fun_b/page/win_or_lose5/win_or_lose_page.dart';
 import 'package:fun_b/page/winner_game1/winner_game_page.dart';
@@ -49,6 +50,11 @@ class BRoutersList{
     GetPage(
         name: BRoutersName.bettingHigh,
         page: ()=> BettingHighPage(),
+        transition: Transition.fadeIn
+    ),
+    GetPage(
+        name: BRoutersName.level,
+        page: ()=> LevelPage(),
         transition: Transition.fadeIn
     ),
   ];

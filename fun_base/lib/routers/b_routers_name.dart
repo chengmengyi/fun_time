@@ -7,4 +7,5 @@ class BRoutersName{
   static const String winOrLose="/b/winOrLose";
   static const String luckNumber="/b/luckNumber";
   static const String bettingHigh="/b/bettingHigh";
+  static const String level="/b/level";
 }

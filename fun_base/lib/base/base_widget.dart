@@ -12,6 +12,7 @@ abstract class BaseWidget<T extends BaseController> extends StatelessWidget{
   Widget build(BuildContext context) {
     ftController=Get.put(createController());
     if(_firstInit){
+      ftController.context=context;
       initView();
     }
     _firstInit=false;

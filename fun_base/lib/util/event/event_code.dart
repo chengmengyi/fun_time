@@ -5,4 +5,15 @@ class EventCode{
   static const int updateUserDiamondA=3;
   static const int showLevelFingerA=4;
   static const int updateAchA=5;
+
+
+  ///b
+  static const int updatePlayNumB=100;
+  static const int updateUserCoinsB=101;
+  static const int updateUserDiamondB=102;
+  static const int showLevelFingerB=103;
+  static const int firstGetReward=104;
+  static const int clickBox=105;
+  static const int updateHomeIndex=106;
+  static const int updateCashList=107;
 }

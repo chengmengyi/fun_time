@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:fun_b/bean/played_num_bean.dart';
+import 'package:fun_b/hep/cash_hep.dart';
 import 'package:fun_b/hep/game_config_hep.dart';
 import 'package:fun_b/hep/hep.dart';
 import 'package:fun_base/util/event/event_code.dart';
@@ -7,7 +8,6 @@ import 'package:fun_base/util/event/event_data.dart';
 import 'package:fun_base/util/sql/base_sql_hep.dart';
 import 'package:fun_base/util/sql/sql_table_name.dart';
 import 'package:fun_base/util/util.dart';
-import 'package:sqflite_common/sqlite_api.dart';
 
 class PlayedNumHep {
   static final PlayedNumHep _instance=PlayedNumHep();
@@ -28,26 +28,27 @@ class PlayedNumHep {
 
   initPlayNumData()async{
     var sql = await BaseSqlHep.instance.initSql();
-    var list = await sql.query(SqlTableName.playedNumA);
+    var list = await sql.query(SqlTableName.playedNumB);
     if(list.isEmpty){
       for (var value in WinnerType.values) {
-        await sql.insert(SqlTableName.playedNumA, {"playedNum":0,"startTime":DateTime.now().millisecondsSinceEpoch,"gameType":value.name});
+        await sql.insert(SqlTableName.playedNumB, {"playedNum":0,"startTime":DateTime.now().millisecondsSinceEpoch,"gameType":value.name});
       }
     }
   }
 
   updatePlayedNum(WinnerType winnerType)async{
     var sql = await BaseSqlHep.instance.initSql();
-    var list = await sql.query(SqlTableName.playedNumA,where: '"gameType" = ?',whereArgs: [winnerType.name]);
+    var list = await sql.query(SqlTableName.playedNumB,where: '"gameType" = ?',whereArgs: [winnerType.name]);
     if(list.isEmpty){
-      await sql.insert(SqlTableName.playedNumA, {"playedNum":1,"startTime":DateTime.now().millisecondsSinceEpoch,"gameType":winnerType.name});
+      await sql.insert(SqlTableName.playedNumB, {"playedNum":1,"startTime":DateTime.now().millisecondsSinceEpoch,"gameType":winnerType.name});
       return;
     }
     var newMap = Map<String, Object?>.from(list.first);
     var playedNum = newMap["playedNum"] as int ;
     newMap["playedNum"]=playedNum+1;
     newMap["startTime"]=DateTime.now().millisecondsSinceEpoch;
-    await sql.update(SqlTableName.playedNumA, newMap,where: '"id" = ? ',whereArgs: [newMap["id"]]);
+    await sql.update(SqlTableName.playedNumB, newMap,where: '"id" = ? ',whereArgs: [newMap["id"]]);
+    CashHep.instance.updateCashTask(CashTaskType.card);
   }
 
   Future<bool> checkCanPlay(WinnerType winnerType,{bool showToastBool=true})async{
@@ -55,7 +56,7 @@ class PlayedNumHep {
     //   return true;
     // }
     var sql = await BaseSqlHep.instance.initSql();
-    var list = await sql.query(SqlTableName.playedNumA,where: '"gameType" = ?',whereArgs: [winnerType.name]);
+    var list = await sql.query(SqlTableName.playedNumB,where: '"gameType" = ?',whereArgs: [winnerType.name]);
     if(list.isEmpty){
       return true;
     }
@@ -67,7 +68,7 @@ class PlayedNumHep {
       if(time>3600000){
         newMap["playedNum"]=0;
         newMap["startTime"]=DateTime.now().millisecondsSinceEpoch;
-        await sql.update(SqlTableName.playedNumA, newMap,where: '"id" = ? ',whereArgs: [newMap["id"]]);
+        await sql.update(SqlTableName.playedNumB, newMap,where: '"id" = ? ',whereArgs: [newMap["id"]]);
         return true;
       }
       if(showToastBool){
@@ -80,7 +81,7 @@ class PlayedNumHep {
 
   Future<WinnerType?> randomPlay()async{
     var sql = await BaseSqlHep.instance.initSql();
-    var list = await sql.query(SqlTableName.playedNumA,where: '"playedNum" < 10');
+    var list = await sql.query(SqlTableName.playedNumB,where: '"playedNum" < 10');
     if(list.isEmpty){
       return null;
     }

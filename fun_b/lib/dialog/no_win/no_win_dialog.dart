@@ -20,8 +20,7 @@ class NoWinDialog extends BaseDialog<NoWinController>{
       SizedBox(height: 60.h,),
       InkWell(
         onTap: (){
-          RouterUtils.back();
-          dismiss.call();
+          ftController.clickAgain(dismiss);
         },
         child: Stack(
           alignment: Alignment.center,

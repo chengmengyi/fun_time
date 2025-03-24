@@ -3,6 +3,7 @@ import 'package:fun_b/hep/level_hep.dart';
 import 'package:fun_b/hep/user_info_hep.dart';
 import 'package:fun_base/base/base_controller.dart';
 import 'package:fun_base/util/ad_hep.dart';
+import 'package:fun_base/util/tba_point/ad_point.dart';
 import 'package:fun_base/util/util.dart';
 
 class LevelController extends BaseController{
@@ -36,6 +37,8 @@ class LevelController extends BaseController{
     }
     AdHep.instance.showAd(
       adType: AdType.reward,
+      showIntAd: false,
+      adPosId: AdPosId.sqftm_box_rv,
       closeAd: (){
         UserInfoHep.instance.updateUserCoins(100);
         _updateLevelData(data.levelNum??0,LevelStatus.received);

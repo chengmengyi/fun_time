@@ -14,6 +14,7 @@ export 'package:flutter_ad_ios_plugins/data/config_ad_data.dart';
 export 'package:flutter_ad_ios_plugins/hep/ad_type.dart';
 export 'package:flutter_ad_ios_plugins/data/storage_data.dart';
 export 'package:url_launcher/url_launcher.dart';
+export 'package:decimal/decimal.dart';
 
 
 extension String2Color on String{
@@ -58,10 +59,20 @@ showToast(String text){
   Fluttertoast.showToast(
       msg: text,
       toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.BOTTOM,
+      gravity: ToastGravity.CENTER,
       timeInSecForIosWeb: 1,
       backgroundColor: Colors.black45,
       textColor: Colors.white,
       fontSize: 16
   );
+}
+
+extension Str2Dou on String{
+  double toDou(){
+    try{
+      return double.parse(this);
+    }catch(e){
+      return 0.0;
+    }
+  }
 }

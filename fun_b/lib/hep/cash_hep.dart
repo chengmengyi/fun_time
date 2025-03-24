@@ -1,6 +1,8 @@
 
 import 'dart:convert';
+import 'dart:math';
 
+import 'package:flutter/foundation.dart';
 import 'package:fun_b/bean/cash_info_bean.dart';
 import 'package:fun_b/bean/cash_list_bean.dart';
 import 'package:fun_b/bean/other_config_bean.dart';
@@ -66,7 +68,9 @@ class CashHep{
       return;
     }
     RouterUtils.dialog(
-      widget: AccountDialog(),
+      widget: AccountDialog(
+        cashMoney: getConfigCashMoneyList().first,
+      ),
     );
   }
 
@@ -80,7 +84,7 @@ class CashHep{
     if(list.isNotEmpty){
       return CashInfoBean.fromJson(list.first);
     }
-    var bean = CashInfoBean(cashType: cashType,cashMoney: cashMoney,taskIndex: 0,currentPro: 0,totalPro: getConfigTaskByIndex(0)?.data??0,rankNum: 0,cashStatus:CashStatus.cashing);
+    var bean = CashInfoBean(cashType: cashType,cashMoney: cashMoney,taskIndex: 0,currentPro: 0,totalPro: getConfigTaskByIndex(0)?.data??0,rankNum: 0,cashStatus:CashStatus.cashing,rankAllPerson: 0);
     await db.insert(SqlTableName.cashListB, bean.toJson());
     return bean;
   }
@@ -101,6 +105,8 @@ class CashHep{
           if(checkIsLastTask(taskIndex)){
             newMap["currentPro"]=currentPro+1;
             newMap["cashStatus"]=CashStatus.ranking;
+            newMap["rankNum"]=_otherConfigBean?.cashCurrent?.intCurrent??99;
+            newMap["rankAllPerson"]=_otherConfigBean?.cashAll?.intAll??388;
           }else{
             newMap["currentPro"]=0;
             newMap["taskIndex"]=taskIndex+1;
@@ -115,6 +121,67 @@ class CashHep{
     EventData(code: EventCode.updateCashList).send();
   }
 
+  getCashAllPersonAndMyRank({required int cashType,required int cashMoney,required Function(int rankNum,int rankAllPerson,String account) call})async{
+    var db = await BaseSqlHep.instance.initSql();
+    var list = await db.query(SqlTableName.cashListB,where: '"cashType" = ? AND "cashMoney" = ?',whereArgs: [cashType,cashMoney]);
+    if(list.isEmpty){
+      return;
+    }
+    var accountList = await db.query(SqlTableName.cashAccountB,where: '"cashType" = ?',whereArgs: [cashType]);
+    String account="";
+    if(accountList.isNotEmpty){
+      account=accountList.first["account"] as String;
+    }
+    var map = list.first;
+    call.call(map["rankNum"] as int ,map["rankAllPerson"] as int,account);
+  }
+
+  Future<int> updateTaskRank({required int cashType,required int cashMoney})async{
+    var db = await BaseSqlHep.instance.initSql();
+    var list = await db.query(SqlTableName.cashListB,where: '"cashType" = ? AND "cashMoney" = ? AND "cashStatus" = ?',whereArgs: [cashType,cashMoney,CashStatus.ranking]);
+    if(list.isEmpty){
+      return 0;
+    }
+    var intAllDeleteList = _otherConfigBean?.cashAll?.intAllDelete??[1,3];
+    var intCurrentDeleteList = _otherConfigBean?.cashCurrent?.intCurrentDelete??[5,8];
+    var intAllDelete=0,intCurrentDelete=0;
+    if(intAllDeleteList.length<=1){
+      intAllDelete=1;
+    }else{
+      intAllDelete=Random().nextInt(intAllDeleteList.last-intAllDeleteList.first+1)+intAllDeleteList.first;
+    }
+    if(intCurrentDeleteList.length<=1){
+      intCurrentDelete=1;
+    }else{
+      intCurrentDelete=Random().nextInt(intCurrentDeleteList.last-intCurrentDeleteList.first+1)+intCurrentDeleteList.first;
+    }
+    var newMap = Map<String, Object?>.from(list.first);
+    var currentRankNum = newMap["rankNum"] as int;
+    var currentRankAllPerson = newMap["rankAllPerson"] as int;
+    newMap["rankAllPerson"]=currentRankAllPerson-intAllDelete;
+    var newRankNum = currentRankNum-intCurrentDelete;
+    if(newRankNum<=1){
+      newRankNum=1;
+      newMap["rankNum"]=newRankNum;
+      newMap["cashStatus"]=CashStatus.success;
+    }else{
+      newMap["rankNum"]=newRankNum;
+    }
+    await db.update(SqlTableName.cashListB, newMap,where: '"id" = ? ',whereArgs: [newMap["id"]]);
+    EventData(code: EventCode.updateCashList).send();
+    return newRankNum;
+  }
+
+  completedCashTask(int cashType, int cashMoney)async{
+    var db = await BaseSqlHep.instance.initSql();
+    var list = await db.query(SqlTableName.cashListB,where: '"cashType" = ? AND "cashMoney" = ?',whereArgs: [cashType,cashMoney]);
+    if(list.isEmpty){
+      return;
+    }
+    await db.delete(SqlTableName.cashListB,where: '"id" = ? ',whereArgs: [list.first["id"]]);
+    EventData(code: EventCode.updateCashList).send();
+  }
+
   TixianTask? getConfigTaskByIndex(int index){
     try{
       return _otherConfigBean?.tixianTask?[index];
@@ -125,13 +192,62 @@ class CashHep{
 
   TixianTask? getNextConfigTaskByIndex(int index){
     try{
-      return _otherConfigBean?.tixianTask?[index+1];
+      if(kDebugMode){
+        var tixianTask = _otherConfigBean?.tixianTask?[index+1];
+        tixianTask?.data=1;
+        return tixianTask;
+      }else{
+        return _otherConfigBean?.tixianTask?[index+1];
+      }
     }catch(e){
       return null;
     }
   }
 
+  bool checkShowIntAd(AdType adType){
+    if(adType==AdType.reward){
+      return true;
+    }
+    var playNum = allPlayCardsNum.getData();
+    var list = _otherConfigBean?.intadPoint??[];
+    if(list.isEmpty){
+      return false;
+    }
+    var last = list.last;
+    if(playNum>=(last.endNumber??999999)){
+      return Random().nextInt(100)<(last.point??100);
+    }
+    for (var value in list) {
+      if(playNum>=(value.firstNumber??0)&&playNum<(value.endNumber??0)){
+        return Random().nextInt(100)<(value.point??10);
+      }
+    }
+    return false;
+  }
+
   bool checkIsLastTask(int taskIndex)=>taskIndex==(_otherConfigBean?.tixianTask??[]).length-1;
 
   List<int> getConfigCashMoneyList()=>_otherConfigBean?.withdrawRange??[1000,1500,1800,2000];
+
+  double getFloatAddNum()=>_getRewardByList(_otherConfigBean?.floatPrize??[]);
+
+  double getBoxAddNum()=>_getRewardByList(_otherConfigBean?.boxPrize??[]);
+
+  double _getRewardByList(List<FloatPrize> list){
+    if(list.isEmpty){
+      return 5.0;
+    }
+    var playNum = allPlayCardsNum.getData();
+    if(playNum>=(list.last.endNumber??9999)){
+      return _randomMinMax(list.last.prize?.first??5, list.last.prize?.last??10);
+    }
+    for (var value in list) {
+      if(playNum>=(value.firstNumber??0)&&playNum<(value.endNumber??0)){
+        return _randomMinMax(value.prize?.first??5, value.prize?.last??10);
+      }
+    }
+    return 5.0;
+  }
+
+  double _randomMinMax(int min,int max)=>(Random().nextDouble()*(max-min)+min).toStringAsFixed(2).toDou();
 }

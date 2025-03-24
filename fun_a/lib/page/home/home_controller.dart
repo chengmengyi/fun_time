@@ -4,6 +4,7 @@ import 'package:fun_a/hep/played_num_hep.dart';
 import 'package:fun_a/page/home/ach/ach_child.dart';
 import 'package:fun_a/page/home/cards/cards_child.dart';
 import 'package:fun_base/base/base_controller.dart';
+import 'package:fun_base/util/tba_point/tab_point_hep.dart';
 import 'package:fun_base/util/voice_player.dart';
 class HomeController extends BaseController{
   var chooseIndex=0;
@@ -18,6 +19,7 @@ class HomeController extends BaseController{
     super.onInit();
     PlayedNumHep.instance.initPlayNumData();
     VoicePlayer.instance.playBgMp3();
+    TbaPointHep.instance.sqlEvent();
   }
 
   clickBottom(index){

@@ -22,18 +22,18 @@ class BoxDialog extends BaseDialog<BoxDialogController>{
     children: [
       LocalImageWidget(image: "box1", width: 233.w, height: 40.h),
       LottieWidget(name: "box", ext: "json",width: 187.w,repeat: false,),
-      TextWidget(data: "\$3,000", color: "#FFE32A", size: 36.sp,fontWeight: FontWeight.bold,),
+      TextWidget(data: "\$${ftController.addNum}", color: "#FFE32A", size: 36.sp,fontWeight: FontWeight.bold,),
       WatchVideoWidget(
         btnStr: "Claim Now",
         click: (){
-          ftController.clickGet(dismiss);
+          ftController.clickDouble(dismiss);
         },
       ),
       InkWell(
         onTap: (){
-          RouterUtils.back();
+          ftController.clickGet(dismiss);
         },
-        child: TextWidget(data: "Give up", color: "#FFFFFF", size: 18.sp,fontWeight: FontWeight.bold,),
+        child: TextWidget(data: "Claim", color: "#FFFFFF", size: 18.sp,fontWeight: FontWeight.bold,),
       )
     ],
   );

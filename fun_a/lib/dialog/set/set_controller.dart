@@ -1,7 +1,7 @@
-import 'package:fun_a/hep/local_data.dart';
 import 'package:fun_base/base/base_controller.dart';
 import 'package:fun_base/routers/base_routers/base_routers_name.dart';
 import 'package:fun_base/routers/routers_utils.dart';
+import 'package:fun_base/util/base_local_data.dart';
 import 'package:fun_base/util/util.dart';
 import 'package:fun_base/util/voice_player.dart';
 

@@ -1,6 +1,8 @@
 import 'package:fun_b/bean/cash_info_bean.dart';
 import 'package:fun_b/bean/cash_list_bean.dart';
 import 'package:fun_b/bean/cash_type_bean.dart';
+import 'package:fun_b/dialog/account/account_dialog.dart';
+import 'package:fun_b/dialog/cash_success/cash_success_dialog.dart';
 import 'package:fun_b/dialog/cash_task/cash_task_dialog.dart';
 import 'package:fun_b/dialog/no_money/no_money_dialog.dart';
 import 'package:fun_b/dialog/rank/rank_dialog.dart';
@@ -57,6 +59,12 @@ class CashController extends BaseController{
           ),
         );
         return;
+      }else{
+        RouterUtils.dialog(
+          widget: AccountDialog(
+            cashMoney: bean.cashMoney,
+          ),
+        );
       }
     }else{
       switch(bean.cashInfoBean?.cashStatus){
@@ -67,7 +75,19 @@ class CashController extends BaseController{
           break;
         case CashStatus.ranking:
           RouterUtils.dialog(
-              widget: RankDialog()
+            widget: RankDialog(
+              cashTypeIcon: cashTypeList[chooseCashTypeIndex].selIcon,
+              cashType: chooseCashTypeIndex,
+              cashMoney: bean.cashMoney,
+            ),
+          );
+          break;
+        case CashStatus.success:
+          RouterUtils.dialog(
+            widget: CashSuccessDialog(
+              cashType: chooseCashTypeIndex,
+              cashMoney: bean.cashMoney,
+            ),
           );
           break;
       }

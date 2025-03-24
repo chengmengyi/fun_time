@@ -53,6 +53,8 @@ PODS:
     - Flutter
   - flutter_local_notifications (0.0.1):
     - Flutter
+  - flutter_tba_info (0.0.1):
+    - Flutter
   - fluttertoast (0.0.2):
     - Flutter
     - Toast
@@ -65,6 +67,8 @@ PODS:
   - Google-Mobile-Ads-SDK (11.13.0):
     - GoogleUserMessagingPlatform (>= 1.1)
   - GoogleUserMessagingPlatform (2.7.0)
+  - in_app_review (0.2.0):
+    - Flutter
   - InMobiSDK (10.8.0)
   - IronSourceSDK (8.7.0.0)
   - MolocoSDKiOS (3.7.0)
@@ -111,10 +115,12 @@ DEPENDENCIES:
   - Flutter (from `Flutter`)
   - flutter_ad_ios_plugins (from `.symlinks/plugins/flutter_ad_ios_plugins/ios`)
   - flutter_local_notifications (from `.symlinks/plugins/flutter_local_notifications/ios`)
+  - flutter_tba_info (from `.symlinks/plugins/flutter_tba_info/ios`)
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
   - fun_a (from `.symlinks/plugins/fun_a/ios`)
   - fun_b (from `.symlinks/plugins/fun_b/ios`)
   - fun_base (from `.symlinks/plugins/fun_base/ios`)
+  - in_app_review (from `.symlinks/plugins/in_app_review/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
   - sqflite (from `.symlinks/plugins/sqflite/darwin`)
   - url_launcher_ios (from `.symlinks/plugins/url_launcher_ios/ios`)
@@ -161,6 +167,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_ad_ios_plugins/ios"
   flutter_local_notifications:
     :path: ".symlinks/plugins/flutter_local_notifications/ios"
+  flutter_tba_info:
+    :path: ".symlinks/plugins/flutter_tba_info/ios"
   fluttertoast:
     :path: ".symlinks/plugins/fluttertoast/ios"
   fun_a:
@@ -169,6 +177,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/fun_b/ios"
   fun_base:
     :path: ".symlinks/plugins/fun_base/ios"
+  in_app_review:
+    :path: ".symlinks/plugins/in_app_review/ios"
   path_provider_foundation:
     :path: ".symlinks/plugins/path_provider_foundation/darwin"
   sqflite:
@@ -201,12 +211,14 @@ SPEC CHECKSUMS:
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   flutter_ad_ios_plugins: 39f145153e9fe06753e9b28fb7b43925ae399a71
   flutter_local_notifications: 395056b3175ba4f08480a7c5de30cd36d69827e4
+  flutter_tba_info: fce89f2ce0bf3af177f0c88e99b153260bc6a7df
   fluttertoast: 61c4d04b244937570e728fcd5f541ddc8b58d01c
   fun_a: cbe9f1a8e80fe16429d5e4aecea649cc00e34361
   fun_b: 55ed90b13a4d9245e428c97a3370f23968850043
   fun_base: c46f9e995008155795af2f851add120a4b1e924c
   Google-Mobile-Ads-SDK: 14f57f2dc33532a24db288897e26494640810407
   GoogleUserMessagingPlatform: a8b56893477f67212fbc8411c139e61d463349f5
+  in_app_review: 8efcf4a4d3ba72d5d776d29e5a268f1abf64d184
   InMobiSDK: 0cfb1a1eb5112fa0236ae1fab549e31fb96c9566
   IronSourceSDK: 0b5a640179ef91acc637332608183a05db1757df
   MolocoSDKiOS: 57d989984793ed15c7eed4aab36dd352cd5a2529

@@ -27,7 +27,7 @@ class OtherConfigBean {
     if (json['box_prize'] != null) {
       boxPrize = [];
       json['box_prize'].forEach((v) {
-        boxPrize?.add(BoxPrize.fromJson(v));
+        boxPrize?.add(FloatPrize.fromJson(v));
       });
     }
     if (json['tixian_task'] != null) {
@@ -42,7 +42,7 @@ class OtherConfigBean {
   CashCurrent? cashCurrent;
   List<IntadPoint>? intadPoint;
   List<FloatPrize>? floatPrize;
-  List<BoxPrize>? boxPrize;
+  List<FloatPrize>? boxPrize;
   List<TixianTask>? tixianTask;
 
   Map<String, dynamic> toJson() {
@@ -87,31 +87,6 @@ class TixianTask {
     final map = <String, dynamic>{};
     map['title'] = title;
     map['data'] = data;
-    return map;
-  }
-
-}
-
-class BoxPrize {
-  BoxPrize({
-      this.firstNumber, 
-      this.prize, 
-      this.endNumber,});
-
-  BoxPrize.fromJson(dynamic json) {
-    firstNumber = json['first_number'];
-    prize = json['prize'] != null ? json['prize'].cast<int>() : [];
-    endNumber = json['end_number'];
-  }
-  int? firstNumber;
-  List<int>? prize;
-  int? endNumber;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['first_number'] = firstNumber;
-    map['prize'] = prize;
-    map['end_number'] = endNumber;
     return map;
   }
 

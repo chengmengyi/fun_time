@@ -24,7 +24,7 @@ class UserInfoBean {
     bettingHighPlayNum = json['bettingHighPlayNum'];
   }
   int? id;
-  int? coinsNum;
+  double? coinsNum;
   int? diamondNum;
   int? winnerGamePlayNum;
   int? fruitMatchPlayNum;

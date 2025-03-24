@@ -22,7 +22,10 @@ dependencies:
   url_launcher: 6.3.1
   fluttertoast: 8.0.9
   flutter_ad_ios_plugins: 0.0.6
+  flutter_tba_info: 0.0.9
+  dio: 5.3.3
   audioplayers: 6.1.0
+  decimal: 3.1.0
   scratcher:
     path: plugins/scratcher-2.5.0
 

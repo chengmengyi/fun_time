@@ -5,4 +5,6 @@ class StorageName{
   static const String boxCountTimer="boxCountTimerB";
   static const String boxLastTimeSecond="boxLastTimeSecondB";
   static const String selectedCashTypeB="selectedCashTypeB";
+  static const String goodComment="goodCommentB";
+  static const String allPlayCardsNum="allPlayCardsNumB";
 }

@@ -1,0 +1,6 @@
+const String localAdStr="ewogICJydXNoZ2tlbCI6IDEwMCwKICAianVlaG5icmEiOiAxMDAsCiAgInNxZnRtX2Fydl9vbmUiOiBbCiAgICB7CiAgICAgICJwcXVybmtnbyI6ICJkMzljZmFhNDIwNWI3OTFiIiwKICAgICAgInZqc2lsZm9zIjogIm1heCIsCiAgICAgICJ0dXNrZW50bCI6ICJyZXdhcmQiLAogICAgICAibWVyeXNsYWYiOiAzMDAwLAogICAgICAib2prZWxnZGciOiAzCiAgICB9CiAgXQp9";
+const String maxKey="TVdKemhuRVB0S3F4TEtSTEFsVnJUeVFmTzJWeFdaV3RWeF9TelRXQ19NZ29aTDdrVEtOdDl0M01fT2dJWjI0bkJYUlh4VmQ5b2dRRXA3NjE2VFdmM0M=";
+const String privacy="https://scratchfuntimepro.com/privacy/";
+const String email="rackefellef@nahum-travels.com";
+const String tbaUrl="https://butchery.scratchfuntimepro.com/hydrogen/gibbet";
+const String cloakUrl="https://colonist.scratchfuntimepro.com/please/pixy/edwin";

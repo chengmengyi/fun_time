@@ -1,5 +1,6 @@
 import 'package:fun_b/bean/user_info_bean.dart';
 import 'package:fun_b/hep/cash_hep.dart';
+import 'package:fun_b/hep/comment_hep.dart';
 import 'package:fun_b/hep/game_config_hep.dart';
 import 'package:fun_b/hep/level_hep.dart';
 import 'package:fun_b/hep/storage/storage_bean.dart';
@@ -20,7 +21,7 @@ class UserInfoHep{
     var list = await db.query(SqlTableName.userInfoB);
     if(list.isEmpty){
       _userInfoBean=UserInfoBean(
-        coinsNum: 0,
+        coinsNum: 0.0,
         diamondNum: 0,
         winnerGamePlayNum: 8,
         fruitMatchPlayNum: 8,
@@ -37,11 +38,15 @@ class UserInfoHep{
     _userInfoBean=UserInfoBean.fromJson(list.first);
   }
 
-  updateUserCoins(int coins){
+  updateUserCoins(dynamic coins){
+    if(coins is! int&& coins is! double){
+      return;
+    }
     var coinsNum = _userInfoBean?.coinsNum??0;
-    _userInfoBean?.coinsNum=coinsNum+coins;
+    _userInfoBean?.coinsNum=(Decimal.parse("$coinsNum")+Decimal.parse("$coins")).toDouble();
     EventData(code: EventCode.updateUserCoinsB).send();
     if(coins>0&&firstGetReward.getData()){
+      CommentHep.instance.showCommentDialog();
       EventData(code: EventCode.firstGetReward).send();
     }
     if(coins>0){
@@ -64,7 +69,7 @@ class UserInfoHep{
 
   int getUserDiamond()=>_userInfoBean?.diamondNum??0;
 
-  int getUserCoins()=>_userInfoBean?.coinsNum??0;
+  double getUserCoins()=>_userInfoBean?.coinsNum??0.0;
 
   int getPlayNum(WinnerType winnerType){
     switch(winnerType){

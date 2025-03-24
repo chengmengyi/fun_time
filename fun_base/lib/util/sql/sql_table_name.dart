@@ -9,4 +9,5 @@ class SqlTableName{
   static const String cashListB="cashListB";
   static const String rankListB="rankListB";
   static const String cashAccountB="cashAccountB";
+  static const String tbaPointB="tbaPoint";
 }

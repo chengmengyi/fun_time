@@ -50,16 +50,27 @@ class NormalWinDialog extends BaseDialog<NormalWinController>{
     ),
   );
 
-  _btnWidget()=>InkWell(
-    onTap: (){
-      ftController.clickGet(reward,dismiss);
-    },
-    child: Stack(
-      alignment: Alignment.center,
-      children: [
-        LocalImageWidget(image: "big4", width: 200.w, height: 58.h),
-        TextWidget(data: "Claim", color: "#FFFFFF", size: 24.sp,fontWeight: FontWeight.bold,),
-      ],
-    ),
+  _btnWidget()=>Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      InkWell(
+        onTap: (){
+          ftController.clickDouble(reward,dismiss);
+        },
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            LocalImageWidget(image: "big4", width: 200.w, height: 58.h),
+            TextWidget(data: "Claim Double", color: "#FFFFFF", size: 20.sp,fontWeight: FontWeight.bold,),
+          ],
+        ),
+      ),
+      InkWell(
+        onTap: (){
+          ftController.clickSingle(reward,dismiss);
+        },
+        child: TextWidget(data: "Claim", color: "#FFFFFF", size: 20.sp,fontWeight: FontWeight.bold,),
+      )
+    ],
   );
 }

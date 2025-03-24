@@ -7,6 +7,7 @@ class CashInfoBean {
       this.totalPro, 
       this.rankNum,
       this.cashStatus,
+      this.rankAllPerson,
   });
 
   CashInfoBean.fromJson(dynamic json) {
@@ -17,6 +18,7 @@ class CashInfoBean {
     totalPro = json['totalPro'];
     rankNum = json['rankNum'];
     cashStatus = json['cashStatus'];
+    rankAllPerson = json['rankAllPerson'];
   }
   int? cashType;
   int? cashMoney;
@@ -24,6 +26,7 @@ class CashInfoBean {
   int? currentPro;
   int? totalPro;
   int? rankNum;
+  int? rankAllPerson;
   String? cashStatus;
 
   Map<String, dynamic> toJson() {
@@ -35,6 +38,7 @@ class CashInfoBean {
     map['totalPro'] = totalPro;
     map['rankNum'] = rankNum;
     map['cashStatus'] = cashStatus;
+    map['rankAllPerson'] = rankAllPerson;
     return map;
   }
 

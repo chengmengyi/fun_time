@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fun_b/bean/home_bottom_bean.dart';
+import 'package:fun_b/hep/comment_hep.dart';
 import 'package:fun_b/hep/notification_hep.dart';
 import 'package:fun_b/hep/played_num_hep.dart';
 import 'package:fun_b/hep/storage/storage_bean.dart';
@@ -8,6 +9,7 @@ import 'package:fun_b/page/home/cash/cash_child.dart';
 import 'package:fun_base/base/base_controller.dart';
 import 'package:fun_base/util/event/event_code.dart';
 import 'package:fun_base/util/event/event_result.dart';
+import 'package:fun_base/util/tba_point/tab_point_hep.dart';
 import 'package:fun_base/util/voice_player.dart';
 class HomeController extends BaseController{
   var chooseIndex=0,showCashFinger=false;
@@ -24,6 +26,13 @@ class HomeController extends BaseController{
     PlayedNumHep.instance.initPlayNumData();
     VoicePlayer.instance.playBgMp3();
     NotificationHep.instance.initNotification();
+    TbaPointHep.instance.sqlEvent();
+  }
+
+  @override
+  void onReady() {
+    super.onReady();
+    CommentHep.instance.showCommentDialog();
   }
 
   clickBottom(index){

@@ -3,6 +3,7 @@ import 'package:fun_b/bean/played_num_bean.dart';
 import 'package:fun_b/hep/cash_hep.dart';
 import 'package:fun_b/hep/game_config_hep.dart';
 import 'package:fun_b/hep/hep.dart';
+import 'package:fun_b/hep/storage/storage_bean.dart';
 import 'package:fun_base/util/event/event_code.dart';
 import 'package:fun_base/util/event/event_data.dart';
 import 'package:fun_base/util/sql/base_sql_hep.dart';
@@ -37,6 +38,8 @@ class PlayedNumHep {
   }
 
   updatePlayedNum(WinnerType winnerType)async{
+    allPlayCardsNum.saveData(allPlayCardsNum.getData()+1);
+    CashHep.instance.updateCashTask(CashTaskType.card);
     var sql = await BaseSqlHep.instance.initSql();
     var list = await sql.query(SqlTableName.playedNumB,where: '"gameType" = ?',whereArgs: [winnerType.name]);
     if(list.isEmpty){
@@ -48,7 +51,6 @@ class PlayedNumHep {
     newMap["playedNum"]=playedNum+1;
     newMap["startTime"]=DateTime.now().millisecondsSinceEpoch;
     await sql.update(SqlTableName.playedNumB, newMap,where: '"id" = ? ',whereArgs: [newMap["id"]]);
-    CashHep.instance.updateCashTask(CashTaskType.card);
   }
 
   Future<bool> checkCanPlay(WinnerType winnerType,{bool showToastBool=true})async{

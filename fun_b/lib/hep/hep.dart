@@ -37,4 +37,16 @@ class Hep{
       RouterUtils.toNamed(routersName: routerName);
     }
   }
+
+  static String getCashTypeIcon(int cashType){
+    switch(cashType){
+      case 0: return "icon_sel_pal";
+      case 1: return "icon_sel_ama";
+      case 2: return "icon_sel_gp";
+      case 3: return "icon_sel_master";
+      case 4: return "icon_sel_cash";
+      case 5: return "icon_sel_web";
+      default: return "icon_sel_pal";
+    }
+  }
 }

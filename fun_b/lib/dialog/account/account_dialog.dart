@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fun_b/dialog/account/account_controller.dart';
+import 'package:fun_b/hep/hep.dart';
 import 'package:fun_base/base/base_dialog.dart';
 import 'package:fun_base/routers/routers_utils.dart';
 import 'package:fun_base/util/util.dart';
@@ -7,6 +8,8 @@ import 'package:fun_base/widget/local_image_widget.dart';
 import 'package:fun_base/widget/text_widget.dart';
 
 class AccountDialog extends BaseDialog<AccountController>{
+  int cashMoney;
+  AccountDialog({required this.cashMoney});
 
   @override
   AccountController createController() => AccountController();
@@ -42,7 +45,8 @@ class AccountDialog extends BaseDialog<AccountController>{
           mainAxisSize: MainAxisSize.min,
           children: [
             SizedBox(height: 53.h,),
-            _cashTypeListWidget(),
+            LocalImageWidget(image: Hep.getCashTypeIcon(ftController.cashType), width: 108.w, height: 36.h),
+            // _cashTypeListWidget(),
             SizedBox(height: 22.h,),
             _inputWidget(),
             SizedBox(height: 30.h,),
@@ -53,22 +57,22 @@ class AccountDialog extends BaseDialog<AccountController>{
     ),
   );
 
-  _cashTypeListWidget()=>Container(
-    width: double.infinity,
-    height: 36.h,
-    margin: EdgeInsets.only(left: 16.w,right: 16.w),
-    child: ListView.builder(
-      itemCount: ftController.cashTypeList.length,
-      scrollDirection: Axis.horizontal,
-      itemBuilder: (context,index){
-        var bean = ftController.cashTypeList[index];
-        return Container(
-          margin: EdgeInsets.only(left: 5.w,right: 5.w),
-          child: LocalImageWidget(image: ftController.cashType==index?bean.selIcon:bean.unsIcon, width: 108.w, height: 36.h),
-        );
-      },
-    ),
-  );
+  // _cashTypeListWidget()=>Container(
+  //   width: double.infinity,
+  //   height: 36.h,
+  //   margin: EdgeInsets.only(left: 16.w,right: 16.w),
+  //   child: ListView.builder(
+  //     itemCount: ftController.cashTypeList.length,
+  //     scrollDirection: Axis.horizontal,
+  //     itemBuilder: (context,index){
+  //       var bean = ftController.cashTypeList[index];
+  //       return Container(
+  //         margin: EdgeInsets.only(left: 5.w,right: 5.w),
+  //         child: LocalImageWidget(image: ftController.cashType==index?bean.selIcon:bean.unsIcon, width: 108.w, height: 36.h),
+  //       );
+  //     },
+  //   ),
+  // );
 
   _inputWidget()=>Container(
     width: double.infinity,
@@ -113,7 +117,7 @@ class AccountDialog extends BaseDialog<AccountController>{
     id: "btn",
     builder: (_)=>InkWell(
       onTap: (){
-        ftController.clickBtn();
+        ftController.clickBtn(cashMoney);
       },
       child: Container(
         width: double.infinity,

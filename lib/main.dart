@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fun_a/hep/game_config_hep.dart';
-import 'package:fun_a/hep/local_data.dart';
 import 'package:fun_a/hep/user_info_hep.dart';
 import 'package:fun_a/routers/_routers_list.dart';
 import 'package:fun_b/hep/cash_hep.dart';
@@ -10,6 +9,7 @@ import 'package:fun_b/routers/_routers_list.dart';
 import 'package:fun_base/routers/base_routers/base_routers_list.dart';
 import 'package:fun_base/routers/base_routers/base_routers_name.dart';
 import 'package:fun_base/util/ad_hep.dart';
+import 'package:fun_base/util/tba_point/tab_point_hep.dart';
 import 'package:fun_base/util/util.dart';
 import 'package:fun_b/hep/game_config_hep.dart' as bGameConfig;
 import 'package:fun_b/hep/user_info_hep.dart' as bUserInfo;
@@ -34,11 +34,13 @@ void main()async{
   UserInfoHep.instance.initUserInfo();
 
   //init b
-  AdHep.instance.initAdData(maxKey.base64(), localAdStr.base64());
+  AdHep.instance.initAdData();
   LevelHep.instance.initLevelData();
   bGameConfig.GameConfigHep.instance.initData();
   bUserInfo.UserInfoHep.instance.initUserInfo();
   CashHep.instance.initData();
+  TbaPointHep.instance.installEvent();
+  TbaPointHep.instance.sessionEvent();
 
   runApp(const MyApp());
 }

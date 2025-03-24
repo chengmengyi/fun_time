@@ -38,7 +38,7 @@ class CashTaskController extends BaseController{
       RouterUtils.back();
       EventData(code: EventCode.updateHomeIndex,intValue: 0).send();
     }else if(tixianTask.title==CashTaskType.video){
-      AdHep.instance.showAd(
+      AdHep.instance.showTaskAd(
         adType: AdType.reward,
         closeAd: (){
           RouterUtils.back();

@@ -1,6 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:fun_b/hep/cash_hep.dart';
+import 'package:fun_b/hep/user_info_hep.dart';
+import 'package:fun_base/util/ad_hep.dart';
+import 'package:fun_base/util/tba_point/ad_point.dart';
 import 'package:fun_base/util/util.dart';
 import 'package:fun_base/widget/local_image_widget.dart';
 import 'package:fun_base/widget/text_widget.dart';
@@ -14,6 +18,7 @@ class _PopsWidgetState extends State<PopsWidget>{
   var maxWidth=0.0,maxHeight=0.0,startRight=true,startDown=true,top=0.0,left=0.0,showBubble=true;
   GlobalKey globalKey=GlobalKey();
   Timer? _timer;
+  double addNum=CashHep.instance.getFloatAddNum();
 
   @override
   void initState() {
@@ -32,24 +37,29 @@ class _PopsWidgetState extends State<PopsWidget>{
         Positioned(
           top: top,
           left: left,
-          child: SizedBox(
-            width: 80.w,
-            height: 80.w,
-            child: Stack(
-              children: [
-                LocalImageWidget(image: "pop1", width: 80.w, height: 80.w),
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: LocalImageWidget(image: "pop2", width: 18.w, height: 18.w),
-                ),
-                Align(
-                  child: LocalImageWidget(image: "icon_money", width: 56.w, height: 56.w),
-                ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: TextWidget(data: "\$68", color: "#FFD725", size: 18.sp,fontWeight: FontWeight.bold,),
-                )
-              ],
+          child: InkWell(
+            onTap: (){
+              clickFloat();
+            },
+            child: SizedBox(
+              width: 80.w,
+              height: 80.w,
+              child: Stack(
+                children: [
+                  LocalImageWidget(image: "pop1", width: 80.w, height: 80.w),
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: LocalImageWidget(image: "pop2", width: 18.w, height: 18.w),
+                  ),
+                  Align(
+                    child: LocalImageWidget(image: "icon_money", width: 56.w, height: 56.w),
+                  ),
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: TextWidget(data: "\$$addNum", color: "#FFD725", size: 18.sp,fontWeight: FontWeight.bold,),
+                  )
+                ],
+              ),
             ),
           ),
         )
@@ -101,4 +111,16 @@ class _PopsWidgetState extends State<PopsWidget>{
     });
   }
 
+  clickFloat(){
+    AdHep.instance.showAd(
+      adType: AdType.reward,
+      adPosId: AdPosId.sqftm_bubble_rv,
+      showIntAd: CashHep.instance.checkShowIntAd(AdType.reward),
+      closeAd: (){
+        UserInfoHep.instance.updateUserCoins(addNum);
+        addNum=CashHep.instance.getFloatAddNum();
+        setState(() { });
+      },
+    );
+  }
 }

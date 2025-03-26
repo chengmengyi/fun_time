@@ -26,7 +26,7 @@ class NoWinDialog extends BaseDialog<NoWinController>{
           alignment: Alignment.center,
           children: [
             LocalImageWidget(image: "big7", width: 200.w, height: 58.h),
-            TextWidget(data: "Play Again", color: "#FFFFFF", size: 24.sp,fontWeight: FontWeight.bold,),
+            TextWidget(data: "Play Again", color: "#FFFFFF", size: 24.sp,fontWeight: FontWeight.bold,showShadows: true,),
           ],
         ),
       )

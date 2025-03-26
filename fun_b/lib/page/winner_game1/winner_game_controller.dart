@@ -10,11 +10,14 @@ import 'package:fun_b/dialog/normal_win/normal_win_dialog.dart';
 import 'package:fun_b/hep/auto_scratch.dart';
 import 'package:fun_b/hep/game_config_hep.dart';
 import 'package:fun_b/hep/played_num_hep.dart';
+import 'package:fun_b/hep/storage/storage_bean.dart';
 import 'package:fun_b/hep/user_info_hep.dart';
 import 'package:fun_base/base/base_controller.dart';
 import 'package:fun_base/routers/routers_utils.dart';
 import 'package:fun_base/util/event/event_code.dart';
 import 'package:fun_base/util/event/event_result.dart';
+import 'package:fun_base/util/tba_point/custom_point.dart';
+import 'package:fun_base/util/tba_point/tab_point_hep.dart';
 import 'package:fun_base/util/util.dart';
 import 'package:fun_base/util/voice_player.dart';
 
@@ -66,6 +69,9 @@ class WinnerGameController extends BaseController with GetTickerProviderStateMix
           scaleController.forward();
         }
       });
+    if(firstGuaka.getData()){
+      TbaPointHep.instance.pointEvent(CustomId.card_guide);
+    }
   }
 
   @override
@@ -76,6 +82,7 @@ class WinnerGameController extends BaseController with GetTickerProviderStateMix
   }
 
   clickCheckCard()async{
+    _checkFirstGua();
     if(startScratch){
       return;
     }
@@ -191,6 +198,7 @@ class WinnerGameController extends BaseController with GetTickerProviderStateMix
   }
 
   onScratchStart(){
+    _checkFirstGua();
     if(UserInfoHep.instance.getPlayNum(winnerType)<=0){
       RouterUtils.dialog(
         widget: AddChanceDialog(
@@ -205,6 +213,14 @@ class WinnerGameController extends BaseController with GetTickerProviderStateMix
 
   onScratchEnd(){
     startScratch=false;
+  }
+
+  _checkFirstGua(){
+    if(firstGuaka.getData()){
+      TbaPointHep.instance.pointEvent(CustomId.card_guide_c);
+      firstGuaka.saveData(false);
+      update(["gua_finger"]);
+    }
   }
 
   clickBack(){

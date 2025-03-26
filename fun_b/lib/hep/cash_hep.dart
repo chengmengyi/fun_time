@@ -13,6 +13,7 @@ import 'package:fun_b/hep/user_info_hep.dart';
 import 'package:fun_base/routers/routers_utils.dart';
 import 'package:fun_base/util/event/event_code.dart';
 import 'package:fun_base/util/event/event_data.dart';
+import 'package:fun_base/util/firebase_hep.dart';
 import 'package:fun_base/util/sql/base_sql_hep.dart';
 import 'package:fun_base/util/sql/sql_table_name.dart';
 import 'package:fun_base/util/util.dart';
@@ -36,7 +37,10 @@ class CashHep{
   OtherConfigBean? _otherConfigBean;
 
   initData(){
-    _otherConfigBean=OtherConfigBean.fromJson(jsonDecode(otherConfigStr.base64()));
+    _otherConfigBean=OtherConfigBean.fromJson(_getConfigData());
+    FirebaseHep.instance.otherBCall=(){
+      _otherConfigBean=OtherConfigBean.fromJson(_getConfigData());
+    };
   }
 
   Future<List<CashListBean>> initCashList(int cashType)async{
@@ -229,6 +233,9 @@ class CashHep{
   }
 
   bool checkShowIntAd(AdType adType){
+    if(kDebugMode){
+      return false;
+    }
     if(adType==AdType.reward){
       return true;
     }
@@ -274,4 +281,16 @@ class CashHep{
   }
 
   double _randomMinMax(int min,int max)=>(Random().nextDouble()*(max-min)+min).toStringAsFixed(2).toDou();
+
+  _getConfigData(){
+    try{
+      var data = otherBConfig.getData();
+      if(data.isEmpty){
+        return jsonDecode(otherConfigStr.base64());
+      }
+      return jsonDecode(data);
+    }catch(e){
+      return jsonDecode(otherConfigStr.base64());
+    }
+  }
 }

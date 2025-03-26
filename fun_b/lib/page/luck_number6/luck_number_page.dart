@@ -1,4 +1,6 @@
 import 'package:fun_b/page/luck_number6/luck_number_controller.dart';
+import 'package:fun_b/widget/money_lottie_widget.dart';
+import 'package:fun_b/widget/pops_widget.dart';
 import 'package:fun_base/base/base_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:fun_b/bean/winner_back_bean.dart';
@@ -48,6 +50,8 @@ class LuckNumberPage extends BaseWidget<LuckNumberController>{
           ),
           _diamondWidget(),
           _goldWidget(),
+          PopsWidget(),
+          MoneyLottieWidget(),
         ],
       ),
     ),
@@ -125,7 +129,7 @@ class LuckNumberPage extends BaseWidget<LuckNumberController>{
                                     ):
                                     TextWidget(data: bean.iconList.first, color: bean.winner?"#FFFB24":"#D7DCE1", size: 30.sp,fontWeight: FontWeight.bold,fontFamily: "ft",fontStyle: FontStyle.italic,),
                                     bean.winType==WinType.coins?
-                                    TextWidget(data: "${bean.rewardNum}", color: "#FFD725", size: 14.sp,fontWeight: FontWeight.bold,fontStyle: FontStyle.italic,):
+                                    TextWidget(data: "\$${bean.rewardNum}", color: "#FFD725", size: 14.sp,fontWeight: FontWeight.bold,fontStyle: FontStyle.italic,):
                                     Row(
                                       mainAxisSize: MainAxisSize.min,
                                       children: [

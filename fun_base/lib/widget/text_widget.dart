@@ -11,6 +11,7 @@ class TextWidget extends StatelessWidget{
   TextOverflow? overflow;
   double? colorOpacity;
   TextAlign? textAlign;
+  bool? showShadows;
 
   TextWidget({
     required this.data,
@@ -22,6 +23,7 @@ class TextWidget extends StatelessWidget{
     this.overflow,
     this.colorOpacity,
     this.textAlign,
+    this.showShadows=true,
 });
 
   @override
@@ -35,6 +37,13 @@ class TextWidget extends StatelessWidget{
       fontFamily: fontFamily,
       fontStyle: fontStyle,
       overflow: overflow,
+      shadows: showShadows==true?[
+      Shadow(
+          color: "#000000".toColor(),
+          blurRadius: 2.w,
+          offset: Offset(0,0.5.w)
+      )
+      ]:null,
     ),
   );
 }

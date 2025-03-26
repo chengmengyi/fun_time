@@ -58,8 +58,10 @@ class BoxController extends BaseController{
     }
     RouterUtils.dialog(
       widget: BoxDialog(
-        dismiss: (){
-          _updateTimer();
+        dismiss: (bool received){
+          if(received){
+            _updateTimer();
+          }
         },
       ),
     );

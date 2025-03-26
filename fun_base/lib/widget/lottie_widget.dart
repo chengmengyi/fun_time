@@ -8,14 +8,17 @@ class LottieWidget extends StatelessWidget{
   double? width;
   double? height;
   bool? repeat;
+  Animation<double>? controller;
+
   LottieWidget({
     required this.name,
     required this.ext,
     this.width,
     this.height,
     this.repeat,
+    this.controller,
 });
   @override
-  Widget build(BuildContext context) => Lottie.asset("ft_resource/lottie/$name.$ext",width: width,height: height,fit: BoxFit.fitWidth,repeat: repeat??true);
+  Widget build(BuildContext context) => Lottie.asset("ft_resource/lottie/$name.$ext",width: width,height: height,fit: BoxFit.fitWidth,repeat: repeat??true,controller: controller);
 
 }

@@ -54,8 +54,45 @@ PODS:
   - BigoADS (4.6.0)
   - ChartboostSDK (9.8.1)
   - FBAudienceNetwork (6.17.0)
+  - Firebase/CoreOnly (11.8.0):
+    - FirebaseCore (~> 11.8.0)
+  - Firebase/RemoteConfig (11.8.0):
+    - Firebase/CoreOnly
+    - FirebaseRemoteConfig (~> 11.8.0)
+  - firebase_core (3.12.1):
+    - Firebase/CoreOnly (= 11.8.0)
+    - Flutter
+  - firebase_remote_config (5.3.0):
+    - Firebase/RemoteConfig (= 11.8.0)
+    - firebase_core
+    - Flutter
+  - FirebaseABTesting (11.8.0):
+    - FirebaseCore (~> 11.8.0)
+  - FirebaseCore (11.8.1):
+    - FirebaseCoreInternal (~> 11.8.0)
+    - GoogleUtilities/Environment (~> 8.0)
+    - GoogleUtilities/Logger (~> 8.0)
+  - FirebaseCoreInternal (11.8.0):
+    - "GoogleUtilities/NSData+zlib (~> 8.0)"
+  - FirebaseInstallations (11.8.0):
+    - FirebaseCore (~> 11.8.0)
+    - GoogleUtilities/Environment (~> 8.0)
+    - GoogleUtilities/UserDefaults (~> 8.0)
+    - PromisesObjC (~> 2.4)
+  - FirebaseRemoteConfig (11.8.0):
+    - FirebaseABTesting (~> 11.0)
+    - FirebaseCore (~> 11.8.0)
+    - FirebaseInstallations (~> 11.0)
+    - FirebaseRemoteConfigInterop (~> 11.0)
+    - FirebaseSharedSwift (~> 11.0)
+    - GoogleUtilities/Environment (~> 8.0)
+    - "GoogleUtilities/NSData+zlib (~> 8.0)"
+  - FirebaseRemoteConfigInterop (11.10.0)
+  - FirebaseSharedSwift (11.10.0)
   - Flutter (1.0.0)
   - flutter_ad_ios_plugins (0.0.1):
+    - Flutter
+  - flutter_app_lifecycle (0.0.1):
     - Flutter
   - flutter_local_notifications (0.0.1):
     - Flutter
@@ -73,6 +110,17 @@ PODS:
   - Google-Mobile-Ads-SDK (11.13.0):
     - GoogleUserMessagingPlatform (>= 1.1)
   - GoogleUserMessagingPlatform (2.7.0)
+  - GoogleUtilities/Environment (8.0.2):
+    - GoogleUtilities/Privacy
+  - GoogleUtilities/Logger (8.0.2):
+    - GoogleUtilities/Environment
+    - GoogleUtilities/Privacy
+  - "GoogleUtilities/NSData+zlib (8.0.2)":
+    - GoogleUtilities/Privacy
+  - GoogleUtilities/Privacy (8.0.2)
+  - GoogleUtilities/UserDefaults (8.0.2):
+    - GoogleUtilities/Logger
+    - GoogleUtilities/Privacy
   - in_app_review (0.2.0):
     - Flutter
   - InMobiSDK (10.8.0)
@@ -82,6 +130,7 @@ PODS:
   - path_provider_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
+  - PromisesObjC (2.4.0)
   - sqflite (0.0.3):
     - Flutter
     - FlutterMacOS
@@ -119,8 +168,11 @@ DEPENDENCIES:
   - AppLovinMediationVungleAdapter
   - appsflyer_sdk (from `.symlinks/plugins/appsflyer_sdk/ios`)
   - audioplayers_darwin (from `.symlinks/plugins/audioplayers_darwin/ios`)
+  - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
+  - firebase_remote_config (from `.symlinks/plugins/firebase_remote_config/ios`)
   - Flutter (from `Flutter`)
   - flutter_ad_ios_plugins (from `.symlinks/plugins/flutter_ad_ios_plugins/ios`)
+  - flutter_app_lifecycle (from `.symlinks/plugins/flutter_app_lifecycle/ios`)
   - flutter_local_notifications (from `.symlinks/plugins/flutter_local_notifications/ios`)
   - flutter_tba_info (from `.symlinks/plugins/flutter_tba_info/ios`)
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
@@ -153,12 +205,22 @@ SPEC REPOS:
     - BigoADS
     - ChartboostSDK
     - FBAudienceNetwork
+    - Firebase
+    - FirebaseABTesting
+    - FirebaseCore
+    - FirebaseCoreInternal
+    - FirebaseInstallations
+    - FirebaseRemoteConfig
+    - FirebaseRemoteConfigInterop
+    - FirebaseSharedSwift
     - Google-Mobile-Ads-SDK
     - GoogleUserMessagingPlatform
+    - GoogleUtilities
     - InMobiSDK
     - IronSourceSDK
     - MolocoSDKiOS
     - OMSDK_Appodeal
+    - PromisesObjC
     - StackModules
     - Toast
     - UnityAds
@@ -171,10 +233,16 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/appsflyer_sdk/ios"
   audioplayers_darwin:
     :path: ".symlinks/plugins/audioplayers_darwin/ios"
+  firebase_core:
+    :path: ".symlinks/plugins/firebase_core/ios"
+  firebase_remote_config:
+    :path: ".symlinks/plugins/firebase_remote_config/ios"
   Flutter:
     :path: Flutter
   flutter_ad_ios_plugins:
     :path: ".symlinks/plugins/flutter_ad_ios_plugins/ios"
+  flutter_app_lifecycle:
+    :path: ".symlinks/plugins/flutter_app_lifecycle/ios"
   flutter_local_notifications:
     :path: ".symlinks/plugins/flutter_local_notifications/ios"
   flutter_tba_info:
@@ -220,8 +288,19 @@ SPEC CHECKSUMS:
   BigoADS: c4d9ec9cf6d3346843e126cdba111647ec402d9b
   ChartboostSDK: 5d387aeccf2748cd71c0b033e6c2cad4a558b308
   FBAudienceNetwork: 0f84c13e480f480a1290ca998f82533a3f476c14
+  Firebase: d80354ed7f6df5f9aca55e9eb47cc4b634735eaf
+  firebase_core: 8d552814f6c01ccde5d88939fced4ec26f2f5510
+  firebase_remote_config: 087391777c86086c8c6d887189562d736f55a51d
+  FirebaseABTesting: 7d6eee42b9137541eac2610e5fea3568d956707a
+  FirebaseCore: 99fe0c4b44a39f37d99e6404e02009d2db5d718d
+  FirebaseCoreInternal: df24ce5af28864660ecbd13596fc8dd3a8c34629
+  FirebaseInstallations: 6c963bd2a86aca0481eef4f48f5a4df783ae5917
+  FirebaseRemoteConfig: f63724461fd97f0d62f20021314b59388f3e8ef8
+  FirebaseRemoteConfigInterop: 7c9a9c65eff32cbb0f7bf8d18140612ad57dfcc6
+  FirebaseSharedSwift: 1baacae75939499b5def867cbe34129464536a38
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   flutter_ad_ios_plugins: 39f145153e9fe06753e9b28fb7b43925ae399a71
+  flutter_app_lifecycle: 96f63b433a79e643add0fd0a58eabf1a0877e176
   flutter_local_notifications: 395056b3175ba4f08480a7c5de30cd36d69827e4
   flutter_tba_info: fce89f2ce0bf3af177f0c88e99b153260bc6a7df
   fluttertoast: 61c4d04b244937570e728fcd5f541ddc8b58d01c
@@ -230,12 +309,14 @@ SPEC CHECKSUMS:
   fun_base: c46f9e995008155795af2f851add120a4b1e924c
   Google-Mobile-Ads-SDK: 14f57f2dc33532a24db288897e26494640810407
   GoogleUserMessagingPlatform: a8b56893477f67212fbc8411c139e61d463349f5
+  GoogleUtilities: 26a3abef001b6533cf678d3eb38fd3f614b7872d
   in_app_review: 8efcf4a4d3ba72d5d776d29e5a268f1abf64d184
   InMobiSDK: 0cfb1a1eb5112fa0236ae1fab549e31fb96c9566
   IronSourceSDK: 0b5a640179ef91acc637332608183a05db1757df
   MolocoSDKiOS: 57d989984793ed15c7eed4aab36dd352cd5a2529
   OMSDK_Appodeal: 066f9da2c77d560e319341c6bd4739828bc65842
   path_provider_foundation: 080d55be775b7414fd5a5ef3ac137b97b097e564
+  PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
   sqflite: c35dad70033b8862124f8337cc994a809fcd9fa3
   StackModules: f43fdc3fc047c0e208a6a44d604c97b2d1651bd7
   Toast: 1f5ea13423a1e6674c4abdac5be53587ae481c4e

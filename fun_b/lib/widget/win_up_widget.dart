@@ -19,9 +19,9 @@ class WinUpWidget extends StatelessWidget{
   Widget build(BuildContext context) =>Row(
     mainAxisSize: MainAxisSize.min,
     children: [
-      TextWidget(data: "WIN UP TO", color: "#FFFFFF", size: leftFontSize??24.sp,fontWeight: FontWeight.bold,fontStyle: FontStyle.italic,),
+      TextWidget(data: "WIN UP TO", color: "#FFFFFF", size: leftFontSize??24.sp,fontWeight: FontWeight.bold,fontStyle: FontStyle.italic,showShadows: true,),
       SizedBox(width: 2.w,),
-      TextWidget(data: "${GameConfigHep.instance.getMaxWinUpNum(winnerType)}", color: numTextColor??"#FF3333", size: rightFontSize??32.sp,fontWeight: FontWeight.bold,fontStyle: FontStyle.italic,),
+      TextWidget(data: "\$${GameConfigHep.instance.getMaxWinUpNum(winnerType)}", color: numTextColor??"#FF3333", size: rightFontSize??32.sp,fontWeight: FontWeight.bold,fontStyle: FontStyle.italic,showShadows: true,),
     ],
   );
 }

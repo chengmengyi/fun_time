@@ -16,4 +16,5 @@ class EventCode{
   static const int clickBox=105;
   static const int updateHomeIndex=106;
   static const int updateCashList=107;
+  static const int showMoneyLottie=108;
 }

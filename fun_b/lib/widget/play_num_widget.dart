@@ -29,7 +29,7 @@ class PlayNumWidget extends StatelessWidget{
                 color: "#000000".toColor(),
               )
           ),
-          child: TextWidget(data: "${UserInfoHep.instance.getPlayNum(winnerType)}", color: "#FFD84B", size: 20.sp,fontWeight: FontWeight.bold,),
+          child: TextWidget(data: "${UserInfoHep.instance.getPlayNum(winnerType)}", color: "#FFD84B", size: 20.sp,fontWeight: FontWeight.bold),
         ),
         Align(
           alignment: Alignment.centerRight,

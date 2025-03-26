@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:fun_b/bean/winner_back_bean.dart';
+import 'package:fun_b/hep/storage/storage_bean.dart';
 import 'package:fun_b/page/winner_game1/winner_game_controller.dart';
+import 'package:fun_b/widget/money_lottie_widget.dart';
 import 'package:fun_b/widget/play_num_widget.dart';
 import 'package:fun_b/widget/play_top_widget.dart';
+import 'package:fun_b/widget/pops_widget.dart';
 import 'package:fun_b/widget/win_up_widget.dart';
 import 'package:fun_base/base/base_widget.dart';
 import 'package:fun_base/util/util.dart';
 import 'package:fun_base/widget/local_image_widget.dart';
+import 'package:fun_base/widget/lottie_widget.dart';
 import 'package:fun_base/widget/text_widget.dart';
 
 class WinnerGamePage extends BaseWidget<WinnerGameController>{
@@ -47,6 +51,8 @@ class WinnerGamePage extends BaseWidget<WinnerGameController>{
             ),
             _diamondWidget(),
             _goldWidget(),
+            PopsWidget(),
+            MoneyLottieWidget(),
           ],
         ),
       ),
@@ -112,7 +118,7 @@ class WinnerGamePage extends BaseWidget<WinnerGameController>{
                                     height: maxHeight/4,
                                     alignment: Alignment.center,
                                     child: rewardBean.winType==WinType.coins?
-                                    TextWidget(data: "${rewardBean.rewardNum}", color: "#FFD725", size: 16.sp,fontWeight: FontWeight.bold,fontFamily: "ft",):
+                                    TextWidget(data: "\$${rewardBean.rewardNum}", color: "#FFD725", size: 16.sp,fontWeight: FontWeight.bold,fontFamily: "ft",showShadows: true,):
                                     Row(
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
@@ -170,7 +176,19 @@ class WinnerGamePage extends BaseWidget<WinnerGameController>{
             margin: EdgeInsets.only(bottom: 46.h),
             child: WinUpWidget(winnerType: ftController.winnerType,),
           ),
-        )
+        ),
+        GetBuilder<WinnerGameController>(
+          id: "gua_finger",
+          builder: (_)=>Visibility(
+            visible: firstGuaka.getData(),
+            child: Container(
+              margin: EdgeInsets.only(top: 106.h),
+              child: IgnorePointer(
+                child: LottieWidget(name: "guakai", ext: "json"),
+              ),
+            ),
+          ),
+        ),
       ],
     ),
   );

@@ -8,19 +8,16 @@ import 'package:fun_b/hep/comment_hep.dart';
 import 'package:fun_b/hep/game_config_hep.dart';
 import 'package:fun_b/hep/hep.dart';
 import 'package:fun_b/hep/played_num_hep.dart';
-import 'package:fun_b/hep/user_info_hep.dart';
 import 'package:fun_base/base/base_controller.dart';
 import 'package:fun_base/routers/routers_utils.dart';
 import 'package:fun_base/util/event/event_code.dart';
 import 'package:fun_base/util/event/event_data.dart';
 import 'package:fun_base/util/event/event_result.dart';
+import 'package:fun_base/util/firebase_hep.dart';
 import 'package:fun_base/util/package_type/package_type_hep.dart';
-import 'package:fun_base/util/sql/base_sql_hep.dart';
-import 'package:fun_base/util/tba_point/custom_point.dart';
-import 'package:fun_base/util/tba_point/tab_point_hep.dart';
 
 class CardsController extends BaseController{
-  var chooseIndex=0;
+  var chooseIndex=0,showGameIcon=PackageTypeHep.instance.cloakIsWhite();
   List<HomeListBean> homeList=[
     HomeListBean(uns: "list_uns1", sel: "list_sel1", center: "list1",numIcon: "num1",winnerType: WinnerType.winnerGame),
     HomeListBean(uns: "list_uns2", sel: "list_sel2", center: "list2",numIcon: "num2",winnerType: WinnerType.fruitMatch),
@@ -41,6 +38,10 @@ class CardsController extends BaseController{
     super.onReady();
     _showBoxFinger();
     _showPlayFinger();
+    PackageTypeHep.instance.cloakResultCall=(){
+      showGameIcon=PackageTypeHep.instance.cloakIsWhite();
+      update(["game_icon"]);
+    };
   }
 
   clickItem(index){
@@ -66,10 +67,6 @@ class CardsController extends BaseController{
   }
 
   toPlay()async{
-    if(null!=playFingerOffset){
-      playFingerOffset=null;
-      update(["play_finger"]);
-    }
     var bean = homeList[chooseIndex];
     var canPlay = await PlayedNumHep.instance.checkCanPlay(bean.winnerType);
     if(canPlay){
@@ -132,6 +129,7 @@ class CardsController extends BaseController{
       return;
     }
     // UserInfoHep.instance.updateUserCoins(500);
-    CashHep.instance.updateCashTask(CashTaskType.card);
+    // CashHep.instance.updateCashTask(CashTaskType.card);
+    FirebaseHep.instance.initFirebase();
   }
 }

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:fun_b/bean/winner_back_bean.dart';
 import 'package:fun_b/page/casino_rush4/casino_rush_controller.dart';
+import 'package:fun_b/widget/money_lottie_widget.dart';
 import 'package:fun_b/widget/play_num_widget.dart';
 import 'package:fun_b/widget/play_top_widget.dart';
+import 'package:fun_b/widget/pops_widget.dart';
 import 'package:fun_b/widget/win_up_widget.dart';
 import 'package:fun_base/base/base_widget.dart';
 import 'package:fun_base/util/util.dart';
@@ -47,6 +49,8 @@ class CasinoRushPage extends BaseWidget<CasinoRushController>{
           ),
           _diamondWidget(),
           _goldWidget(),
+          PopsWidget(),
+          MoneyLottieWidget(),
         ],
       ),
     ),
@@ -151,7 +155,7 @@ class CasinoRushPage extends BaseWidget<CasinoRushController>{
                                       ),
                                     ),
                                     bean.winType==WinType.coins?
-                                    TextWidget(data: "${bean.rewardNum}", color: "#FFD725", size: 14.sp,fontWeight: FontWeight.bold,fontStyle: FontStyle.italic,):
+                                    TextWidget(data: "\$${bean.rewardNum}", color: "#FFD725", size: 12.sp,fontWeight: FontWeight.bold,fontStyle: FontStyle.italic,):
                                     Row(
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
@@ -159,7 +163,7 @@ class CasinoRushPage extends BaseWidget<CasinoRushController>{
                                           key: index==indexWhere?ftController.diamondGlobalKey:null,
                                           child: LocalImageWidget(image: "icon_diamond", width: 24.w, height: 24.h),
                                         ),
-                                        TextWidget(data: "+1", color: "#FFD725", size: 14.sp,fontWeight: FontWeight.bold,fontStyle: FontStyle.italic,),
+                                        TextWidget(data: "+1", color: "#FFD725", size: 12.sp,fontWeight: FontWeight.bold,fontStyle: FontStyle.italic,),
                                       ],
                                     ),
                                     SizedBox(height: 4.h,)

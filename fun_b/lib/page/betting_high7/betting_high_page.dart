@@ -2,8 +2,10 @@ import 'package:fun_b/bean/winner_back_bean.dart';
 import 'package:fun_b/bean/winner_reward_bean.dart';
 import 'package:fun_b/page/betting_high7/betting_high_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:fun_b/widget/money_lottie_widget.dart';
 import 'package:fun_b/widget/play_num_widget.dart';
 import 'package:fun_b/widget/play_top_widget.dart';
+import 'package:fun_b/widget/pops_widget.dart';
 import 'package:fun_b/widget/win_up_widget.dart';
 import 'package:fun_base/base/base_widget.dart';
 import 'package:fun_base/util/util.dart';
@@ -48,6 +50,8 @@ class BettingHighPage extends BaseWidget<BettingHighController>{
           ),
           _diamondWidget(),
           _goldWidget(),
+          PopsWidget(),
+          MoneyLottieWidget(),
         ],
       ),
     ),
@@ -133,7 +137,7 @@ class BettingHighPage extends BaseWidget<BettingHighController>{
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
                                           LocalImageWidget(image: "icon_coins", width: 14.w, height: 14.w),
-                                          TextWidget(data: "${bean.rewardNum}", color: "#FFD725", size: 14.sp,fontWeight: FontWeight.bold,fontStyle: FontStyle.italic,),
+                                          TextWidget(data: "\$${bean.rewardNum}", color: "#FFD725", size: 14.sp,fontWeight: FontWeight.bold,fontStyle: FontStyle.italic,),
                                         ],
                                       ):
                                       Row(

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:fun_b/bean/winner_back_bean.dart';
 import 'package:fun_b/page/chasing_luck3/chasing_luck_controller.dart';
+import 'package:fun_b/widget/money_lottie_widget.dart';
 import 'package:fun_b/widget/play_num_widget.dart';
 import 'package:fun_b/widget/play_top_widget.dart';
+import 'package:fun_b/widget/pops_widget.dart';
 import 'package:fun_b/widget/win_up_widget.dart';
 import 'package:fun_base/base/base_widget.dart';
 import 'package:fun_base/util/util.dart';
@@ -47,6 +49,8 @@ class ChasingLuckPage extends BaseWidget<ChasingLuckController>{
           ),
           _diamondWidget(),
           _goldWidget(),
+          PopsWidget(),
+          MoneyLottieWidget(),
         ],
       ),
     ),
@@ -124,7 +128,7 @@ class ChasingLuckPage extends BaseWidget<ChasingLuckController>{
                                     ):
                                     LocalImageWidget(image: bean.iconList.first, width: 48.w, height: 48.w),
                                     bean.winType==WinType.coins?
-                                    TextWidget(data: "${bean.rewardNum}", color: "#FFD725", size: 14.sp,fontWeight: FontWeight.bold,fontStyle: FontStyle.italic,):
+                                    TextWidget(data: "\$${bean.rewardNum}", color: "#FFD725", size: 12.sp,fontWeight: FontWeight.bold,fontStyle: FontStyle.italic,):
                                     Row(
                                       mainAxisSize: MainAxisSize.min,
                                       children: [

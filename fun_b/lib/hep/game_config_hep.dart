@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:fun_b/bean/game_config_bean.dart';
 import 'package:fun_b/bean/winner_back_bean.dart';
 import 'package:fun_b/hep/local_data.dart';
+import 'package:fun_base/util/firebase_hep.dart';
 import 'package:fun_base/util/util.dart';
 
 enum WinnerType{
@@ -17,7 +18,22 @@ class GameConfigHep {
   GameConfigBean? _gameConfigBean;
 
   initData(){
-    _gameConfigBean=GameConfigBean.fromJson(jsonDecode(gameConfigStr.base64()));
+    _gameConfigBean=GameConfigBean.fromJson(_getConfigData());
+    FirebaseHep.instance.gameCall=(){
+      _gameConfigBean=GameConfigBean.fromJson(_getConfigData());
+    };
+  }
+
+  _getConfigData(){
+    try{
+      var data = gameConfig.getData();
+      if(data.isEmpty){
+        return jsonDecode(gameConfigStr.base64());
+      }
+      return jsonDecode(data);
+    }catch(e){
+      return jsonDecode(gameConfigStr.base64());
+    }
   }
 
   int getMaxWinUpNum(WinnerType winnerType){

@@ -5,13 +5,16 @@ import 'package:fun_b/page/home/cards/cards_controller.dart';
 import 'package:fun_b/widget/box/box_widget.dart';
 import 'package:fun_b/widget/coins_widget.dart';
 import 'package:fun_b/widget/diamond_widget.dart';
+import 'package:fun_b/widget/money_lottie_widget.dart';
 import 'package:fun_b/widget/pops_widget.dart';
 import 'package:fun_b/widget/win_up_widget.dart';
 import 'package:fun_base/base/base_widget.dart';
 import 'package:fun_base/routers/routers_utils.dart';
+import 'package:fun_base/util/h5_hep.dart';
 import 'package:fun_base/util/util.dart';
 import 'package:fun_base/widget/finger_widget.dart';
 import 'package:fun_base/widget/local_image_widget.dart';
+import 'package:fun_base/widget/lottie_widget.dart';
 import 'package:fun_base/widget/text_widget.dart';
 
 class CardsChild extends BaseWidget<CardsController>{
@@ -45,9 +48,26 @@ class CardsChild extends BaseWidget<CardsController>{
           ],
         ),
       ),
+      Positioned(
+        left: 12.w,
+        bottom: 180.h,
+        child: GetBuilder<CardsController>(
+          id: "game_icon",
+          builder: (_)=>Visibility(
+            visible: ftController.showGameIcon,
+            child: InkWell(
+              onTap: (){
+                H5Hep.instance.clickH5();
+              },
+              child: LocalImageWidget(image: "icon_h5", width: 40.w, height: 40.w),
+            ),
+          ),
+        ),
+      ),
       _boxFingerWidget(),
       _playFingerWidget(),
       PopsWidget(),
+      MoneyLottieWidget(),
     ],
   );
 
@@ -159,7 +179,7 @@ class CardsChild extends BaseWidget<CardsController>{
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       SizedBox(width: 16.w,),
-      CoinsWidget(),
+      CoinsWidget(fromPlayDetail: false,),
       SizedBox(width: 8.w,),
       DiamondWidget(),
       const Spacer(),

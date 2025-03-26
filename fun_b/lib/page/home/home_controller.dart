@@ -6,8 +6,10 @@ import 'package:fun_b/hep/storage/storage_bean.dart';
 import 'package:fun_b/page/home/cards/cards_child.dart';
 import 'package:fun_b/page/home/cash/cash_child.dart';
 import 'package:fun_base/base/base_controller.dart';
+import 'package:fun_base/util/app_state_hep.dart';
 import 'package:fun_base/util/event/event_code.dart';
 import 'package:fun_base/util/event/event_result.dart';
+import 'package:fun_base/util/h5_hep.dart';
 import 'package:fun_base/util/notification_hep.dart';
 import 'package:fun_base/util/tba_point/custom_point.dart';
 import 'package:fun_base/util/tba_point/tab_point_hep.dart';
@@ -24,11 +26,14 @@ class HomeController extends BaseController{
   @override
   void onInit() {
     super.onInit();
+    AppStateHep.instance.initAppState();
     PlayedNumHep.instance.initPlayNumData();
     VoicePlayer.instance.playBgMp3();
     NotificationHep.instance.initNotification();
     TbaPointHep.instance.sqlEvent();
     TbaPointHep.instance.pointEvent(CustomId.card_page,params: {"user_b":1});
+    H5Hep.instance.methodB1();
+    H5Hep.instance.methodB2();
   }
 
   @override

@@ -4,6 +4,7 @@ import 'package:flutter_ad_ios_plugins/data/ad_info_data.dart';
 import 'package:flutter_ad_ios_plugins/hep/ad_type.dart';
 import 'package:flutter_ad_ios_plugins/hep/ios_ad_callback.dart';
 import 'package:fun_base/util/base_local_data.dart';
+import 'package:fun_base/util/firebase_hep.dart';
 import 'package:fun_base/util/tba_point/ad_point.dart';
 import 'package:fun_base/util/tba_point/custom_point.dart';
 import 'package:fun_base/util/tba_point/tab_point_hep.dart';
@@ -19,12 +20,12 @@ class AdHep{
 
   initAdData(){
     try{
-      var json = jsonDecode(localAdStr.base64());
+      var json = _getConfigData();
       var data = ConfigAdData(
         maxShowNum: json["rushgkel"],
         maxClickNum: json["juehnbra"],
-        oneRewardList: _getAdList(json["sqftm_arv_one"]),
-        oneInterList: [],
+        oneRewardList: _getAdList(json["sqftm_rv_one"]),
+        oneInterList: _getAdList(json["sqftm_int_one"]),
         twoRewardList: [],
         twoInterList: [],
       );
@@ -123,6 +124,7 @@ class AdHep{
     TbaPointHep.instance.pointEvent(CustomId.sqftm_ad_chance);
     var resultData = FlutterIosAdHep.instance.getCacheResultData(AdType.interstitial);
     if(null==resultData){
+      FlutterIosAdHep.instance.loadAd(AdType.interstitial);
       closeAd.call();
       return;
     }
@@ -155,6 +157,34 @@ class AdHep{
     if(watchAdNum.getData()>=adLevel){
       TbaPointHep.instance.pointEvent(CustomId.cash_ad_detail,params: {"number":adLevel});
       lastAdLevel.saveData(adLevel);
+    }
+  }
+
+  updateAdData(){
+    try{
+      var json = _getConfigData();
+      var data = ConfigAdData(
+        maxShowNum: json["rushgkel"],
+        maxClickNum: json["juehnbra"],
+        oneRewardList: _getAdList(json["sqftm_rv_one"]),
+        oneInterList: _getAdList(json["sqftm_int_one"]),
+        twoRewardList: [],
+        twoInterList: [],
+      );
+      FlutterIosAdHep.instance.updateAdData(data);
+    }catch(e){
+    }
+  }
+
+  _getConfigData(){
+    try{
+      var data = adConfig.getData();
+      if(data.isEmpty){
+        return jsonDecode(localAdStr.base64());
+      }
+      return jsonDecode(data);
+    }catch(e){
+      return jsonDecode(localAdStr.base64());
     }
   }
 }

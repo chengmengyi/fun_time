@@ -71,7 +71,7 @@ class AddChanceDialog extends BaseDialog<AddChanceController>{
                   children: [
                     LocalImageWidget(image: "add4", width: double.infinity, height: 40.h),
                     Align(
-                      child: TextWidget(data: "GET", color: "#FFFFFF", size: 18.sp,fontWeight: FontWeight.bold,),
+                      child: TextWidget(data: "GET", color: "#FFFFFF", size: 18.sp,fontWeight: FontWeight.bold,showShadows: true,),
                     ),
                     Align(
                       alignment: Alignment.centerLeft,

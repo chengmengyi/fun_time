@@ -23,7 +23,13 @@ class WatchVideoWidget extends StatelessWidget{
         children: [
           LocalImageWidget(image: "watch1", width: double.infinity, height: 52.h),
           Align(
-            child: TextWidget(data: btnStr, color: "#FFFFFF", size: 18.sp,fontWeight: FontWeight.bold,),
+            child: TextWidget(
+              data: btnStr,
+              color: "#FFFFFF",
+              size: 18.sp,
+              fontWeight: FontWeight.bold,
+              showShadows: true,
+            ),
           ),
           Align(
             alignment: Alignment.centerLeft,

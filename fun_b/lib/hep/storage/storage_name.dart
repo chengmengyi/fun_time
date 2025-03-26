@@ -11,4 +11,5 @@ class StorageName{
   static const String firstRewardDialogClickClaim="firstRewardDialogClickClaimB";
   static const String cashTaskWatchVideoNum="cashTaskWatchVideoNumB";
   static const String lastMoneyLevel="lastMoneyLevelB";
+  static const String firstGuaka="firstGuakaB";
 }

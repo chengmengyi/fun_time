@@ -9,7 +9,7 @@ import 'package:fun_base/widget/lottie_widget.dart';
 import 'package:fun_base/widget/text_widget.dart';
 
 class BoxDialog extends BaseDialog<BoxDialogController>{
-  Function() dismiss;
+  Function(bool received) dismiss;
   BoxDialog({
     required this.dismiss,
 });
@@ -33,7 +33,7 @@ class BoxDialog extends BaseDialog<BoxDialogController>{
         onTap: (){
           ftController.clickGet(dismiss);
         },
-        child: TextWidget(data: "Claim", color: "#FFFFFF", size: 18.sp,fontWeight: FontWeight.bold,),
+        child: TextWidget(data: "Give Up", color: "#FFFFFF", size: 18.sp,fontWeight: FontWeight.bold, showShadows: true,),
       )
     ],
   );

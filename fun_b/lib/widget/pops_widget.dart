@@ -126,4 +126,12 @@ class _PopsWidgetState extends State<PopsWidget>{
       },
     );
   }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    _timer=null;
+    super.dispose();
+
+  }
 }

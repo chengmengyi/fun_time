@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:fun_b/bean/winner_back_bean.dart';
 import 'package:fun_b/page/fruit_match2/fruit_match_controller.dart';
+import 'package:fun_b/widget/money_lottie_widget.dart';
 import 'package:fun_b/widget/play_num_widget.dart';
 import 'package:fun_b/widget/play_top_widget.dart';
+import 'package:fun_b/widget/pops_widget.dart';
 import 'package:fun_b/widget/win_up_widget.dart';
 import 'package:fun_base/base/base_widget.dart';
 import 'package:fun_base/util/util.dart';
@@ -47,6 +49,8 @@ class FruitMatchPage extends BaseWidget<FruitMatchController>{
           ),
           _diamondWidget(),
           _goldWidget(),
+          PopsWidget(),
+          MoneyLottieWidget(),
         ],
       ),
     ),
@@ -102,7 +106,7 @@ class FruitMatchPage extends BaseWidget<FruitMatchController>{
                               var maxWidth = bc.maxWidth;
                               return SizedBox(
                                 width: double.infinity,
-                                height: 64.h,
+                                height: 66.h,
                                 child: ListView.builder(
                                   scrollDirection: Axis.horizontal,
                                   itemCount: ftController.winnerRewardList.length,
@@ -123,7 +127,7 @@ class FruitMatchPage extends BaseWidget<FruitMatchController>{
                                           ):
                                           LocalImageWidget(image: bean.iconList.first, width: 36.w, height: 36.w),
                                           bean.winType==WinType.coins?
-                                          TextWidget(data: "${bean.rewardNum}", color: "#FFD725", size: 14.sp,fontWeight: FontWeight.bold,fontStyle: FontStyle.italic,):
+                                          TextWidget(data: "\$${bean.rewardNum}", color: "#FFD725", size: 12.sp,fontWeight: FontWeight.bold,fontStyle: FontStyle.italic,):
                                           Row(
                                             mainAxisSize: MainAxisSize.min,
                                             children: [

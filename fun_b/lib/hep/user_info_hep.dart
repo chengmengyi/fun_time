@@ -51,7 +51,7 @@ class UserInfoHep{
       TbaPointHep.instance.pointEvent(CustomId.cash_money_detail,params: {"money":moneyLevel});
       lastMoneyLevel.saveData(moneyLevel);
     }
-    EventData(code: EventCode.updateUserCoinsB).send();
+    EventData(code: EventCode.showMoneyLottie).send();
     if(coins>0&&firstGetReward.getData()){
       CommentHep.instance.showCommentDialog();
       EventData(code: EventCode.firstGetReward).send();

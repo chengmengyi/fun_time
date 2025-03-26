@@ -3,6 +3,7 @@ import 'package:fun_b/dialog/big_win/big_win_controller.dart';
 import 'package:fun_base/base/base_dialog.dart';
 import 'package:fun_base/util/util.dart';
 import 'package:fun_base/widget/local_image_widget.dart';
+import 'package:fun_base/widget/lottie_widget.dart';
 import 'package:fun_base/widget/text_widget.dart';
 
 class BigWinDialog extends BaseDialog<BigWinController>{
@@ -29,22 +30,13 @@ class BigWinDialog extends BaseDialog<BigWinController>{
   _bigWidget()=>Stack(
     alignment: Alignment.bottomCenter,
     children: [
-      LocalImageWidget(image: "big1", width: 280.w, height: 280.w),
-      Container(
-        margin: EdgeInsets.only(bottom: 30.h),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            LocalImageWidget(image: "big2", width: 160.w, height: 124.h),
-            Stack(
-              alignment: Alignment.center,
-              children: [
-                LocalImageWidget(image: "big3", width: 180.w, height: 44.h),
-                TextWidget(data: "$reward", color: "#FFE32A", size: 24.sp,fontWeight: FontWeight.bold,)
-              ],
-            )
-          ],
-        ),
+      LottieWidget(name: "bigwin", ext: "json"),
+      Stack(
+        alignment: Alignment.center,
+        children: [
+          LocalImageWidget(image: "big3", width: 180.w, height: 44.h),
+          TextWidget(data: "\$$reward", color: "#FFE32A", size: 24.sp,fontWeight: FontWeight.bold,showShadows: true,)
+        ],
       )
     ],
   );
@@ -70,7 +62,7 @@ class BigWinDialog extends BaseDialog<BigWinController>{
                 ),
               ),
               Align(
-                child: TextWidget(data: "Claim Double", color: "#FFFFFF", size: 16.sp,fontWeight: FontWeight.bold,),
+                child: TextWidget(data: "Claim \$${reward*2}", color: "#FFFFFF", size: 20.sp,fontWeight: FontWeight.bold,showShadows: true,),
               )
             ],
           ),
@@ -80,7 +72,7 @@ class BigWinDialog extends BaseDialog<BigWinController>{
         onTap: (){
           ftController.clickSingle(reward,dismiss);
         },
-        child: TextWidget(data: "Claim", color: "#FFFFFF", size: 18.sp,fontWeight: FontWeight.bold,),
+        child: TextWidget(data: "\$$reward", color: "#FFFFFF", size: 18.sp,fontWeight: FontWeight.bold,showShadows: true,colorOpacity: 0.8,),
       )
     ],
   );

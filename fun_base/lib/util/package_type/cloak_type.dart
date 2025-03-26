@@ -39,7 +39,7 @@ class CloakType{
     if(result.isEmpty){
       _tryNum++;
       if(_tryNum<20){
-        Future.delayed(const Duration(milliseconds: 500),(){
+        Future.delayed(const Duration(milliseconds: 2000),(){
           requestClock(call);
         });
       }

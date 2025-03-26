@@ -70,7 +70,7 @@ class _DiamondWidgetState extends State<DiamondWidget>{
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    TextWidget(data: "${UserInfoHep.instance.getUserDiamond()%3}/3", color: "#FFFFFF", size: 16.sp,fontWeight: FontWeight.bold,),
+                    TextWidget(data: "${UserInfoHep.instance.getUserDiamond()%3}/3", color: "#FFFFFF", size: 16.sp,fontWeight: FontWeight.bold,showShadows: true,),
                     SizedBox(width: 2.w,),
                     SizedBox(
                       key: widget.globalKey,
@@ -84,7 +84,7 @@ class _DiamondWidgetState extends State<DiamondWidget>{
               alignment: Alignment.center,
               children: [
                 LocalImageWidget(image: "icon_level", width: 32.w, height: 32.w),
-                TextWidget(data: "${UserInfoHep.instance.getUserDiamond()~/3}", color: "#FFE227", size: 14.sp,fontWeight: FontWeight.bold,)
+                TextWidget(data: "${UserInfoHep.instance.getUserDiamond()~/3}", color: "#FFE227", size: 14.sp,fontWeight: FontWeight.bold,showShadows: true,)
               ],
             ),
           ],

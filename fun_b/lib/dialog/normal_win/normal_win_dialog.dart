@@ -4,6 +4,7 @@ import 'package:fun_b/hep/game_config_hep.dart';
 import 'package:fun_base/base/base_dialog.dart';
 import 'package:fun_base/util/util.dart';
 import 'package:fun_base/widget/local_image_widget.dart';
+import 'package:fun_base/widget/lottie_widget.dart';
 import 'package:fun_base/widget/text_widget.dart';
 
 class NormalWinDialog extends BaseDialog<NormalWinController>{
@@ -39,7 +40,7 @@ class NormalWinDialog extends BaseDialog<NormalWinController>{
     height: 266.h,
     child: Stack(
       children: [
-        LocalImageWidget(image: "big5", width: 200.w, height: 266.h),
+        LottieWidget(name: "wow", ext: "json"),
         Align(
           alignment: Alignment.bottomCenter,
           child: Container(
@@ -48,7 +49,7 @@ class NormalWinDialog extends BaseDialog<NormalWinController>{
               alignment: Alignment.center,
               children: [
                 LocalImageWidget(image: "big3", width: 180.w, height: 44.h),
-                TextWidget(data: "$reward", color: "#FFE32A", size: 24.sp,fontWeight: FontWeight.bold,)
+                TextWidget(data: "\$$reward", color: "#FFE32A", size: 24.sp,fontWeight: FontWeight.bold,showShadows: true,)
               ],
             ),
           ),
@@ -62,22 +63,22 @@ class NormalWinDialog extends BaseDialog<NormalWinController>{
     children: [
       InkWell(
         onTap: (){
-          ftController.clickDouble(reward,dismiss);
+          ftController.clickSingle(reward,dismiss);
         },
         child: Stack(
           alignment: Alignment.center,
           children: [
             LocalImageWidget(image: "big4", width: 200.w, height: 58.h),
-            TextWidget(data: "Claim Double", color: "#FFFFFF", size: 20.sp,fontWeight: FontWeight.bold,),
+            TextWidget(data: "Claim", color: "#FFFFFF", size: 20.sp,fontWeight: FontWeight.bold,showShadows: true,),
           ],
         ),
       ),
-      InkWell(
-        onTap: (){
-          ftController.clickSingle(reward,dismiss);
-        },
-        child: TextWidget(data: "Claim", color: "#FFFFFF", size: 20.sp,fontWeight: FontWeight.bold,),
-      )
+      // InkWell(
+      //   onTap: (){
+      //     ftController.clickSingle(reward,dismiss);
+      //   },
+      //   child: TextWidget(data: "Claim", color: "#FFFFFF", size: 20.sp,fontWeight: FontWeight.bold,),
+      // )
     ],
   );
 }

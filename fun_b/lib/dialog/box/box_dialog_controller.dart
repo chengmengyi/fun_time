@@ -18,7 +18,7 @@ class BoxDialogController extends BaseController{
     TbaPointHep.instance.pointEvent(CustomId.box_double_pop);
   }
 
-  clickDouble(Function() dismiss){
+  clickDouble(Function(bool received) dismiss){
     TbaPointHep.instance.pointEvent(CustomId.box_double_pop_c);
     AdHep.instance.showAd(
       adType: AdType.reward,
@@ -27,21 +27,20 @@ class BoxDialogController extends BaseController{
       closeAd: (){
         UserInfoHep.instance.updateUserCoins((Decimal.parse("$addNum")*Decimal.fromInt(2)).toDouble());
         RouterUtils.back();
-        dismiss.call();
+        dismiss.call(true);
       },
     );
   }
 
-  clickGet(Function() dismiss){
+  clickGet(Function(bool received) dismiss){
     TbaPointHep.instance.pointEvent(CustomId.box_double_pop_close);
     AdHep.instance.showAd(
       adType: AdType.interstitial,
       adPosId: AdPosId.sqftm_box_int,
       showIntAd: CashHep.instance.checkShowIntAd(AdType.interstitial),
       closeAd: (){
-        UserInfoHep.instance.updateUserCoins(addNum);
         RouterUtils.back();
-        dismiss.call();
+        dismiss.call(false);
       },
     );
   }

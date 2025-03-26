@@ -4,9 +4,12 @@ import 'package:fun_a/hep/played_num_hep.dart';
 import 'package:fun_a/page/home/ach/ach_child.dart';
 import 'package:fun_a/page/home/cards/cards_child.dart';
 import 'package:fun_base/base/base_controller.dart';
+import 'package:fun_base/util/h5_hep.dart';
+import 'package:fun_base/util/package_type/package_type_hep.dart';
 import 'package:fun_base/util/tba_point/custom_point.dart';
 import 'package:fun_base/util/tba_point/tab_point_hep.dart';
 import 'package:fun_base/util/voice_player.dart';
+
 class HomeController extends BaseController{
   var chooseIndex=0;
   List<HomeBottomBean> list=[
@@ -18,10 +21,12 @@ class HomeController extends BaseController{
   @override
   void onInit() {
     super.onInit();
+    PackageTypeHep.instance.aPackageShowed=true;
     PlayedNumHep.instance.initPlayNumData();
     VoicePlayer.instance.playBgMp3();
     TbaPointHep.instance.sqlEvent();
     TbaPointHep.instance.pointEvent(CustomId.card_page,params: {"user_b":0});
+    H5Hep.instance.methodA();
   }
 
   clickBottom(index){
@@ -30,5 +35,11 @@ class HomeController extends BaseController{
     }
     chooseIndex=index;
     update(["page"]);
+  }
+
+  @override
+  void onClose() {
+    PackageTypeHep.instance.aPackageShowed=false;
+    super.onClose();
   }
 }

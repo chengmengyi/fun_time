@@ -316,6 +316,7 @@ class CasinoRushController extends BaseController with GetTickerProviderStateMix
       RouterUtils.dialog(
         widget: NormalWinDialog(
           reward: totalReward,
+          winnerType: winnerType,
           dismiss: (){
             _reset();
           },

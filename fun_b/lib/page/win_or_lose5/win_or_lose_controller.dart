@@ -188,6 +188,7 @@ class WinOrLoseController extends BaseController with GetTickerProviderStateMixi
       RouterUtils.dialog(
         widget: NormalWinDialog(
           reward: totalReward,
+          winnerType: winnerType,
           dismiss: (){
             _reset();
           },

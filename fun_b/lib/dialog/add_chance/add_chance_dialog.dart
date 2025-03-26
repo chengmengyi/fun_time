@@ -59,94 +59,29 @@ class AddChanceDialog extends BaseDialog<AddChanceController>{
           ),
           Align(
             alignment: Alignment.bottomCenter,
-            // child: InkWell(
-            //   onTap: (){
-            //     ftController.clickCoins(winnerType);
-            //   },
-            //   child: Container(
-            //     width: 160.w,
-            //     height: 40.h,
-            //     margin: EdgeInsets.only(bottom: 16.h),
-            //     child: Stack(
-            //       children: [
-            //         LocalImageWidget(image: "add5", width: double.infinity, height: 40.h),
-            //         Align(
-            //           child: Row(
-            //             mainAxisSize: MainAxisSize.min,
-            //             children: [
-            //               TextWidget(data: "Spend", color: "#FFFFFF", size: 14.sp,fontWeight: FontWeight.bold,),
-            //               SizedBox(width: 2.w,),
-            //               LocalImageWidget(image: "icon_coins", width: 16.w, height: 16.w),
-            //               SizedBox(width: 2.w,),
-            //               TextWidget(data: "100", color: "#FFD725", size: 14.sp,fontWeight: FontWeight.bold,),
-            //             ],
-            //           ),
-            //         ),
-            //       ],
-            //     ),
-            //   ),
-            // ),
-            child: Container(
-              width: double.infinity,
-              margin: EdgeInsets.all(18.w),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: InkWell(
-                      onTap: (){
-                        ftController.clickVideo(winnerType);
-                      },
-                      child: SizedBox(
-                        width: double.infinity,
-                        height: 40.h,
-                        child: Stack(
-                          children: [
-                            LocalImageWidget(image: "add4", width: double.infinity, height: 40.h),
-                            Align(
-                              child: TextWidget(data: "GET", color: "#FFFFFF", size: 18.sp,fontWeight: FontWeight.bold,),
-                            ),
-                            Align(
-                              alignment: Alignment.centerLeft,
-                              child: Container(
-                                margin: EdgeInsets.only(left: 10.w),
-                                child: LocalImageWidget(image: "icon_video", width: 18.w, height: 18.w),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
+            child: InkWell(
+              onTap: (){
+                ftController.clickVideo(winnerType);
+              },
+              child: Container(
+                width: 160.w,
+                height: 40.h,
+                margin: EdgeInsets.only(bottom: 16.h),
+                child: Stack(
+                  children: [
+                    LocalImageWidget(image: "add4", width: double.infinity, height: 40.h),
+                    Align(
+                      child: TextWidget(data: "GET", color: "#FFFFFF", size: 18.sp,fontWeight: FontWeight.bold,),
                     ),
-                  ),
-                  SizedBox(width: 5.w,),
-                  Expanded(
-                    child: InkWell(
-                      onTap: (){
-                        ftController.clickCoins(winnerType);
-                      },
-                      child: SizedBox(
-                        width: double.infinity,
-                        height: 40.h,
-                        child: Stack(
-                          children: [
-                            LocalImageWidget(image: "add5", width: double.infinity, height: 40.h),
-                            Align(
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  TextWidget(data: "Spend", color: "#FFFFFF", size: 14.sp,fontWeight: FontWeight.bold,),
-                                  SizedBox(width: 2.w,),
-                                  LocalImageWidget(image: "icon_coins", width: 16.w, height: 16.w),
-                                  SizedBox(width: 2.w,),
-                                  TextWidget(data: "100", color: "#FFD725", size: 14.sp,fontWeight: FontWeight.bold,),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Container(
+                        margin: EdgeInsets.only(left: 10.w),
+                        child: LocalImageWidget(image: "icon_video", width: 18.w, height: 18.w),
                       ),
-                    ),
-                  ),
-                ],
+                    )
+                  ],
+                ),
               ),
             ),
           )

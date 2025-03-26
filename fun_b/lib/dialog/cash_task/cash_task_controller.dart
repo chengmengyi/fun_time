@@ -5,6 +5,8 @@ import 'package:fun_base/routers/routers_utils.dart';
 import 'package:fun_base/util/ad_hep.dart';
 import 'package:fun_base/util/event/event_code.dart';
 import 'package:fun_base/util/event/event_data.dart';
+import 'package:fun_base/util/tba_point/custom_point.dart';
+import 'package:fun_base/util/tba_point/tab_point_hep.dart';
 import 'package:fun_base/util/util.dart';
 
 class CashTaskController extends BaseController{
@@ -34,6 +36,7 @@ class CashTaskController extends BaseController{
       RouterUtils.back();
       return;
     }
+    TbaPointHep.instance.pointEvent(CustomId.one_last_step_pop_c,params: {"pop_from":tixianTask.title});
     if(tixianTask.title==CashTaskType.card){
       RouterUtils.back();
       EventData(code: EventCode.updateHomeIndex,intValue: 0).send();

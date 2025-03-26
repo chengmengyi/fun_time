@@ -8,6 +8,8 @@ import 'package:fun_base/util/event/event_code.dart';
 import 'package:fun_base/util/event/event_data.dart';
 import 'package:fun_base/util/sql/base_sql_hep.dart';
 import 'package:fun_base/util/sql/sql_table_name.dart';
+import 'package:fun_base/util/tba_point/custom_point.dart';
+import 'package:fun_base/util/tba_point/tab_point_hep.dart';
 import 'package:fun_base/util/util.dart';
 
 class UserInfoHep{
@@ -44,6 +46,11 @@ class UserInfoHep{
     }
     var coinsNum = _userInfoBean?.coinsNum??0;
     _userInfoBean?.coinsNum=(Decimal.parse("$coinsNum")+Decimal.parse("$coins")).toDouble();
+    var moneyLevel = (Decimal.parse("${lastMoneyLevel.getData()}")+Decimal.fromInt(100)).toDouble();
+    if((_userInfoBean?.coinsNum??0)>=moneyLevel){
+      TbaPointHep.instance.pointEvent(CustomId.cash_money_detail,params: {"money":moneyLevel});
+      lastMoneyLevel.saveData(moneyLevel);
+    }
     EventData(code: EventCode.updateUserCoinsB).send();
     if(coins>0&&firstGetReward.getData()){
       CommentHep.instance.showCommentDialog();

@@ -26,6 +26,9 @@ dependencies:
   dio: 5.3.3
   audioplayers: 6.1.0
   decimal: 3.1.0
+  flutter_local_notifications: 18.0.1
+  appsflyer_sdk:
+    path: plugins/appsflyer_sdk-6.15.2
   scratcher:
     path: plugins/scratcher-2.5.0
 

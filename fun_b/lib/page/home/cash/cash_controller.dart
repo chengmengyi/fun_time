@@ -2,6 +2,7 @@ import 'package:fun_b/bean/cash_info_bean.dart';
 import 'package:fun_b/bean/cash_list_bean.dart';
 import 'package:fun_b/bean/cash_type_bean.dart';
 import 'package:fun_b/dialog/account/account_dialog.dart';
+import 'package:fun_b/dialog/cash_first_step/cash_first_step_dialog.dart';
 import 'package:fun_b/dialog/cash_success/cash_success_dialog.dart';
 import 'package:fun_b/dialog/cash_task/cash_task_dialog.dart';
 import 'package:fun_b/dialog/no_money/no_money_dialog.dart';
@@ -13,6 +14,8 @@ import 'package:fun_base/base/base_controller.dart';
 import 'package:fun_base/routers/routers_utils.dart';
 import 'package:fun_base/util/event/event_code.dart';
 import 'package:fun_base/util/event/event_result.dart';
+import 'package:fun_base/util/tba_point/custom_point.dart';
+import 'package:fun_base/util/tba_point/tab_point_hep.dart';
 
 class CashController extends BaseController{
   var chooseCashTypeIndex=0;
@@ -51,6 +54,7 @@ class CashController extends BaseController{
   }
 
   clickCashBtn(CashListBean bean){
+    TbaPointHep.instance.pointEvent(CustomId.cash_page_c);
     if(null==bean.cashInfoBean){
       if(UserInfoHep.instance.getUserCoins()<bean.cashMoney){
         RouterUtils.dialog(
@@ -68,12 +72,21 @@ class CashController extends BaseController{
       }
     }else{
       switch(bean.cashInfoBean?.cashStatus){
-        case CashStatus.cashing:
+        case CashStatus.cards:
+          RouterUtils.dialog(
+            widget: CashFirstStepDialog(
+              cashType: chooseCashTypeIndex,
+              cashMoney: bean.cashMoney,
+              bean: bean.cashInfoBean!,
+            ),
+          );
+          break;
+        case CashStatus.task:
           RouterUtils.dialog(
               widget: CashTaskDialog(bean: bean.cashInfoBean!)
           );
           break;
-        case CashStatus.ranking:
+        case CashStatus.rank:
           RouterUtils.dialog(
             widget: RankDialog(
               cashTypeIcon: cashTypeList[chooseCashTypeIndex].selIcon,
@@ -82,7 +95,7 @@ class CashController extends BaseController{
             ),
           );
           break;
-        case CashStatus.success:
+        case CashStatus.complete:
           RouterUtils.dialog(
             widget: CashSuccessDialog(
               cashType: chooseCashTypeIndex,
@@ -104,6 +117,9 @@ class CashController extends BaseController{
   }
 
   String getTaskLeftStr(CashInfoBean bean){
+    if(bean.cashStatus==CashStatus.cards){
+      return "Scratch ";
+    }
     var tixianTask = CashHep.instance.getConfigTaskByIndex(bean.taskIndex??0);
     if(null==tixianTask){
       return "";
@@ -118,6 +134,9 @@ class CashController extends BaseController{
   }
 
   String getTaskRightStr(CashInfoBean bean){
+    if(bean.cashStatus==CashStatus.cards){
+      return " Cards";
+    }
     var tixianTask = CashHep.instance.getConfigTaskByIndex(bean.taskIndex??0);
     if(null==tixianTask){
       return "";
@@ -161,7 +180,7 @@ class CashController extends BaseController{
     if(null==bean){
       return "Cash Out";
     }
-    if(bean.cashStatus==CashStatus.success){
+    if(bean.cashStatus==CashStatus.complete){
       return "Successful";
     }
     return "Processing";
@@ -171,13 +190,16 @@ class CashController extends BaseController{
     if(null==bean){
       return "cash2";
     }
-    else if(bean.cashStatus==CashStatus.success){
+    else if(bean.cashStatus==CashStatus.complete){
       return "btn_success";
     }
     return "btn_process";
   }
 
   String getTaskIcon(CashInfoBean? bean){
+    if(bean?.cashStatus==CashStatus.cards){
+      return "task_card";
+    }
     var tixianTask = CashHep.instance.getConfigTaskByIndex(bean?.taskIndex??0);
     return tixianTask?.title==CashTaskType.card?"task_card":"task_video";
   }

@@ -18,9 +18,10 @@ import 'package:fun_base/util/sql/sql_table_name.dart';
 import 'package:fun_base/util/util.dart';
 
 class CashStatus{
-  static const String cashing="cashing";
-  static const String ranking="ranking";
-  static const String success="success";
+  static const String cards="cards";
+  static const String rank="rank";
+  static const String task="task";
+  static const String complete="complete";
 }
 
 class CashTaskType{
@@ -84,7 +85,16 @@ class CashHep{
     if(list.isNotEmpty){
       return CashInfoBean.fromJson(list.first);
     }
-    var bean = CashInfoBean(cashType: cashType,cashMoney: cashMoney,taskIndex: 0,currentPro: 0,totalPro: getConfigTaskByIndex(0)?.data??0,rankNum: 0,cashStatus:CashStatus.cashing,rankAllPerson: 0);
+    var bean = CashInfoBean(
+      cashType: cashType,
+      cashMoney: cashMoney,
+      taskIndex: 0,
+      currentPro: 0,
+      totalPro: 10,
+      rankNum: 0,
+      cashStatus:CashStatus.cards,
+      rankAllPerson: 0,
+    );
     await db.insert(SqlTableName.cashListB, bean.toJson());
     return bean;
   }
@@ -100,22 +110,33 @@ class CashHep{
       var taskIndex = newMap["taskIndex"] as int;
       var currentPro = newMap["currentPro"] as int;
       var totalPro = newMap["totalPro"] as int;
-      if(getConfigTaskByIndex(taskIndex)?.title==cashTaskType&&currentPro<totalPro){
-        if(currentPro==totalPro-1){
-          if(checkIsLastTask(taskIndex)){
-            newMap["currentPro"]=currentPro+1;
-            newMap["cashStatus"]=CashStatus.ranking;
-            newMap["rankNum"]=_otherConfigBean?.cashCurrent?.intCurrent??99;
-            newMap["rankAllPerson"]=_otherConfigBean?.cashAll?.intAll??388;
-          }else{
-            newMap["currentPro"]=0;
-            newMap["taskIndex"]=taskIndex+1;
-            newMap["totalPro"]=getNextConfigTaskByIndex(taskIndex)?.data??0;
-          }
+      var cashStatus = newMap["cashStatus"] as String;
+      if(cashStatus==CashStatus.cards){
+        if(currentPro+1>=totalPro){
+          newMap["currentPro"]=totalPro;
+          newMap["cashStatus"]=CashStatus.rank;
+          newMap["rankNum"]=_otherConfigBean?.cashCurrent?.intCurrent??99;
+          newMap["rankAllPerson"]=_otherConfigBean?.cashAll?.intAll??388;
         }else{
           newMap["currentPro"]=currentPro+1;
         }
         await db.update(SqlTableName.cashListB, newMap,where: '"id" = ? ',whereArgs: [newMap["id"]]);
+      }else if(cashStatus==CashStatus.task){
+        if(getConfigTaskByIndex(taskIndex)?.title==cashTaskType&&currentPro<totalPro){
+          if(currentPro==totalPro-1){
+            if(checkIsLastTask(taskIndex)){
+              newMap["currentPro"]=totalPro;
+              newMap["cashStatus"]=CashStatus.complete;
+            }else{
+              newMap["currentPro"]=0;
+              newMap["taskIndex"]=taskIndex+1;
+              newMap["totalPro"]=getNextConfigTaskByIndex(taskIndex)?.data??0;
+            }
+          }else{
+            newMap["currentPro"]=currentPro+1;
+          }
+          await db.update(SqlTableName.cashListB, newMap,where: '"id" = ? ',whereArgs: [newMap["id"]]);
+        }
       }
     }
     EventData(code: EventCode.updateCashList).send();
@@ -138,7 +159,7 @@ class CashHep{
 
   Future<int> updateTaskRank({required int cashType,required int cashMoney})async{
     var db = await BaseSqlHep.instance.initSql();
-    var list = await db.query(SqlTableName.cashListB,where: '"cashType" = ? AND "cashMoney" = ? AND "cashStatus" = ?',whereArgs: [cashType,cashMoney,CashStatus.ranking]);
+    var list = await db.query(SqlTableName.cashListB,where: '"cashType" = ? AND "cashMoney" = ? AND "cashStatus" = ?',whereArgs: [cashType,cashMoney,CashStatus.rank]);
     if(list.isEmpty){
       return 0;
     }
@@ -163,7 +184,10 @@ class CashHep{
     if(newRankNum<=1){
       newRankNum=1;
       newMap["rankNum"]=newRankNum;
-      newMap["cashStatus"]=CashStatus.success;
+      newMap["cashStatus"]=CashStatus.task;
+      newMap["currentPro"]=0;
+      newMap["taskIndex"]=0;
+      newMap["totalPro"]=getNextConfigTaskByIndex(0)?.data??0;
     }else{
       newMap["rankNum"]=newRankNum;
     }

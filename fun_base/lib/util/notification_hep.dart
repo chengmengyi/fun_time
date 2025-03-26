@@ -1,4 +1,6 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:fun_base/util/tba_point/custom_point.dart';
+import 'package:fun_base/util/tba_point/tab_point_hep.dart';
 import 'package:fun_base/util/util.dart';
 
 class NotificationId{
@@ -26,11 +28,13 @@ class NotificationHep{
         onDidReceiveNotificationResponse: (res){
           var type = res.notificationResponseType;
           if(type==NotificationResponseType.selectedNotification||type==NotificationResponseType.selectedNotificationAction){
-
+            _clickNotification(res.id);
           }
         }
     );
+
     if(result==true){
+      TbaPointHep.instance.pointEvent(CustomId.push_status);
       _plugins.periodicallyShowWithDuration(
         NotificationId.guding,
         "Scratch to Earn",
@@ -62,6 +66,32 @@ class NotificationHep{
         const Duration(minutes: 30),
         const NotificationDetails(),
       );
+    }
+  }
+
+  Future<bool> getLaunchAppByNotification()async{
+    var launchDetails = await _plugins.getNotificationAppLaunchDetails();
+    var fromNotification = launchDetails?.didNotificationLaunchApp==true;
+    if(fromNotification){
+      _clickNotification(launchDetails?.notificationResponse?.id);
+    }
+    return fromNotification;
+  }
+
+  _clickNotification(int? id){
+    switch(id){
+      case NotificationId.guding:
+        TbaPointHep.instance.pointEvent(CustomId.inform_c,params: {"type":"fix"});
+        break;
+      case NotificationId.qiandao:
+        TbaPointHep.instance.pointEvent(CustomId.inform_c,params: {"type":"sign"});
+        break;
+      case NotificationId.gua:
+        TbaPointHep.instance.pointEvent(CustomId.inform_c,params: {"type":"card"});
+        break;
+      case NotificationId.zhifu:
+        TbaPointHep.instance.pointEvent(CustomId.inform_c,params: {"type":"cash"});
+        break;
     }
   }
 }

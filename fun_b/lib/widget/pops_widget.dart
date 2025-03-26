@@ -5,6 +5,8 @@ import 'package:fun_b/hep/cash_hep.dart';
 import 'package:fun_b/hep/user_info_hep.dart';
 import 'package:fun_base/util/ad_hep.dart';
 import 'package:fun_base/util/tba_point/ad_point.dart';
+import 'package:fun_base/util/tba_point/custom_point.dart';
+import 'package:fun_base/util/tba_point/tab_point_hep.dart';
 import 'package:fun_base/util/util.dart';
 import 'package:fun_base/widget/local_image_widget.dart';
 import 'package:fun_base/widget/text_widget.dart';
@@ -112,6 +114,7 @@ class _PopsWidgetState extends State<PopsWidget>{
   }
 
   clickFloat(){
+    TbaPointHep.instance.pointEvent(CustomId.float_c);
     AdHep.instance.showAd(
       adType: AdType.reward,
       adPosId: AdPosId.sqftm_bubble_rv,

@@ -185,6 +185,7 @@ class BettingHighController extends BaseController with GetTickerProviderStateMi
       RouterUtils.dialog(
         widget: NormalWinDialog(
           reward: totalReward,
+          winnerType: winnerType,
           dismiss: (){
             _reset();
           },

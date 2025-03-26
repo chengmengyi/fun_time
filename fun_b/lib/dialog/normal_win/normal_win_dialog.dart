@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fun_b/dialog/normal_win/normal_win_controller.dart';
+import 'package:fun_b/hep/game_config_hep.dart';
 import 'package:fun_base/base/base_dialog.dart';
 import 'package:fun_base/util/util.dart';
 import 'package:fun_base/widget/local_image_widget.dart';
@@ -7,12 +8,18 @@ import 'package:fun_base/widget/text_widget.dart';
 
 class NormalWinDialog extends BaseDialog<NormalWinController>{
   int reward;
+  WinnerType winnerType;
   Function() dismiss;
   NormalWinDialog({
     required this.reward,
+    required this.winnerType,
     required this.dismiss,
   });
 
+  @override
+  initView() {
+    ftController.winnerType=winnerType;
+  }
 
   @override
   NormalWinController createController() => NormalWinController();

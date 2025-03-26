@@ -9,6 +9,7 @@ import 'package:fun_b/routers/_routers_list.dart';
 import 'package:fun_base/routers/base_routers/base_routers_list.dart';
 import 'package:fun_base/routers/base_routers/base_routers_name.dart';
 import 'package:fun_base/util/ad_hep.dart';
+import 'package:fun_base/util/package_type/package_type_hep.dart';
 import 'package:fun_base/util/tba_point/tab_point_hep.dart';
 import 'package:fun_base/util/util.dart';
 import 'package:fun_b/hep/game_config_hep.dart' as bGameConfig;
@@ -41,6 +42,7 @@ void main()async{
   CashHep.instance.initData();
   TbaPointHep.instance.installEvent();
   TbaPointHep.instance.sessionEvent();
+  PackageTypeHep.instance.initCheck();
 
   runApp(const MyApp());
 }

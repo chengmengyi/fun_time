@@ -219,30 +219,33 @@ class RankDialog extends BaseDialog<RankController>{
     ),
   );
   
-  _btnWidget()=>InkWell(
-    onTap: (){
-      ftController.clickWatchAd();
-    },
-    child: SizedBox(
-      width: 220.w,
-      height: 38.h,
-      child: Stack(
-        children: [
-          LocalImageWidget(image: "rank3", width: double.infinity, height: 52.h),
-          Align(
-            child: TextWidget(data: ftController.myRankNum<=1?"Successful":"Skip Wait", color: "#FFFFFF", size: 18.sp,fontWeight: FontWeight.bold,),
-          ),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Visibility(
-              visible: ftController.myRankNum>1,
-              child: Container(
-                margin: EdgeInsets.only(left: 21.w),
-                child: LocalImageWidget(image: "icon_video", width: 18.w, height: 18.w),
-              ),
+  _btnWidget()=>GetBuilder<RankController>(
+    id: "btn",
+    builder: (_)=>InkWell(
+      onTap: (){
+        ftController.clickWatchAd();
+      },
+      child: SizedBox(
+        width: 220.w,
+        height: 38.h,
+        child: Stack(
+          children: [
+            LocalImageWidget(image: "rank3", width: double.infinity, height: 52.h),
+            Align(
+              child: TextWidget(data: ftController.myRankNum<=1?"Cash Out":"Skip Wait", color: "#FFFFFF", size: 18.sp,fontWeight: FontWeight.bold,),
             ),
-          )
-        ],
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Visibility(
+                visible: ftController.myRankNum>1,
+                child: Container(
+                  margin: EdgeInsets.only(left: 21.w),
+                  child: LocalImageWidget(image: "icon_video", width: 18.w, height: 18.w),
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     ),
   );

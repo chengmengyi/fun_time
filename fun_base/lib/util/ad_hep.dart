@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_ad_ios_plugins/data/ad_info_data.dart';
 import 'package:flutter_ad_ios_plugins/hep/ad_type.dart';
 import 'package:flutter_ad_ios_plugins/hep/ios_ad_callback.dart';
@@ -7,6 +8,10 @@ import 'package:fun_base/util/tba_point/ad_point.dart';
 import 'package:fun_base/util/tba_point/custom_point.dart';
 import 'package:fun_base/util/tba_point/tab_point_hep.dart';
 import 'package:fun_base/util/util.dart';
+
+StorageData<int> lastAdLevel=StorageData<int>(key: "lastAdLevelB", defaultValue: 0);
+StorageData<int> watchAdNum=StorageData<int>(key: "watchAdNumB", defaultValue: 0);
+
 
 class AdHep{
   static final AdHep _instance = AdHep();
@@ -60,6 +65,7 @@ class AdHep{
       adType: adType,
       iosAdCallback: IosAdCallback(
         showSuccess: (ad,info){
+          _uploadWatchNumToTba();
           TbaPointHep.instance.adEvent(ad, info, adPosId);
           TbaPointHep.instance.pointEvent(CustomId.sqftm_ad_impression);
         },
@@ -81,6 +87,10 @@ class AdHep{
     required AdType adType,
     required Function() closeAd,
   }){
+    if(kDebugMode){
+      closeAd.call();
+      return;
+    }
     var resultData = FlutterIosAdHep.instance.getCacheResultData(adType);
     if(null==resultData){
       FlutterIosAdHep.instance.loadAd(adType);
@@ -91,6 +101,7 @@ class AdHep{
       adType: adType,
       iosAdCallback: IosAdCallback(
         showSuccess: (ad,info){
+          _uploadWatchNumToTba();
           TbaPointHep.instance.adEvent(ad, info, AdPosId.sqftm_skipwait_rv);
           TbaPointHep.instance.pointEvent(CustomId.sqftm_ad_impression);
         },
@@ -106,5 +117,44 @@ class AdHep{
         },
       ),
     );
+  }
+
+  showOpenAd({required Function() closeAd,}){
+    TbaPointHep.instance.pointEvent(CustomId.sqftm_ad_chance);
+    var resultData = FlutterIosAdHep.instance.getCacheResultData(AdType.interstitial);
+    if(null==resultData){
+      closeAd.call();
+      return;
+    }
+    FlutterIosAdHep.instance.showAd(
+      adType: AdType.interstitial,
+      iosAdCallback: IosAdCallback(
+        showSuccess: (ad,info){
+          _uploadWatchNumToTba();
+          TbaPointHep.instance.adEvent(ad, info, AdPosId.sqftm_launch);
+          TbaPointHep.instance.pointEvent(CustomId.sqftm_ad_impression);
+        },
+        showFail: (ad){
+          TbaPointHep.instance.pointEvent(CustomId.sqftm_ad_impression_fail);
+          FlutterIosAdHep.instance.loadAd(AdType.interstitial);
+          closeAd.call();
+        },
+        closeAd: (){
+          closeAd.call();
+        },
+        onAdRevenuePaidCallback: (ad,info){
+
+        },
+      ),
+    );
+  }
+  
+  _uploadWatchNumToTba(){
+    watchAdNum.saveData(watchAdNum.getData()+1);
+    var adLevel = lastAdLevel.getData()+5;
+    if(watchAdNum.getData()>=adLevel){
+      TbaPointHep.instance.pointEvent(CustomId.cash_ad_detail,params: {"number":adLevel});
+      lastAdLevel.saveData(adLevel);
+    }
   }
 }

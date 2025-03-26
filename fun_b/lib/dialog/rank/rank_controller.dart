@@ -1,10 +1,14 @@
 import 'dart:math';
 import 'package:fun_b/bean/rank_list_bean.dart';
 import 'package:fun_b/dialog/cash_success/cash_success_dialog.dart';
+import 'package:fun_b/dialog/cash_task/cash_task_dialog.dart';
 import 'package:fun_b/hep/cash_hep.dart';
+import 'package:fun_b/hep/storage/storage_bean.dart';
 import 'package:fun_base/base/base_controller.dart';
 import 'package:fun_base/routers/routers_utils.dart';
 import 'package:fun_base/util/ad_hep.dart';
+import 'package:fun_base/util/tba_point/custom_point.dart';
+import 'package:fun_base/util/tba_point/tab_point_hep.dart';
 import 'package:fun_base/util/util.dart';
 
 class RankController extends BaseController{
@@ -12,24 +16,33 @@ class RankController extends BaseController{
   List<RankListBean> rankList=[];
 
   @override
+  void onInit() {
+    super.onInit();
+    TbaPointHep.instance.pointEvent(CustomId.cash_queue_pop);
+  }
+
+  @override
   void onReady() {
     super.onReady();
     _initList();
   }
 
-  clickWatchAd(){
+  clickWatchAd()async{
     if(myRankNum<=1){
-      RouterUtils.dialog(
-        widget: CashSuccessDialog(
-          cashType: cashType,
-          cashMoney: cashMoney,
-        ),
-      );
+      var cashInfo = await CashHep.instance.queryCashInfoByCashTypeMoney(cashType, cashMoney);
+      if(null!=cashInfo){
+        RouterUtils.back();
+        RouterUtils.dialog(
+            widget: CashTaskDialog(bean: cashInfo)
+        );
+      }
       return;
     }
+    TbaPointHep.instance.pointEvent(CustomId.cash_queue_po_c,params: {"ad_number":cashTaskWatchVideoNum.getData()+1});
     AdHep.instance.showTaskAd(
       adType: AdType.reward,
       closeAd: ()async{
+        cashTaskWatchVideoNum.saveData(cashTaskWatchVideoNum.getData()+1);
         var rank = await CashHep.instance.updateTaskRank(cashType: cashType, cashMoney: cashMoney,);
         showToast("Your Current rank：$rank");
         _initList();
@@ -54,10 +67,7 @@ class RankController extends BaseController{
         }
         rankList.shuffle();
         rankList.insert(myRankNum-1, RankListBean(id: "$rankNum", account: account, amount: "$cashMoney"));
-        update(["rank_list"]);
-        if(myRankNum<=1){
-          update(["btn"]);
-        }
+        update(["rank_list","btn"]);
       },
     );
   }

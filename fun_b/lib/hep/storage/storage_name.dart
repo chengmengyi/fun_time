@@ -7,4 +7,8 @@ class StorageName{
   static const String selectedCashTypeB="selectedCashTypeB";
   static const String goodComment="goodCommentB";
   static const String allPlayCardsNum="allPlayCardsNumB";
+  static const String firstRewardDialogShow="firstRewardDialogShowB";
+  static const String firstRewardDialogClickClaim="firstRewardDialogClickClaimB";
+  static const String cashTaskWatchVideoNum="cashTaskWatchVideoNumB";
+  static const String lastMoneyLevel="lastMoneyLevelB";
 }

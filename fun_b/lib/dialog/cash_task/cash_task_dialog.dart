@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:fun_b/bean/cash_info_bean.dart';
 import 'package:fun_b/dialog/cash_task/cash_task_controller.dart';
+import 'package:fun_b/hep/cash_hep.dart';
 import 'package:fun_base/base/base_dialog.dart';
+import 'package:fun_base/util/tba_point/custom_point.dart';
+import 'package:fun_base/util/tba_point/tab_point_hep.dart';
 import 'package:fun_base/util/util.dart';
 import 'package:fun_base/widget/local_image_widget.dart';
 import 'package:fun_base/widget/text_widget.dart';
@@ -9,6 +12,14 @@ import 'package:fun_base/widget/text_widget.dart';
 class CashTaskDialog extends BaseDialog<CashTaskController>{
   CashInfoBean bean;
   CashTaskDialog({required this.bean});
+
+  @override
+  initView() {
+    var tixianTask = CashHep.instance.getConfigTaskByIndex(bean.taskIndex??0);
+    if(null!=tixianTask){
+      TbaPointHep.instance.pointEvent(CustomId.one_last_step_pop,params: {"pop_from":tixianTask.title});
+    }
+  }
 
   @override
   CashTaskController createController() => CashTaskController();

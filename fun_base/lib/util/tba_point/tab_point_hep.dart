@@ -165,6 +165,23 @@ class TbaPointHep{
     }
   }
 
+  Future<String> requestCloak(map)async{
+    try{
+      var response = await _dio?.request<String>(
+          cloakUrl,
+          data: map,
+          options: Options(method: "post")
+      );
+      if(response?.statusCode==200){
+        return response?.data??"";
+      }else{
+        return "";
+      }
+    }catch(e){
+      return "";
+    }
+  }
+
   Future<Map<String,dynamic>> _headerMap() async {
     var appVersion = await FlutterTbaInfo.instance.getAppVersion();
     var idfv = await FlutterTbaInfo.instance.getIdfv();

@@ -39,6 +39,12 @@ PODS:
     - AppLovinSDK (>= 13.0.0)
     - VungleAds (= 7.4.4)
   - AppLovinSDK (13.0.1)
+  - appsflyer_sdk (6.15.3):
+    - AppsFlyerFramework (= 6.15.3)
+    - Flutter
+  - AppsFlyerFramework (6.15.3):
+    - AppsFlyerFramework/Main (= 6.15.3)
+  - AppsFlyerFramework/Main (6.15.3)
   - audioplayers_darwin (0.0.1):
     - Flutter
   - BidMachine (3.2.0):
@@ -111,6 +117,7 @@ DEPENDENCIES:
   - AppLovinMediationMolocoAdapter
   - AppLovinMediationUnityAdsAdapter
   - AppLovinMediationVungleAdapter
+  - appsflyer_sdk (from `.symlinks/plugins/appsflyer_sdk/ios`)
   - audioplayers_darwin (from `.symlinks/plugins/audioplayers_darwin/ios`)
   - Flutter (from `Flutter`)
   - flutter_ad_ios_plugins (from `.symlinks/plugins/flutter_ad_ios_plugins/ios`)
@@ -141,6 +148,7 @@ SPEC REPOS:
     - AppLovinMediationUnityAdsAdapter
     - AppLovinMediationVungleAdapter
     - AppLovinSDK
+    - AppsFlyerFramework
     - BidMachine
     - BigoADS
     - ChartboostSDK
@@ -159,6 +167,8 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   applovin_max:
     :path: ".symlinks/plugins/applovin_max/ios"
+  appsflyer_sdk:
+    :path: ".symlinks/plugins/appsflyer_sdk/ios"
   audioplayers_darwin:
     :path: ".symlinks/plugins/audioplayers_darwin/ios"
   Flutter:
@@ -203,6 +213,8 @@ SPEC CHECKSUMS:
   AppLovinMediationUnityAdsAdapter: cf75181e59274a29740309dd4f64c37b299e1d4c
   AppLovinMediationVungleAdapter: a288c70db5ebb967c2e4b0cb3f2fc1ffc6ac9fae
   AppLovinSDK: fdae6a4361c9c9b09f8d7d18ede792368221d987
+  appsflyer_sdk: 2765219407587b6f8e3b34bf33a87ebf96937a51
+  AppsFlyerFramework: ad7ff0d22aa36c7f8cc4f71a5424e19b89ccb8ae
   audioplayers_darwin: ccf9c770ee768abb07e26d90af093f7bab1c12ab
   BidMachine: b5d8236e691a0c71fbb95a72e86f3ec189f1a8a9
   BigoADS: c4d9ec9cf6d3346843e126cdba111647ec402d9b

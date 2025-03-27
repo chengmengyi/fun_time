@@ -12,4 +12,5 @@ class StorageName{
   static const String cashTaskWatchVideoNum="cashTaskWatchVideoNumB";
   static const String lastMoneyLevel="lastMoneyLevelB";
   static const String firstGuaka="firstGuakaB";
+  static const String firstOpenApp="firstOpenAppB";
 }

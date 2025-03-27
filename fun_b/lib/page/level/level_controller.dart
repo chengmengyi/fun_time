@@ -25,39 +25,39 @@ class LevelController extends BaseController{
 
   clickSingle(LevelData data){
     TbaPointHep.instance.pointEvent(CustomId.level_reward_claim,params: {"level":data.levelNum??0});
-    if(data.status==LevelStatus.received){
+    if(data.singleStatus==LevelStatus.received){
       return;
     }
-    if(data.status==LevelStatus.normal){
+    if(data.singleStatus==LevelStatus.normal){
       showToast("Not Enough Diamonds");
       return;
     }
     UserInfoHep.instance.updateUserCoins(50);
-    _updateLevelData(data.levelNum??0,LevelStatus.received);
+    _updateLevelData(data.levelNum??0,LevelStatus.received,UpdateLevelStatusType.singleStatus);
   }
 
   clickDouble(LevelData data){
     TbaPointHep.instance.pointEvent(CustomId.level_reward_claim_double,params: {"level":data.levelNum??0});
-    if(data.status==LevelStatus.received){
+    if(data.doubleStatus==LevelStatus.received){
       return;
     }
-    if(data.status==LevelStatus.normal){
+    if(data.doubleStatus==LevelStatus.normal){
       showToast("Not Enough Diamonds");
       return;
     }
     AdHep.instance.showAd(
       adType: AdType.reward,
-      showIntAd: false,
+      showAd: false,
       adPosId: AdPosId.sqftm_box_rv,
       closeAd: (){
         UserInfoHep.instance.updateUserCoins(100);
-        _updateLevelData(data.levelNum??0,LevelStatus.received);
+        _updateLevelData(data.levelNum??0,LevelStatus.received,UpdateLevelStatusType.doubleStatus);
       },
     );
   }
 
-  _updateLevelData(int nowLevel,int status)async{
-    await LevelHep.instance.updateLevelData(nowLevel, status);
+  _updateLevelData(int nowLevel,int status,UpdateLevelStatusType statueType)async{
+    await LevelHep.instance.updateLevelData(nowLevel, status,statueType);
     _initList();
   }
 

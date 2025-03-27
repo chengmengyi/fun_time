@@ -31,7 +31,7 @@ class BoxDialog extends BaseDialog<BoxDialogController>{
       ),
       InkWell(
         onTap: (){
-          ftController.clickGet(dismiss);
+          ftController.clickGiveUp(dismiss);
         },
         child: TextWidget(data: "Give Up", color: "#FFFFFF", size: 18.sp,fontWeight: FontWeight.bold, showShadows: true,),
       )

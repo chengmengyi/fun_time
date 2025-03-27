@@ -1,19 +1,25 @@
 class LevelData {
   LevelData({
       this.levelNum, 
-      this.status,});
+      this.singleStatus,
+      this.doubleStatus,
+  });
 
   LevelData.fromJson(dynamic json) {
     levelNum = json['levelNum'];
-    status = json['status'];
+    singleStatus = json['singleStatus'];
+    doubleStatus = json['doubleStatus'];
   }
+
   int? levelNum;
-  int? status;
+  int? singleStatus;
+  int? doubleStatus;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['levelNum'] = levelNum;
-    map['status'] = status;
+    map['singleStatus'] = singleStatus;
+    map['doubleStatus'] = doubleStatus;
     return map;
   }
 

@@ -19,7 +19,7 @@ class NoWinController extends BaseController{
     AdHep.instance.showAd(
       adType: AdType.interstitial,
       adPosId: AdPosId.sqftm_card_fail_int,
-      showIntAd: CashHep.instance.checkShowIntAd(AdType.interstitial),
+      showAd: CashHep.instance.checkShowAd(AdType.interstitial),
       closeAd: (){
         RouterUtils.back();
         dismiss.call();

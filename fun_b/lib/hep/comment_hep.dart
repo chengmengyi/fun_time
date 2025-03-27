@@ -9,7 +9,7 @@ class CommentHep{
   static CommentHep get instance => _instance;
 
   showCommentDialog(){
-    if(goodComment.getData()){
+    if(goodComment.getData()||firstOpenApp.getData()){
       return;
     }
     RouterUtils.dialog(

@@ -212,7 +212,7 @@ class CashController extends BaseController{
           _initCashList();
           break;
         case EventCode.updateUserCoinsB:
-          update(["list"]);
+          update(["list","money"]);
           break;
       }
     },

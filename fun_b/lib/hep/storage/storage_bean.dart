@@ -7,6 +7,7 @@ StorageData<bool> goodComment=StorageData<bool>(key: StorageName.goodComment, de
 StorageData<bool> firstRewardDialogShow=StorageData<bool>(key: StorageName.firstRewardDialogShow, defaultValue: true);
 StorageData<bool> firstRewardDialogClickClaim=StorageData<bool>(key: StorageName.firstRewardDialogClickClaim, defaultValue: true);
 StorageData<bool> firstGuaka=StorageData<bool>(key: StorageName.firstGuaka, defaultValue: true);
+StorageData<bool> firstOpenApp=StorageData<bool>(key: StorageName.firstOpenApp, defaultValue: true);
 
 
 StorageData<int> boxCountTimer=StorageData<int>(key: StorageName.boxCountTimer, defaultValue: 0);

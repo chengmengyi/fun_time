@@ -179,7 +179,7 @@ class CardsChild extends BaseWidget<CardsController>{
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       SizedBox(width: 16.w,),
-      CoinsWidget(fromPlayDetail: false,),
+      CoinsWidget(fromPlayDetail: false,fromHome: false,),
       SizedBox(width: 8.w,),
       DiamondWidget(),
       const Spacer(),

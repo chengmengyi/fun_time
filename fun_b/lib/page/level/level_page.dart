@@ -209,7 +209,7 @@ class LevelPage extends BaseWidget<LevelController>{
                                   color: "#FFFFFF",
                                   size: 16.sp,
                                   fontWeight: FontWeight.bold,
-                                  colorOpacity: data.status==LevelStatus.canReceive?null:0.3,
+                                  colorOpacity: data.singleStatus==LevelStatus.canReceive?null:0.3,
                                 )
                               ],
                             ),
@@ -220,8 +220,8 @@ class LevelPage extends BaseWidget<LevelController>{
                         top: 0,
                         right: 0,
                         child: Visibility(
-                          visible: data.status!=LevelStatus.canReceive,
-                          child: LocalImageWidget(image: data.status==LevelStatus.normal?"level12":"level11", width: 36.w, height: 36.w),
+                          visible: data.singleStatus!=LevelStatus.canReceive,
+                          child: LocalImageWidget(image: data.singleStatus==LevelStatus.normal?"level12":"level11", width: 36.w, height: 36.w),
                         ),
                       ),
                     ],
@@ -274,13 +274,13 @@ class LevelPage extends BaseWidget<LevelController>{
                             child: Stack(
                               alignment: Alignment.center,
                               children: [
-                                LocalImageWidget(image: data.status==LevelStatus.canReceive?"level15":"level10", width: 80.w, height: 26.h),
+                                LocalImageWidget(image: data.doubleStatus==LevelStatus.canReceive?"level15":"level10", width: 80.w, height: 26.h),
                                 TextWidget(
                                   data: "Claim",
                                   color: "#FFFFFF",
                                   size: 16.sp,
                                   fontWeight: FontWeight.bold,
-                                  colorOpacity: data.status==LevelStatus.canReceive?null:0.3,
+                                  colorOpacity: data.doubleStatus==LevelStatus.canReceive?null:0.3,
                                 )
                               ],
                             ),
@@ -291,7 +291,7 @@ class LevelPage extends BaseWidget<LevelController>{
                         top: 0,
                         right: 0,
                         child: LocalImageWidget(
-                          image: data.status==LevelStatus.normal?"level12":data.status==LevelStatus.canReceive?"level14":"level11",
+                          image: data.doubleStatus==LevelStatus.normal?"level12":data.doubleStatus==LevelStatus.canReceive?"level14":"level11",
                           width: 36.w,
                           height: 36.w,
                         ),

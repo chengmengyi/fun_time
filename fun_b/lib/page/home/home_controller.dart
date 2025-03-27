@@ -40,6 +40,7 @@ class HomeController extends BaseController{
   void onReady() {
     super.onReady();
     CommentHep.instance.showCommentDialog();
+    firstOpenApp.saveData(false);
   }
 
   clickBottom(index){
@@ -65,6 +66,9 @@ class HomeController extends BaseController{
           firstGetReward.saveData(false);
           showCashFinger=true;
           update(["cash_finger"]);
+          Future.delayed(const Duration(milliseconds: 3000),(){
+            CommentHep.instance.showCommentDialog();
+          });
           break;
         case EventCode.updateHomeIndex:
           clickBottom(data.intValue??0);

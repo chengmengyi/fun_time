@@ -17,4 +17,6 @@ class EventCode{
   static const int updateHomeIndex=106;
   static const int updateCashList=107;
   static const int showMoneyLottie=108;
+  static const int hideLevelFinger=109;
+  static const int showBoxFinger=110;
 }

@@ -45,14 +45,14 @@ class AdHep{
   showAd({
     required AdType adType,
     required AdPosId adPosId,
-    required bool showIntAd,
+    required bool showAd,
     required Function() closeAd,
   }){
-    if(adType==AdType.interstitial&&!showIntAd){
+    if(!showAd){
       closeAd.call();
       return;
     }
-    TbaPointHep.instance.pointEvent(CustomId.sqftm_ad_chance);
+    TbaPointHep.instance.pointEvent(CustomId.sqftm_ad_chance,params: {"ad_pos_id":adPosId.name});
     var resultData = FlutterIosAdHep.instance.getCacheResultData(adType);
     if(null==resultData){
       FlutterIosAdHep.instance.loadAd(adType);
@@ -68,10 +68,10 @@ class AdHep{
         showSuccess: (ad,info){
           _uploadWatchNumToTba();
           TbaPointHep.instance.adEvent(ad, info, adPosId);
-          TbaPointHep.instance.pointEvent(CustomId.sqftm_ad_impression);
+          TbaPointHep.instance.pointEvent(CustomId.sqftm_ad_impression,params: {"ad_pos_id":adPosId.name});
         },
         showFail: (ad){
-          TbaPointHep.instance.pointEvent(CustomId.sqftm_ad_impression_fail);
+          TbaPointHep.instance.pointEvent(CustomId.sqftm_ad_impression_fail,params: {"ad_pos_id":adPosId.name});
           FlutterIosAdHep.instance.loadAd(adType);
         },
         closeAd: (){
@@ -92,6 +92,7 @@ class AdHep{
       closeAd.call();
       return;
     }
+    TbaPointHep.instance.pointEvent(CustomId.sqftm_ad_chance,params: {"ad_pos_id":AdPosId.sqftm_skipwait_rv.name});
     var resultData = FlutterIosAdHep.instance.getCacheResultData(adType);
     if(null==resultData){
       FlutterIosAdHep.instance.loadAd(adType);
@@ -104,7 +105,7 @@ class AdHep{
         showSuccess: (ad,info){
           _uploadWatchNumToTba();
           TbaPointHep.instance.adEvent(ad, info, AdPosId.sqftm_skipwait_rv);
-          TbaPointHep.instance.pointEvent(CustomId.sqftm_ad_impression);
+          TbaPointHep.instance.pointEvent(CustomId.sqftm_ad_impression,params: {"ad_pos_id":AdPosId.sqftm_skipwait_rv.name});
         },
         showFail: (ad){
           FlutterIosAdHep.instance.loadAd(adType);
@@ -121,7 +122,7 @@ class AdHep{
   }
 
   showOpenAd({required Function() closeAd,}){
-    TbaPointHep.instance.pointEvent(CustomId.sqftm_ad_chance);
+    TbaPointHep.instance.pointEvent(CustomId.sqftm_ad_chance,params: {"ad_pos_id":AdPosId.sqftm_launch.name});
     var resultData = FlutterIosAdHep.instance.getCacheResultData(AdType.interstitial);
     if(null==resultData){
       FlutterIosAdHep.instance.loadAd(AdType.interstitial);
@@ -134,10 +135,10 @@ class AdHep{
         showSuccess: (ad,info){
           _uploadWatchNumToTba();
           TbaPointHep.instance.adEvent(ad, info, AdPosId.sqftm_launch);
-          TbaPointHep.instance.pointEvent(CustomId.sqftm_ad_impression);
+          TbaPointHep.instance.pointEvent(CustomId.sqftm_ad_impression,params: {"ad_pos_id":AdPosId.sqftm_launch.name});
         },
         showFail: (ad){
-          TbaPointHep.instance.pointEvent(CustomId.sqftm_ad_impression_fail);
+          TbaPointHep.instance.pointEvent(CustomId.sqftm_ad_impression_fail,params: {"ad_pos_id":AdPosId.sqftm_launch.name});
           FlutterIosAdHep.instance.loadAd(AdType.interstitial);
           closeAd.call();
         },

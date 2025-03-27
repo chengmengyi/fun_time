@@ -31,7 +31,7 @@ class BaseSqlHep{
   _createVersion2DB(Database db){
     db.execute('CREATE TABLE ${SqlTableName.userInfoB} (id INTEGER PRIMARY KEY AUTOINCREMENT, coinsNum DOUBLE, diamondNum INTEGER, winnerGamePlayNum INTEGER, fruitMatchPlayNum INTEGER, chasingLuckPlayNum INTEGER, casinoRushPlayNum INTEGER, winOrLosePlayNum INTEGER, luckyNumberPlayNum INTEGER, bettingHighPlayNum INTEGER)');
     db.execute('CREATE TABLE ${SqlTableName.playedNumB} (id INTEGER PRIMARY KEY AUTOINCREMENT, playedNum INTEGER, startTime INTEGER, gameType TEXT)');
-    db.execute('CREATE TABLE ${SqlTableName.levelB} (id INTEGER PRIMARY KEY AUTOINCREMENT, levelNum INTEGER, status INTEGER)');
+    db.execute('CREATE TABLE ${SqlTableName.levelB} (id INTEGER PRIMARY KEY AUTOINCREMENT, levelNum INTEGER, singleStatus INTEGER,doubleStatus INTEGER)');
     db.execute('CREATE TABLE ${SqlTableName.cashListB} (id INTEGER PRIMARY KEY AUTOINCREMENT, cashType INTEGER, cashMoney INTEGER, taskIndex INTEGER, currentPro INTEGER, totalPro INTEGER,rankNum INTEGER,cashStatus TEXT,rankAllPerson INTEGER)');
     db.execute('CREATE TABLE ${SqlTableName.rankListB} (id INTEGER PRIMARY KEY AUTOINCREMENT, userId TEXT,account TEXT,amount INTEGER)');
     db.execute('CREATE TABLE ${SqlTableName.cashAccountB} (id INTEGER PRIMARY KEY AUTOINCREMENT, account TEXT,cashType INTEGER)');

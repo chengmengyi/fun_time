@@ -53,7 +53,6 @@ class UserInfoHep{
     }
     EventData(code: EventCode.showMoneyLottie).send();
     if(coins>0&&firstGetReward.getData()){
-      CommentHep.instance.showCommentDialog();
       EventData(code: EventCode.firstGetReward).send();
     }
     if(coins>0){
@@ -70,7 +69,7 @@ class UserInfoHep{
     var nowLevel = (_userInfoBean?.diamondNum??0)~/3;
     if(nowLevel>lastLevel){
       EventData(code: EventCode.showLevelFingerB).send();
-      LevelHep.instance.updateLevelData(nowLevel, LevelStatus.canReceive);
+      LevelHep.instance.updateLevelData(nowLevel, LevelStatus.canReceive,UpdateLevelStatusType.all);
     }
   }
 

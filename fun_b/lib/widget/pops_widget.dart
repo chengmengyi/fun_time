@@ -118,7 +118,7 @@ class _PopsWidgetState extends State<PopsWidget>{
     AdHep.instance.showAd(
       adType: AdType.reward,
       adPosId: AdPosId.sqftm_bubble_rv,
-      showIntAd: CashHep.instance.checkShowIntAd(AdType.reward),
+      showAd: CashHep.instance.checkShowAd(AdType.reward),
       closeAd: (){
         UserInfoHep.instance.updateUserCoins(addNum);
         addNum=CashHep.instance.getFloatAddNum();

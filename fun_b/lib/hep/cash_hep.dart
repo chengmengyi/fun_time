@@ -232,7 +232,7 @@ class CashHep{
     }
   }
 
-  bool checkShowIntAd(AdType adType){
+  bool checkShowAd(AdType adType){
     if(kDebugMode){
       return false;
     }

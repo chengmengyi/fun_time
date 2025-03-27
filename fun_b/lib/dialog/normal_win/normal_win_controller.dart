@@ -33,7 +33,7 @@ class NormalWinController extends BaseController{
     AdHep.instance.showAd(
       adType: AdType.reward,
       adPosId: AdPosId.sqftm_card_rv,
-      showIntAd: CashHep.instance.checkShowIntAd(AdType.reward),
+      showAd: CashHep.instance.checkShowAd(AdType.reward),
       closeAd: (){
         UserInfoHep.instance.updateUserCoins((Decimal.parse("$reward")*Decimal.fromInt(2)).toDouble());
         RouterUtils.back();
@@ -46,7 +46,7 @@ class NormalWinController extends BaseController{
     AdHep.instance.showAd(
       adType: AdType.interstitial,
       adPosId: AdPosId.sqftm_card_int,
-      showIntAd: CashHep.instance.checkShowIntAd(AdType.interstitial),
+      showAd: CashHep.instance.checkShowAd(AdType.interstitial),
       closeAd: (){
         UserInfoHep.instance.updateUserCoins(reward);
         RouterUtils.back();

@@ -100,6 +100,9 @@ class CardsController extends BaseController{
         case EventCode.updatePlayNumB:
           update(["num"]);
           break;
+        case EventCode.showBoxFinger:
+          _showBoxFinger();
+          break;
       }
     },
   );

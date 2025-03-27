@@ -8,6 +8,10 @@ class LevelStatus{
   static const int received=2;
 }
 
+enum UpdateLevelStatusType{
+  singleStatus,doubleStatus,all
+}
+
 class LevelHep {
   static final LevelHep _instance=LevelHep();
   static LevelHep get instance => _instance;
@@ -15,7 +19,7 @@ class LevelHep {
   initLevelData()async{
     var sql = await BaseSqlHep.instance.initSql();
     for (int i = 0; i < 36; i++) {
-      sql.insert(SqlTableName.levelB, {"levelNum":i+1,"status":LevelStatus.normal});
+      sql.insert(SqlTableName.levelB, {"levelNum":i+1,"singleStatus":LevelStatus.normal,"doubleStatus":LevelStatus.normal});
     }
   }
 
@@ -29,14 +33,24 @@ class LevelHep {
     return resultList;
   }
 
-  updateLevelData(int nowLevel,int status)async{
+  updateLevelData(int nowLevel,int status,UpdateLevelStatusType statueType)async{
     var sql = await BaseSqlHep.instance.initSql();
     var list = await sql.query(SqlTableName.levelB,where: '"levelNum" = ?',whereArgs: [nowLevel]);
     if(list.isEmpty){
       return;
     }
     var newMap = Map<String, Object?>.from(list.first);
-    newMap["status"]=status;
+    if(statueType==UpdateLevelStatusType.singleStatus){
+      newMap["singleStatus"]=status;
+    }
+    if(statueType==UpdateLevelStatusType.doubleStatus){
+      newMap["doubleStatus"]=status;
+    }
+    if(statueType==UpdateLevelStatusType.all){
+      newMap["singleStatus"]=status;
+      newMap["doubleStatus"]=status;
+    }
+
     await sql.update(SqlTableName.levelB, newMap,where: '"id" = ? ',whereArgs: [newMap["id"]]);
   }
 } 

@@ -21,7 +21,7 @@ class AddChanceController extends BaseController{
     AdHep.instance.showAd(
       adType: AdType.reward,
       adPosId: AdPosId.sqftm_card_chance_rv,
-      showIntAd: CashHep.instance.checkShowIntAd(AdType.reward),
+      showAd: CashHep.instance.checkShowAd(AdType.reward),
       closeAd: (){
         RouterUtils.back();
         _addPlayNum(winnerType, true);

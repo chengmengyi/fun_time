@@ -41,6 +41,11 @@ class _DiamondWidgetState extends State<DiamondWidget>{
             setState(() {});
           }
           break;
+        case EventCode.hideLevelFinger:
+          showFinger=false;
+          showLevelFinger.saveData(false);
+          setState(() {});
+          break;
       }
     });
   }
@@ -48,6 +53,7 @@ class _DiamondWidgetState extends State<DiamondWidget>{
   @override
   Widget build(BuildContext context) => InkWell(
     onTap: (){
+      EventData(code: EventCode.hideLevelFinger).send();
       RouterUtils.toNamed(routersName: BRoutersName.level);
     },
     child: Stack(

@@ -70,7 +70,10 @@ class CashChild extends BaseWidget<CashController>{
         Positioned(
           right: 12.w,
           bottom: 0,
-          child: TextWidget(data: "\$${UserInfoHep.instance.getUserCoins()}", color: "#FFFFFF", size: 32.sp,fontWeight: FontWeight.bold,),
+          child: GetBuilder<CashController>(
+            id: "money",
+            builder: (_)=>TextWidget(data: "\$${UserInfoHep.instance.getUserCoins()}", color: "#FFFFFF", size: 32.sp,fontWeight: FontWeight.bold,),
+          ),
         )
       ],
     ),

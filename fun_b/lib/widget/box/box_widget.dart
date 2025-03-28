@@ -24,7 +24,7 @@ class BoxWidget extends BaseWidget<BoxController>{
         ),
         Visibility(
           visible: ftController.countTime>0,
-          child: TextWidget(data: "${ftController.countTime}", color: "#FFFFFF", size: 12.sp,fontWeight: FontWeight.bold,),
+          child: TextWidget(data: "${ftController.countTime}s", color: "#FFFFFF", size: 12.sp,fontWeight: FontWeight.bold,),
         )
       ],
     ),

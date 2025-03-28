@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:fun_b/bean/home_bottom_bean.dart';
 import 'package:fun_b/page/home/home_controller.dart';
-import 'package:fun_b/widget/coins_widget.dart';
-import 'package:fun_b/widget/diamond_widget.dart';
 import 'package:fun_base/base/base_widget.dart';
 import 'package:fun_base/util/util.dart';
 import 'package:fun_base/widget/finger_widget.dart';
 import 'package:fun_base/widget/local_image_widget.dart';
 import 'package:fun_base/widget/text_widget.dart';
 
-class HomePage extends BaseWidget<HomeController>{
+class HomePage extends BaseWidget<BHomeController>{
   @override
-  HomeController createController() => HomeController();
+  BHomeController createController() => BHomeController();
 
   @override
   Widget createWidget() => Scaffold(
-    body: GetBuilder<HomeController>(
+    body: GetBuilder<BHomeController>(
       id: "page",
       builder: (_)=>Stack(
         children: [
@@ -73,7 +71,7 @@ class HomePage extends BaseWidget<HomeController>{
     ),
   );
 
-  _cashFingerWidget()=>GetBuilder<HomeController>(
+  _cashFingerWidget()=>GetBuilder<BHomeController>(
     id: "cash_finger",
     builder: (_){
       return Visibility(

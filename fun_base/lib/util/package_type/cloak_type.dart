@@ -38,11 +38,9 @@ class CloakType{
     var result = await TbaPointHep.instance.requestCloak(map);
     if(result.isEmpty){
       _tryNum++;
-      if(_tryNum<20){
-        Future.delayed(const Duration(milliseconds: 2000),(){
-          requestClock(call);
-        });
-      }
+      Future.delayed(const Duration(milliseconds: 2000),(){
+        requestClock(call);
+      });
     }else{
       var white = result=="ferocity";
       TbaPointHep.instance.pointEvent(CustomId.cloak_suc,params: {"cloak_user":white?1:0});

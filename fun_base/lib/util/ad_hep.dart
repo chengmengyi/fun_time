@@ -5,6 +5,7 @@ import 'package:flutter_ad_ios_plugins/hep/ad_type.dart';
 import 'package:flutter_ad_ios_plugins/hep/ios_ad_callback.dart';
 import 'package:fun_base/util/base_local_data.dart';
 import 'package:fun_base/util/firebase_hep.dart';
+import 'package:fun_base/util/package_type/package_type_hep.dart';
 import 'package:fun_base/util/tba_point/ad_point.dart';
 import 'package:fun_base/util/tba_point/custom_point.dart';
 import 'package:fun_base/util/tba_point/tab_point_hep.dart';
@@ -17,6 +18,7 @@ StorageData<int> watchAdNum=StorageData<int>(key: "watchAdNumB", defaultValue: 0
 class AdHep{
   static final AdHep _instance = AdHep();
   static AdHep get instance=>_instance;
+  int _lastShowTime=0;
 
   initAdData(){
     try{
@@ -48,6 +50,9 @@ class AdHep{
     required bool showAd,
     required Function() closeAd,
   }){
+    if(_checkIsDoubleClick()){
+      return;
+    }
     if(!showAd){
       closeAd.call();
       return;
@@ -56,7 +61,9 @@ class AdHep{
     var resultData = FlutterIosAdHep.instance.getCacheResultData(adType);
     if(null==resultData){
       FlutterIosAdHep.instance.loadAd(adType);
-      showToast("Ad loading failed, please try again later");
+      if(adType==AdType.reward){
+        showToast("Ad loading failed, please try again later");
+      }
       if(adType==AdType.interstitial){
         closeAd.call();
       }
@@ -78,7 +85,7 @@ class AdHep{
           closeAd.call();
         },
         onAdRevenuePaidCallback: (ad,info){
-
+          PackageTypeHep.instance.uploadAfRevenue(ad, info?.adId??"", adPosId);
         },
       ),
     );
@@ -88,8 +95,7 @@ class AdHep{
     required AdType adType,
     required Function() closeAd,
   }){
-    if(kDebugMode){
-      closeAd.call();
+    if(_checkIsDoubleClick()){
       return;
     }
     TbaPointHep.instance.pointEvent(CustomId.sqftm_ad_chance,params: {"ad_pos_id":AdPosId.sqftm_skipwait_rv.name});
@@ -115,7 +121,7 @@ class AdHep{
           closeAd.call();
         },
         onAdRevenuePaidCallback: (ad,info){
-
+          PackageTypeHep.instance.uploadAfRevenue(ad, info?.adId??"", AdPosId.sqftm_skipwait_rv);
         },
       ),
     );
@@ -146,7 +152,7 @@ class AdHep{
           closeAd.call();
         },
         onAdRevenuePaidCallback: (ad,info){
-
+          PackageTypeHep.instance.uploadAfRevenue(ad, info?.adId??"", AdPosId.sqftm_launch);
         },
       ),
     );
@@ -187,5 +193,14 @@ class AdHep{
     }catch(e){
       return jsonDecode(localAdStr.base64());
     }
+  }
+
+  bool _checkIsDoubleClick(){
+    var nowTime = DateTime.now().millisecondsSinceEpoch;
+    if(nowTime-_lastShowTime>500){
+      _lastShowTime=nowTime;
+      return false;
+    }
+    return true;
   }
 }

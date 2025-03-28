@@ -17,9 +17,9 @@ import 'package:fun_base/widget/local_image_widget.dart';
 import 'package:fun_base/widget/lottie_widget.dart';
 import 'package:fun_base/widget/text_widget.dart';
 
-class CardsChild extends BaseWidget<CardsController>{
+class CardsChild extends BaseWidget<BCardsController>{
   @override
-  CardsController createController() => CardsController();
+  BCardsController createController() => BCardsController();
 
   @override
   Widget createWidget() => Stack(
@@ -51,7 +51,7 @@ class CardsChild extends BaseWidget<CardsController>{
       Positioned(
         left: 12.w,
         bottom: 180.h,
-        child: GetBuilder<CardsController>(
+        child: GetBuilder<BCardsController>(
           id: "game_icon",
           builder: (_)=>Visibility(
             visible: ftController.showGameIcon,
@@ -71,7 +71,7 @@ class CardsChild extends BaseWidget<CardsController>{
     ],
   );
 
-  _numWidget()=>GetBuilder<CardsController>(
+  _numWidget()=>GetBuilder<BCardsController>(
     id: "num",
     builder: (_)=>SizedBox(
       width: 164.w,
@@ -117,7 +117,7 @@ class CardsChild extends BaseWidget<CardsController>{
         child: LocalImageWidget(image: "icon_left", width: 28.w, height: 28.w),
       ),
       const Spacer(),
-      GetBuilder<CardsController>(
+      GetBuilder<BCardsController>(
         id: "center",
         builder: (_)=>Stack(
           alignment: Alignment.bottomCenter,
@@ -154,7 +154,7 @@ class CardsChild extends BaseWidget<CardsController>{
   _selListWidget()=>SizedBox(
     width: double.infinity,
     height: 88.h,
-    child: GetBuilder<CardsController>(
+    child: GetBuilder<BCardsController>(
       id: "sel_list",
       builder: (_)=>ListView.builder(
         itemCount: ftController.homeList.length,
@@ -196,7 +196,7 @@ class CardsChild extends BaseWidget<CardsController>{
     ],
   );
 
-  _boxFingerWidget()=>GetBuilder<CardsController>(
+  _boxFingerWidget()=>GetBuilder<BCardsController>(
     id: "box_finger",
     builder: (_){
       var offset = ftController.boxFingerOffset;
@@ -217,7 +217,7 @@ class CardsChild extends BaseWidget<CardsController>{
     },
   );
 
-  _playFingerWidget()=>GetBuilder<CardsController>(
+  _playFingerWidget()=>GetBuilder<BCardsController>(
     id: "play_finger",
     builder: (_){
       var offset = ftController.playFingerOffset;

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter_ad_ios_plugins/data/storage_data.dart';
 import 'package:flutter_ad_ios_plugins/hep/hep.dart';
@@ -76,7 +78,7 @@ class TbaPointHep{
 
   adEvent(MaxAd? maxAd, AdInfoData? adInfoData, AdPosId adPosId,{int tryNum=5})async{
     var map = await AdPoint().getAdMap(maxAd, adInfoData, adPosId);
-    "tba---->ad--->map-->$map".log();
+    "tba---->ad--->map-->${jsonEncode(map)}".log();
     var result = await _requestPost(dataMap: map);
     "tba---->ad--->result-->$result--->map-->$map".log();
     if(!result){

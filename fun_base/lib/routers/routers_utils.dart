@@ -23,6 +23,10 @@ class RouterUtils{
     );
   }
 
+  static offNamedUntil({required String routersName}){
+    Get.offNamedUntil(routersName, (route)=>false);
+  }
+
   static Map<String, dynamic> getArguments() {
     try {
       return Get.arguments as Map<String, dynamic>;

@@ -24,25 +24,26 @@ class NormalWinController extends BaseController{
     }
   }
 
-  clickDouble(int reward,Function() dismiss){
+  // clickDouble(int reward,Function() dismiss){
+  //
+  //   AdHep.instance.showAd(
+  //     adType: AdType.reward,
+  //     adPosId: AdPosId.sqftm_card_rv,
+  //     showAd: CashHep.instance.checkShowAd(AdType.reward),
+  //     closeAd: (){
+  //       UserInfoHep.instance.updateUserCoins((Decimal.parse("$reward")*Decimal.fromInt(2)).toDouble());
+  //       RouterUtils.back();
+  //       dismiss.call();
+  //     },
+  //   );
+  // }
+
+  clickSingle(int reward,Function() dismiss){
     TbaPointHep.instance.pointEvent(CustomId.coin_pop_c,params: {"source_from":Hep.getTbaPlayTypeStr(winnerType)});
     if(firstRewardDialogClickClaim.getData()){
       firstRewardDialogClickClaim.saveData(false);
       TbaPointHep.instance.pointEvent(CustomId.card_coin_guide_pop_c);
     }
-    AdHep.instance.showAd(
-      adType: AdType.reward,
-      adPosId: AdPosId.sqftm_card_rv,
-      showAd: CashHep.instance.checkShowAd(AdType.reward),
-      closeAd: (){
-        UserInfoHep.instance.updateUserCoins((Decimal.parse("$reward")*Decimal.fromInt(2)).toDouble());
-        RouterUtils.back();
-        dismiss.call();
-      },
-    );
-  }
-
-  clickSingle(int reward,Function() dismiss){
     AdHep.instance.showAd(
       adType: AdType.interstitial,
       adPosId: AdPosId.sqftm_card_int,

@@ -14,7 +14,7 @@ import 'package:fun_base/util/notification_hep.dart';
 import 'package:fun_base/util/tba_point/custom_point.dart';
 import 'package:fun_base/util/tba_point/tab_point_hep.dart';
 import 'package:fun_base/util/voice_player.dart';
-class HomeController extends BaseController{
+class BHomeController extends BaseController{
   var chooseIndex=0,showCashFinger=false;
   List<HomeBottomBean> list=[
     HomeBottomBean(uns: "card_uns", sel: "card_sel", text: "Cards"),

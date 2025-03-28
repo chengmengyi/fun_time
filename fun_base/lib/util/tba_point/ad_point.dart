@@ -28,7 +28,7 @@ class AdPoint extends BasePoint{
       "impish":adInfoData?.adPlat??"",
       "puerto":adInfoData?.adId??"",
       "zambia":adPosId.name,
-      "autonomy":adInfoData?.adType??"",
+      "autonomy":adInfoData?.adType.name??"",
       "axiom":maxAd?.revenuePrecision??"",
     };
     return map;

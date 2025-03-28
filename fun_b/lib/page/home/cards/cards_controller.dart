@@ -8,6 +8,7 @@ import 'package:fun_b/hep/comment_hep.dart';
 import 'package:fun_b/hep/game_config_hep.dart';
 import 'package:fun_b/hep/hep.dart';
 import 'package:fun_b/hep/played_num_hep.dart';
+import 'package:fun_b/hep/user_info_hep.dart';
 import 'package:fun_base/base/base_controller.dart';
 import 'package:fun_base/routers/routers_utils.dart';
 import 'package:fun_base/util/event/event_code.dart';
@@ -16,7 +17,7 @@ import 'package:fun_base/util/event/event_result.dart';
 import 'package:fun_base/util/firebase_hep.dart';
 import 'package:fun_base/util/package_type/package_type_hep.dart';
 
-class CardsController extends BaseController{
+class BCardsController extends BaseController{
   var chooseIndex=0,showGameIcon=PackageTypeHep.instance.cloakIsWhite();
   List<HomeListBean> homeList=[
     HomeListBean(uns: "list_uns1", sel: "list_sel1", center: "list1",numIcon: "num1",winnerType: WinnerType.winnerGame),
@@ -131,8 +132,8 @@ class CardsController extends BaseController{
     if(!kDebugMode){
       return;
     }
-    // UserInfoHep.instance.updateUserCoins(500);
+    UserInfoHep.instance.updateUserCoins(998);
     // CashHep.instance.updateCashTask(CashTaskType.card);
-    FirebaseHep.instance.initFirebase();
+    // FirebaseHep.instance.initFirebase();
   }
 }

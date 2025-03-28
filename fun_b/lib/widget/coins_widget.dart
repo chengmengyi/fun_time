@@ -27,7 +27,7 @@ class _CoinsWidgetState extends State<CoinsWidget>{
     super.initState();
     _ss=eventBus.on<EventData>().listen((event) {
       switch(event.code){
-        case EventCode.updateUserDiamondB:
+        case EventCode.updateUserCoinsB:
           setState(() {});
           break;
         case EventCode.firstGetReward:

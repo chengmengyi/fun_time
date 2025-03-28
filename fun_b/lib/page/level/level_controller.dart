@@ -1,4 +1,5 @@
 import 'package:fun_b/bean/level_data.dart';
+import 'package:fun_b/hep/cash_hep.dart';
 import 'package:fun_b/hep/level_hep.dart';
 import 'package:fun_b/hep/user_info_hep.dart';
 import 'package:fun_base/base/base_controller.dart';
@@ -47,8 +48,8 @@ class LevelController extends BaseController{
     }
     AdHep.instance.showAd(
       adType: AdType.reward,
-      showAd: false,
-      adPosId: AdPosId.sqftm_box_rv,
+      showAd: CashHep.instance.checkShowAd(AdType.reward),
+      adPosId: AdPosId.sqftm_level_rv,
       closeAd: (){
         UserInfoHep.instance.updateUserCoins(100);
         _updateLevelData(data.levelNum??0,LevelStatus.received,UpdateLevelStatusType.doubleStatus);

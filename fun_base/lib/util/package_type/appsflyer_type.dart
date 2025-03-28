@@ -2,8 +2,10 @@ import 'package:appsflyer_sdk/appsflyer_sdk.dart';
 import 'package:flutter_ad_ios_plugins/data/storage_data.dart';
 import 'package:flutter_ad_ios_plugins/hep/hep.dart';
 import 'package:flutter_tba_info/flutter_tba_info.dart';
+import 'package:fun_base/util/tba_point/ad_point.dart';
 import 'package:fun_base/util/tba_point/custom_point.dart';
 import 'package:fun_base/util/tba_point/tab_point_hep.dart';
+import 'package:applovin_max/applovin_max.dart';
 
 StorageData<bool> firstGetAf=StorageData<bool>(key: "firstGetAf", defaultValue: true);
 
@@ -62,6 +64,21 @@ class AppsflyerType{
             _startAf();
           });
         }
+    );
+  }
+
+  uploadAdRevenue(MaxAd? ad,String adId,AdPosId pointId){
+    _appsflyerSdk?.logAdRevenue(
+        AdRevenueData(
+            monetizationNetwork: ad?.networkName??"",
+            mediationNetwork: AFMediationNetwork.applovinMax.value,
+            currencyIso4217Code: "USD",
+            revenue: ad?.revenue??0,
+            additionalParameters: {
+              "adRevenueUnit": adId,
+              "adRevenuePlacement": pointId.name,
+            }
+        )
     );
   }
 }

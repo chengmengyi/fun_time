@@ -203,7 +203,7 @@ class LevelPage extends BaseWidget<LevelController>{
                             child: Stack(
                               alignment: Alignment.center,
                               children: [
-                                LocalImageWidget(image: "level10", width: 80.w, height: 26.h),
+                                LocalImageWidget(image: data.singleStatus==LevelStatus.canReceive?"level15":"level10", width: 80.w, height: 26.h),
                                 TextWidget(
                                   data: "Claim",
                                   color: "#FFFFFF",

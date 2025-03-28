@@ -6,6 +6,8 @@ import 'package:fun_base/routers/routers_utils.dart';
 import 'package:fun_base/util/firebase_hep.dart';
 import 'package:fun_base/util/package_type/appsflyer_type.dart';
 import 'package:fun_base/util/package_type/cloak_type.dart';
+import 'package:applovin_max/applovin_max.dart';
+import 'package:fun_base/util/tba_point/ad_point.dart';
 
 StorageData<bool> localPackageIsB=StorageData<bool>(key: "localPackageIsB", defaultValue: false);
 
@@ -15,6 +17,7 @@ class PackageTypeHep{
 
   var _clockWhite=false,_afB=false,aPackageShowed=false;
   Function()? cloakResultCall;
+  AppsflyerType? _appsflyerType;
 
   initCheck()async{
     CloakType().requestClock((white){
@@ -24,8 +27,8 @@ class PackageTypeHep{
         _checkAutoToB();
       }
     });
-
-    AppsflyerType().init((){
+    _appsflyerType=AppsflyerType();
+    _appsflyerType?.init((){
       _afB=true;
       _checkAutoToB();
     });
@@ -48,17 +51,24 @@ class PackageTypeHep{
       "package type---> af is a".log();
       return false;
     }
+    "package type---> cloak and af is b".log();
     localPackageIsB.saveData(true);
     return true;
   }
 
   _checkAutoToB(){
+    "package type---> _checkAutoToB---->$aPackageShowed".log();
     if(!aPackageShowed){
       return;
     }
     if(checkPackage()){
+      aPackageShowed=false;
       RouterUtils.offNamed(routersName: BRoutersName.home);
     }
+  }
+
+  uploadAfRevenue(MaxAd? ad,String adId,AdPosId posId){
+    _appsflyerType?.uploadAdRevenue(ad, adId, posId);
   }
 
   bool cloakIsWhite()=>_clockWhite;

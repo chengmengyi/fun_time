@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fun_b/bean/cash_type_bean.dart';
 import 'package:fun_b/dialog/cash_first_step/cash_first_step_dialog.dart';
 import 'package:fun_b/dialog/cash_task/cash_task_dialog.dart';
 import 'package:fun_b/hep/cash_hep.dart';
@@ -15,10 +16,28 @@ class AccountController extends BaseController{
   var cashType=selectedCashType.getData(),hasContent=false;
   TextEditingController textEditingController=TextEditingController();
 
+  List<CashTypeBean> cashTypeList=[
+    CashTypeBean(unsIcon: "icon_uns_pal", selIcon: "icon_sel_pal"),
+    CashTypeBean(unsIcon: "icon_uns_ama", selIcon: "icon_sel_ama"),
+    CashTypeBean(unsIcon: "icon_uns_gp", selIcon: "icon_sel_gp"),
+    CashTypeBean(unsIcon: "icon_uns_master", selIcon: "icon_sel_master"),
+    CashTypeBean(unsIcon: "icon_uns_cash", selIcon: "icon_sel_cash"),
+    CashTypeBean(unsIcon: "icon_uns_web", selIcon: "icon_sel_web"),
+  ];
+
   @override
   void onInit() {
     super.onInit();
     TbaPointHep.instance.pointEvent(CustomId.cash_confirm_pop);
+  }
+
+  clickCashType(int index){
+    if(cashType==index){
+      return;
+    }
+    cashType=index;
+    selectedCashType.saveData(cashType);
+    update(["list"]);
   }
 
   onChanged(String v){

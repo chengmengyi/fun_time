@@ -1,5 +1,6 @@
 import 'package:fun_b/bean/cash_info_bean.dart';
 import 'package:fun_base/base/base_controller.dart';
+import 'package:fun_base/routers/b_routers_name.dart';
 import 'package:fun_base/routers/routers_utils.dart';
 import 'package:fun_base/util/event/event_code.dart';
 import 'package:fun_base/util/event/event_data.dart';
@@ -29,7 +30,7 @@ class CashFirstStepController extends BaseController{
 
   click(){
     TbaPointHep.instance.pointEvent(CustomId.cash_task_pop_c);
-    RouterUtils.back();
     EventData(code: EventCode.updateHomeIndex,intValue: 0).send();
+    RouterUtils.offNamedUntil(routersName: BRoutersName.home);
   }
 }

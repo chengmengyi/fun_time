@@ -89,7 +89,6 @@ class CashController extends BaseController{
         case CashStatus.rank:
           RouterUtils.dialog(
             widget: RankDialog(
-              cashTypeIcon: cashTypeList[chooseCashTypeIndex].selIcon,
               cashType: chooseCashTypeIndex,
               cashMoney: bean.cashMoney,
             ),

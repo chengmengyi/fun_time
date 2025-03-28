@@ -6,6 +6,7 @@ import 'package:fun_base/util/event/event_code.dart';
 import 'package:fun_base/util/event/event_data.dart';
 import 'package:fun_base/util/tba_point/custom_point.dart';
 import 'package:fun_base/util/tba_point/tab_point_hep.dart';
+import 'package:fun_base/util/util.dart';
 
 class CashFirstStepController extends BaseController{
   @override
@@ -30,7 +31,7 @@ class CashFirstStepController extends BaseController{
 
   click(){
     TbaPointHep.instance.pointEvent(CustomId.cash_task_pop_c);
+    Get.until((route)=>route.settings.name==BRoutersName.home);
     EventData(code: EventCode.updateHomeIndex,intValue: 0).send();
-    RouterUtils.offNamedUntil(routersName: BRoutersName.home);
   }
 }

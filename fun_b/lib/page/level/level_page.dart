@@ -6,6 +6,7 @@ import 'package:fun_b/page/level/level_controller.dart';
 import 'package:fun_base/base/base_widget.dart';
 import 'package:fun_base/routers/routers_utils.dart';
 import 'package:fun_base/util/util.dart';
+import 'package:fun_base/widget/finger_widget.dart';
 import 'package:fun_base/widget/local_image_widget.dart';
 import 'package:fun_base/widget/text_widget.dart';
 
@@ -167,142 +168,180 @@ class LevelPage extends BaseWidget<LevelController>{
   _itemWidget(LevelData data)=>SizedBox(
     width: double.infinity,
     height: 148.h,
-    child: Stack(
+    child: Row(
       children: [
-        Row(
-          children: [
-            Expanded(
-              child: Container(
-                width: double.infinity,
-                height: 148.h,
-                alignment: Alignment.center,
-                child: SizedBox(
-                  width: 120.w,
-                  height: 120.h,
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      Stack(
-                        children: [
-                          LocalImageWidget(image: "level9", width: 88.w, height: 118.h),
-                          Positioned(
-                            right: 0,
-                            bottom: 34.h,
-                            child: TextWidget(data: "\$50", color: "#FFFFFF", size: 20.sp,fontWeight: FontWeight.bold,),
-                          )
-                        ],
-                      ),
-                      Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Container(
-                          margin: EdgeInsets.only(bottom: 4.h),
-                          child: InkWell(
-                            onTap: (){
-                              ftController.clickSingle(data);
-                            },
-                            child: Stack(
-                              alignment: Alignment.center,
-                              children: [
-                                LocalImageWidget(image: data.singleStatus==LevelStatus.canReceive?"level15":"level10", width: 80.w, height: 26.h),
-                                TextWidget(
-                                  data: "Claim",
-                                  color: "#FFFFFF",
-                                  size: 16.sp,
-                                  fontWeight: FontWeight.bold,
-                                  colorOpacity: data.singleStatus==LevelStatus.canReceive?null:0.3,
-                                )
-                              ],
+        Expanded(
+          child: SizedBox(
+            width: double.infinity,
+            height: 148.h,
+            child: Stack(
+              children: [
+                Align(
+                  alignment: Alignment.center,
+                  child: SizedBox(
+                    width: 120.w,
+                    height: 120.h,
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Stack(
+                          children: [
+                            LocalImageWidget(image: "level9", width: 88.w, height: 118.h),
+                            Positioned(
+                              right: 0,
+                              bottom: 34.h,
+                              child: TextWidget(data: "\$50", color: "#FFFFFF", size: 20.sp,fontWeight: FontWeight.bold,),
+                            )
+                          ],
+                        ),
+                        Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Container(
+                            margin: EdgeInsets.only(bottom: 4.h),
+                            child: InkWell(
+                              onTap: (){
+                                ftController.clickSingle(data);
+                              },
+                              child: Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  LocalImageWidget(image: data.singleStatus==LevelStatus.canReceive?"level15":"level10", width: 80.w, height: 26.h),
+                                  TextWidget(
+                                    data: "Claim",
+                                    color: "#FFFFFF",
+                                    size: 16.sp,
+                                    fontWeight: FontWeight.bold,
+                                    colorOpacity: data.singleStatus==LevelStatus.canReceive?null:0.3,
+                                  )
+                                ],
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      Positioned(
-                        top: 0,
-                        right: 0,
-                        child: Visibility(
-                          visible: data.singleStatus!=LevelStatus.canReceive,
-                          child: LocalImageWidget(image: data.singleStatus==LevelStatus.normal?"level12":"level11", width: 36.w, height: 36.w),
+                        Positioned(
+                          top: 0,
+                          right: 0,
+                          child: Visibility(
+                            visible: data.singleStatus!=LevelStatus.canReceive,
+                            child: LocalImageWidget(image: data.singleStatus==LevelStatus.normal?"level12":"level11", width: 36.w, height: 36.w),
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Visibility(
+                    visible: data.singleStatus==LevelStatus.canReceive,
+                    child: InkWell(
+                      onTap: (){
+                        ftController.clickSingle(data);
+                      },
+                      child: FingerWidget(
+                        width: 30.w,
+                        height: 30.w,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
+          ),
+        ),
+        Stack(
+          alignment: Alignment.center,
+          children: [
+            LocalImageWidget(image: ftController.getCurrentLevel()>=(data.levelNum??0)?"level17":"level16", width: 16.w, height: double.infinity),
             Stack(
               alignment: Alignment.center,
               children: [
-                LocalImageWidget(image: ftController.getCurrentLevel()>=(data.levelNum??0)?"level17":"level16", width: 16.w, height: double.infinity),
-                Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    LocalImageWidget(image: ftController.getCurrentLevel()>=(data.levelNum??0)?"level18":"level19", width: 40.w, height: 40.w),
-                    TextWidget(data: "${data.levelNum??0}", color: "#FFFFFF", size: 16.sp,fontWeight: FontWeight.bold,)
-                  ],
-                )
+                LocalImageWidget(image: ftController.getCurrentLevel()>=(data.levelNum??0)?"level18":"level19", width: 40.w, height: 40.w),
+                TextWidget(data: "${data.levelNum??0}", color: "#FFFFFF", size: 16.sp,fontWeight: FontWeight.bold,)
               ],
-            ),
-            Expanded(
-              child: Container(
-                width: double.infinity,
-                height: 148.h,
-                alignment: Alignment.center,
-                child: SizedBox(
-                  width: 120.w,
-                  height: 120.h,
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      Stack(
-                        children: [
-                          LocalImageWidget(image: "level13", width: 88.w, height: 118.h),
-                          Positioned(
-                            right: 0,
-                            bottom: 34.h,
-                            child: TextWidget(data: "\$100", color: "#FFFFFF", size: 20.sp,fontWeight: FontWeight.bold,),
-                          )
-                        ],
-                      ),
-                      Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Container(
-                          margin: EdgeInsets.only(bottom: 4.h),
-                          child: InkWell(
-                            onTap: (){
-                              ftController.clickDouble(data);
-                            },
-                            child: Stack(
-                              alignment: Alignment.center,
-                              children: [
-                                LocalImageWidget(image: data.doubleStatus==LevelStatus.canReceive?"level15":"level10", width: 80.w, height: 26.h),
-                                TextWidget(
-                                  data: "Claim",
-                                  color: "#FFFFFF",
-                                  size: 16.sp,
-                                  fontWeight: FontWeight.bold,
-                                  colorOpacity: data.doubleStatus==LevelStatus.canReceive?null:0.3,
-                                )
-                              ],
+            )
+          ],
+        ),
+        Expanded(
+          child: SizedBox(
+            width: double.infinity,
+            height: 148.h,
+            child: Stack(
+              children: [
+                Align(
+                  alignment: Alignment.center,
+                  child: SizedBox(
+                    width: 120.w,
+                    height: 120.h,
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Stack(
+                          children: [
+                            LocalImageWidget(image: "level13", width: 88.w, height: 118.h),
+                            Positioned(
+                              right: 0,
+                              bottom: 34.h,
+                              child: TextWidget(data: "\$100", color: "#FFFFFF", size: 20.sp,fontWeight: FontWeight.bold,),
+                            )
+                          ],
+                        ),
+                        Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Container(
+                            margin: EdgeInsets.only(bottom: 4.h),
+                            child: InkWell(
+                              onTap: (){
+                                ftController.clickDouble(data);
+                              },
+                              child: Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  LocalImageWidget(image: data.doubleStatus==LevelStatus.canReceive?"level15":"level10", width: 80.w, height: 26.h),
+                                  TextWidget(
+                                    data: "Claim",
+                                    color: "#FFFFFF",
+                                    size: 16.sp,
+                                    fontWeight: FontWeight.bold,
+                                    colorOpacity: data.doubleStatus==LevelStatus.canReceive?null:0.3,
+                                  )
+                                ],
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      Positioned(
-                        top: 0,
-                        right: 0,
-                        child: LocalImageWidget(
-                          image: data.doubleStatus==LevelStatus.normal?"level12":data.doubleStatus==LevelStatus.canReceive?"level14":"level11",
-                          width: 36.w,
-                          height: 36.w,
+                        Positioned(
+                          top: 0,
+                          right: 0,
+                          child: LocalImageWidget(
+                            image: data.doubleStatus==LevelStatus.normal?"level12":data.doubleStatus==LevelStatus.canReceive?"level14":"level11",
+                            width: 36.w,
+                            height: 36.w,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Visibility(
+                    visible: data.doubleStatus==LevelStatus.canReceive,
+                    child: InkWell(
+                      onTap: (){
+                        ftController.clickDouble(data);
+                      },
+                      child: FingerWidget(
+                        width: 30.w,
+                        height: 30.w,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ],
-        )
+          ),
+        ),
       ],
     ),
   );

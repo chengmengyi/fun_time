@@ -19,4 +19,5 @@ class EventCode{
   static const int showMoneyLottie=108;
   static const int hideLevelFinger=109;
   static const int showBoxFinger=110;
+  static const int hideBoxFinger=111;
 }

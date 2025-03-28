@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fun_b/dialog/rank/rank_controller.dart';
-import 'package:fun_b/widget/watch_video_widget.dart';
+import 'package:fun_b/hep/hep.dart';
 import 'package:fun_base/base/base_dialog.dart';
 import 'package:fun_base/routers/routers_utils.dart';
 import 'package:fun_base/util/util.dart';
@@ -8,11 +8,9 @@ import 'package:fun_base/widget/local_image_widget.dart';
 import 'package:fun_base/widget/text_widget.dart';
 
 class RankDialog extends BaseDialog<RankController>{
-  String cashTypeIcon;
   int cashType;
   int cashMoney;
   RankDialog({
-    required this.cashTypeIcon,
     required this.cashType,
     required this.cashMoney,
   });
@@ -77,7 +75,7 @@ class RankDialog extends BaseDialog<RankController>{
         Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            LocalImageWidget(image: cashTypeIcon, width: 108.w, height: 36.h),
+            LocalImageWidget(image: Hep.getCashTypeIcon(cashType), width: 108.w, height: 36.h),
             TextWidget(data: "\$$cashMoney", color: "#FFC718", size: 28.sp,fontWeight: FontWeight.bold,),
             Container(
               margin: EdgeInsets.only(left: 12.w,right: 12.w),
@@ -148,7 +146,7 @@ class RankDialog extends BaseDialog<RankController>{
                   width: double.infinity,
                   height: 32.h,
                   alignment: Alignment.center,
-                  child: TextWidget(data: "User ID", color: "#666666", size: 12.sp,fontWeight: FontWeight.bold,),
+                  child: TextWidget(data: "Rank", color: "#666666", size: 12.sp,fontWeight: FontWeight.bold,),
                 ),
               ),
               Expanded(
@@ -188,7 +186,7 @@ class RankDialog extends BaseDialog<RankController>{
                             width: double.infinity,
                             height: 32.h,
                             alignment: Alignment.center,
-                            child: TextWidget(data: bean.id, color: isMe?"#FF3333":"#000000", size: 12.sp,fontWeight: FontWeight.bold,),
+                            child: TextWidget(data: "${index+1}", color: isMe?"#FF3333":"#000000", size: 12.sp,fontWeight: FontWeight.bold,),
                           ),
                         ),
                         Expanded(

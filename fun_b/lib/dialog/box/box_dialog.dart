@@ -21,19 +21,46 @@ class BoxDialog extends BaseDialog<BoxDialogController>{
     mainAxisSize: MainAxisSize.min,
     children: [
       LocalImageWidget(image: "box1", width: 233.w, height: 40.h),
-      LottieWidget(name: "box", ext: "json",width: 187.w,repeat: false,),
-      TextWidget(data: "\$${ftController.addNum}", color: "#FFE32A", size: 36.sp,fontWeight: FontWeight.bold,),
-      WatchVideoWidget(
-        btnStr: "Claim Now",
-        click: (){
-          ftController.clickDouble(dismiss);
-        },
+      Stack(
+        alignment: Alignment.center,
+        children: [
+          LocalImageWidget(image: "guang", width: 280.w, height: 280.w),
+          LottieWidget(
+            name: "xiangzi",
+            ext: "json",
+            width: 180.w,
+            height: 180.w,
+            repeat: false,
+            controller: ftController.moneyLottieController,
+          ),
+        ],
       ),
-      InkWell(
-        onTap: (){
-          ftController.clickGiveUp(dismiss);
-        },
-        child: TextWidget(data: "Give Up", color: "#FFFFFF", size: 18.sp,fontWeight: FontWeight.bold, showShadows: true,),
+      GetBuilder<BoxDialogController>(
+        id: "info",
+        builder: (_)=>Visibility(
+          visible: ftController.showInfo,
+          maintainAnimation: true,
+          maintainState: true,
+          maintainSize: true,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextWidget(data: "\$${ftController.addNum}", color: "#FFE32A", size: 36.sp,fontWeight: FontWeight.bold,),
+              WatchVideoWidget(
+                btnStr: "Claim Now",
+                click: (){
+                  ftController.clickDouble(dismiss);
+                },
+              ),
+              InkWell(
+                onTap: (){
+                  ftController.clickGiveUp(dismiss);
+                },
+                child: TextWidget(data: "Give Up", color: "#FFFFFF", size: 18.sp,fontWeight: FontWeight.bold, showShadows: true,),
+              )
+            ],
+          ),
+        ),
       )
     ],
   );

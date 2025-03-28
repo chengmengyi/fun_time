@@ -9,7 +9,6 @@ import 'package:fun_b/widget/money_lottie_widget.dart';
 import 'package:fun_b/widget/pops_widget.dart';
 import 'package:fun_b/widget/win_up_widget.dart';
 import 'package:fun_base/base/base_widget.dart';
-import 'package:fun_base/routers/routers_utils.dart';
 import 'package:fun_base/util/h5_hep.dart';
 import 'package:fun_base/util/util.dart';
 import 'package:fun_base/widget/finger_widget.dart';
@@ -29,7 +28,6 @@ class CardsChild extends BaseWidget<BCardsController>{
         child: Column(
           children: [
             _topWidget(),
-            SizedBox(height: 20.h,),
             _selListWidget(),
             SizedBox(height: 16.h,),
             _centerWidget(),

@@ -7,6 +7,7 @@ import 'package:fun_b/bean/cash_info_bean.dart';
 import 'package:fun_b/bean/cash_list_bean.dart';
 import 'package:fun_b/bean/other_config_bean.dart';
 import 'package:fun_b/dialog/account/account_dialog.dart';
+import 'package:fun_b/dialog/rank/rank_dialog.dart';
 import 'package:fun_b/hep/local_data.dart';
 import 'package:fun_b/hep/storage/storage_bean.dart';
 import 'package:fun_b/hep/user_info_hep.dart';
@@ -109,6 +110,7 @@ class CashHep{
     if(list.isEmpty){
       return;
     }
+    int cashType=-1,cashMoney=-1;
     for (var value in list) {
       var newMap = Map<String, Object?>.from(value);
       var taskIndex = newMap["taskIndex"] as int;
@@ -121,6 +123,10 @@ class CashHep{
           newMap["cashStatus"]=CashStatus.rank;
           newMap["rankNum"]=_otherConfigBean?.cashCurrent?.intCurrent??99;
           newMap["rankAllPerson"]=_otherConfigBean?.cashAll?.intAll??388;
+          if(cashType==-1){
+            cashType=newMap["cashType"] as int;
+            cashMoney=newMap["cashMoney"] as int;
+          }
         }else{
           newMap["currentPro"]=currentPro+1;
         }
@@ -142,6 +148,14 @@ class CashHep{
           await db.update(SqlTableName.cashListB, newMap,where: '"id" = ? ',whereArgs: [newMap["id"]]);
         }
       }
+    }
+    if(cashType!=-1&&cashMoney!=-1){
+      RouterUtils.dialog(
+        widget: RankDialog(
+          cashType: cashType,
+          cashMoney: cashMoney,
+        ),
+      );
     }
     EventData(code: EventCode.updateCashList).send();
   }
@@ -233,9 +247,9 @@ class CashHep{
   }
 
   bool checkShowAd(AdType adType){
-    // if(kDebugMode){
-    //   return false;
-    // }
+    if(kDebugMode){
+      return false;
+    }
     if(adType==AdType.reward){
       return true;
     }

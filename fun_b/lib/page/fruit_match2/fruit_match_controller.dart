@@ -30,7 +30,7 @@ class FruitMatchController extends BaseController with GetTickerProviderStateMix
   Offset diamondEndOffset=Offset.zero;
   late AnimationController diamondLottieController;
   Animation<Offset>? diamondAnimation;
-  final List<String> _allIconList=["fruit3","fruit4","fruit5","fruit6"];
+  final List<String> _allIconList=["fruit3","fruit4","fruit5","fruit6","fruit8","fruit9"];
 
   Offset? iconOffset;
   AutoScratch? autoScratch;
@@ -85,8 +85,8 @@ class FruitMatchController extends BaseController with GetTickerProviderStateMix
       }
       var newList = List.from(_allIconList);
       newList.remove(rewardIcon);
-      var randomIcon = newList.random();
       while(winnerRewardList.length<6){
+        var randomIcon = newList.random();
         winnerRewardList.add(WinnerRewardBean(rewardNum: Random().nextInt(_winnerBackBean.rewardNormal), winType: WinType.coins, winner: false, iconList: [randomIcon]));
       }
     }else{
@@ -95,7 +95,7 @@ class FruitMatchController extends BaseController with GetTickerProviderStateMix
         winnerRewardList.add(WinnerRewardBean(rewardNum: Random().nextInt(_winnerBackBean.rewardNormal), winType: WinType.coins, winner: false, iconList: [value]));
       }
       while(winnerRewardList.length<6){
-        winnerRewardList.add(WinnerRewardBean(rewardNum: Random().nextInt(_winnerBackBean.rewardNormal), winType: WinType.coins, winner: false, iconList: [randomElements.last]));
+        winnerRewardList.add(WinnerRewardBean(rewardNum: Random().nextInt(_winnerBackBean.rewardNormal), winType: WinType.coins, winner: false, iconList: [randomElements.random()]));
       }
     }
     update(["play"]);

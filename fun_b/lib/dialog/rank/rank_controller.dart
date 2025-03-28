@@ -65,7 +65,7 @@ class RankController extends BaseController{
         for (int i = 0; i < phoneAndEmailList.length; i++) {
           rankList.add(RankListBean(id: "$i", account: phoneAndEmailList[i], amount: "${CashHep.instance.getConfigCashMoneyList().random()}"));
         }
-        rankList.shuffle();
+        // rankList.shuffle();
         rankList.insert(myRankNum-1, RankListBean(id: "$rankNum", account: account, amount: "$cashMoney"));
         update(["rank_list","btn"]);
       },

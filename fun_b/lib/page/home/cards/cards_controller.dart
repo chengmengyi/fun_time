@@ -104,6 +104,9 @@ class BCardsController extends BaseController{
         case EventCode.showBoxFinger:
           _showBoxFinger();
           break;
+        case EventCode.hideBoxFinger:
+          _hideBoxFinger();
+          break;
       }
     },
   );
@@ -121,19 +124,23 @@ class BCardsController extends BaseController{
   }
 
   clickBox(){
+
+    EventData(code: EventCode.clickBox).send();
+  }
+
+  _hideBoxFinger(){
     if(null!=boxFingerOffset){
       boxFingerOffset=null;
       update(["box_finger"]);
     }
-    EventData(code: EventCode.clickBox).send();
   }
 
   test(){
     if(!kDebugMode){
       return;
     }
-    UserInfoHep.instance.updateUserCoins(998);
-    // CashHep.instance.updateCashTask(CashTaskType.card);
+    // UserInfoHep.instance.updateUserCoins(998);
+    CashHep.instance.updateCashTask(CashTaskType.card);
     // FirebaseHep.instance.initFirebase();
   }
 }

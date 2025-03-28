@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:fun_b/hep/cash_hep.dart';
 import 'package:fun_b/hep/user_info_hep.dart';
 import 'package:fun_base/base/base_controller.dart';
@@ -10,14 +11,28 @@ import 'package:fun_base/util/tba_point/custom_point.dart';
 import 'package:fun_base/util/tba_point/tab_point_hep.dart';
 import 'package:fun_base/util/util.dart';
 
-class BoxDialogController extends BaseController{
-  var addNum=0.0;
+class BoxDialogController extends BaseController with GetTickerProviderStateMixin{
+  var addNum=0.0,showInfo=false;
+  late AnimationController moneyLottieController;
+  Function(bool received)? dismiss;
 
   @override
   void onInit() {
     super.onInit();
     addNum=CashHep.instance.getBoxAddNum();
     TbaPointHep.instance.pointEvent(CustomId.box_double_pop);
+    moneyLottieController=AnimationController(vsync: this,duration: const Duration(milliseconds: 2000))..addStatusListener((status) {
+      if(status==AnimationStatus.completed){
+        showInfo=true;
+        update(["info"]);
+      }
+    });
+  }
+
+  @override
+  void onReady() {
+    super.onReady();
+    moneyLottieController..reset()..forward();
   }
 
   clickDouble(Function(bool received) dismiss){
@@ -48,4 +63,9 @@ class BoxDialogController extends BaseController{
     );
   }
 
+  @override
+  void onClose() {
+    moneyLottieController.dispose();
+    super.onClose();
+  }
 }

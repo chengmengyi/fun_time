@@ -35,10 +35,10 @@ class PackageTypeHep{
   }
 
   bool checkPackage(){
-    if(kDebugMode){
-      "package type---> debug always b".log();
-      return true;
-    }
+    // if(kDebugMode){
+    //   "package type---> debug always b".log();
+    //   return true;
+    // }
     if(localPackageIsB.getData()){
       "package type---> local type is b".log();
       return true;

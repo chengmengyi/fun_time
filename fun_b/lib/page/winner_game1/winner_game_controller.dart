@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -22,7 +23,7 @@ import 'package:fun_base/util/util.dart';
 import 'package:fun_base/util/voice_player.dart';
 
 class WinnerGameController extends BaseController with GetTickerProviderStateMixin{
-  var startScratch=false,showDiamondAnimator=false,canPlay=true;
+  var startScratch=false,showDiamondAnimator=false,canPlay=true,showGuaKaFinger=true,noAnyOperate=true;
   WinnerType winnerType=WinnerType.winnerGame;
   late WinnerBackBean _winnerBackBean;
   List<WinnerRewardBean> winnerRewardList=[];
@@ -37,6 +38,7 @@ class WinnerGameController extends BaseController with GetTickerProviderStateMix
 
   Offset? iconOffset;
   AutoScratch? autoScratch;
+  Timer? _showGuaKaFingerTimer;
 
   late AnimationController scaleController;
 
@@ -82,7 +84,6 @@ class WinnerGameController extends BaseController with GetTickerProviderStateMix
   }
 
   clickCheckCard()async{
-    _checkFirstGua();
     if(startScratch){
       return;
     }
@@ -94,6 +95,8 @@ class WinnerGameController extends BaseController with GetTickerProviderStateMix
       );
       return;
     }
+    noAnyOperate=false;
+    _checkFirstGua();
     startScratch=true;
     if(canPlay){
       VoicePlayer.instance.playVoiceMp3();
@@ -121,7 +124,7 @@ class WinnerGameController extends BaseController with GetTickerProviderStateMix
     if(_winnerBackBean.winNum>0){
       scaleController..reset()..forward();
     }
-    await Future.delayed(const Duration(milliseconds: 1600));
+    await Future.delayed(const Duration(milliseconds: 1000));
     _checkResult();
   }
 
@@ -182,7 +185,9 @@ class WinnerGameController extends BaseController with GetTickerProviderStateMix
     key.currentState?.reset();
     autoScratch?.stopWhile=false;
     iconOffset=null;
+    noAnyOperate=true;
     update(["gold_icon"]);
+    _startShowGuaKaFingerTimer();
     await UserInfoHep.instance.updateCanPlayNum(-1,winnerType);
     update(["num"]);
     canPlay = await PlayedNumHep.instance.checkCanPlay(winnerType);
@@ -198,7 +203,6 @@ class WinnerGameController extends BaseController with GetTickerProviderStateMix
   }
 
   onScratchStart(){
-    _checkFirstGua();
     if(UserInfoHep.instance.getPlayNum(winnerType)<=0){
       RouterUtils.dialog(
         widget: AddChanceDialog(
@@ -207,6 +211,8 @@ class WinnerGameController extends BaseController with GetTickerProviderStateMix
       );
       return;
     }
+    noAnyOperate=false;
+    _checkFirstGua();
     VoicePlayer.instance.playVoiceMp3();
     startScratch=true;
   }
@@ -216,11 +222,23 @@ class WinnerGameController extends BaseController with GetTickerProviderStateMix
   }
 
   _checkFirstGua(){
-    if(firstGuaka.getData()){
-      TbaPointHep.instance.pointEvent(CustomId.card_guide_c);
-      firstGuaka.saveData(false);
-      update(["gua_finger"]);
-    }
+    showGuaKaFinger=false;
+    update(["gua_finger"]);
+    // if(firstGuaka.getData()){
+    //   TbaPointHep.instance.pointEvent(CustomId.card_guide_c);
+    //   firstGuaka.saveData(false);
+    //
+    // }
+  }
+
+  _startShowGuaKaFingerTimer(){
+    _showGuaKaFingerTimer?.cancel();
+    _showGuaKaFingerTimer=Timer(const Duration(milliseconds: 3000), (){
+      if(noAnyOperate){
+        showGuaKaFinger=true;
+        update(["gua_finger"]);
+      }
+    });
   }
 
   clickBack(){
@@ -270,6 +288,8 @@ class WinnerGameController extends BaseController with GetTickerProviderStateMix
   void onClose() {
     scaleController.dispose();
     diamondLottieController.dispose();
+    _showGuaKaFingerTimer?.cancel();
+    _showGuaKaFingerTimer=null;
     super.onClose();
   }
 }

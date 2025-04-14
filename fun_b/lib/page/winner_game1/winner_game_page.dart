@@ -180,7 +180,7 @@ class WinnerGamePage extends BaseWidget<WinnerGameController>{
         GetBuilder<WinnerGameController>(
           id: "gua_finger",
           builder: (_)=>Visibility(
-            visible: firstGuaka.getData(),
+            visible: ftController.showGuaKaFinger,
             child: Container(
               margin: EdgeInsets.only(top: 106.h),
               child: IgnorePointer(

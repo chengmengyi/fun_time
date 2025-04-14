@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:fun_b/hep/auto_scratch.dart';
 import 'package:fun_base/base/base_controller.dart';
 import 'package:fun_base/util/util.dart';
@@ -18,7 +20,7 @@ import 'package:fun_base/util/event/event_result.dart';
 import 'package:fun_base/util/voice_player.dart';
 
 class LuckNumberController extends BaseController with GetTickerProviderStateMixin{
-  var startScratch=false,showDiamondAnimator=false,canPlay=true;
+  var startScratch=false,showDiamondAnimator=false,canPlay=true,showGuaKaFinger=true,noAnyOperate=true;
   WinnerType winnerType=WinnerType.luckyNumber;
   late WinnerBackBean _winnerBackBean;
   List<WinnerRewardBean> winnerRewardList=[];
@@ -33,6 +35,7 @@ class LuckNumberController extends BaseController with GetTickerProviderStateMix
   AutoScratch? autoScratch;
 
   late AnimationController scaleController;
+  Timer? _showGuaKaFingerTimer;
 
   @override
   void onInit() {
@@ -121,6 +124,8 @@ class LuckNumberController extends BaseController with GetTickerProviderStateMix
       );
       return;
     }
+    noAnyOperate=false;
+    _checkFirstGua();
     startScratch=true;
     if(canPlay){
       VoicePlayer.instance.playVoiceMp3();
@@ -148,7 +153,7 @@ class LuckNumberController extends BaseController with GetTickerProviderStateMix
     if(_winnerBackBean.winNum>0){
       scaleController..reset()..forward();
     }
-    await Future.delayed(const Duration(milliseconds: 1600));
+    await Future.delayed(const Duration(milliseconds: 1000));
     _checkResult();
   }
 
@@ -209,6 +214,8 @@ class LuckNumberController extends BaseController with GetTickerProviderStateMix
     key.currentState?.reset();
     autoScratch?.stopWhile=false;
     iconOffset=null;
+    noAnyOperate=true;
+    _startShowGuaKaFingerTimer();
     update(["gold_icon"]);
     await UserInfoHep.instance.updateCanPlayNum(-1,winnerType);
     update(["num"]);
@@ -233,12 +240,29 @@ class LuckNumberController extends BaseController with GetTickerProviderStateMix
       );
       return;
     }
+    noAnyOperate=false;
+    _checkFirstGua();
     VoicePlayer.instance.playVoiceMp3();
     startScratch=true;
   }
 
   onScratchEnd(){
     startScratch=false;
+  }
+
+  _checkFirstGua(){
+    showGuaKaFinger=false;
+    update(["gua_finger"]);
+  }
+
+  _startShowGuaKaFingerTimer(){
+    _showGuaKaFingerTimer?.cancel();
+    _showGuaKaFingerTimer=Timer(const Duration(milliseconds: 3000), (){
+      if(noAnyOperate){
+        showGuaKaFinger=true;
+        update(["gua_finger"]);
+      }
+    });
   }
 
   clickBack(){
@@ -263,6 +287,8 @@ class LuckNumberController extends BaseController with GetTickerProviderStateMix
   void onClose() {
     scaleController.dispose();
     diamondLottieController.dispose();
+    _showGuaKaFingerTimer?.cancel();
+    _showGuaKaFingerTimer=null;
     super.onClose();
   }
 }

@@ -9,6 +9,7 @@ import 'package:fun_b/widget/win_up_widget.dart';
 import 'package:fun_base/base/base_widget.dart';
 import 'package:fun_base/util/util.dart';
 import 'package:fun_base/widget/local_image_widget.dart';
+import 'package:fun_base/widget/lottie_widget.dart';
 import 'package:fun_base/widget/text_widget.dart';
 
 class WinOrLosePage extends BaseWidget<WinOrLoseController>{
@@ -169,7 +170,19 @@ class WinOrLosePage extends BaseWidget<WinOrLoseController>{
             margin: EdgeInsets.only(bottom: 46.h),
             child: WinUpWidget(winnerType: ftController.winnerType,numTextColor: "#FFF70F",),
           ),
-        )
+        ),
+        GetBuilder<WinOrLoseController>(
+          id: "gua_finger",
+          builder: (_)=>Visibility(
+            visible: ftController.showGuaKaFinger,
+            child: Container(
+              margin: EdgeInsets.only(top: 106.h),
+              child: IgnorePointer(
+                child: LottieWidget(name: "guakai", ext: "json"),
+              ),
+            ),
+          ),
+        ),
       ],
     ),
   );

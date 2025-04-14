@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fun_b/bean/home_list_bean.dart';
@@ -140,7 +142,9 @@ class BCardsController extends BaseController{
       return;
     }
     // UserInfoHep.instance.updateUserCoins(998);
-    CashHep.instance.updateCashTask(CashTaskType.card);
+    // CashHep.instance.updateCashTask(CashTaskType.card);
     // FirebaseHep.instance.initFirebase();
+
+
   }
 }

@@ -25,13 +25,13 @@ class UserInfoHep{
       _userInfoBean=UserInfoBean(
         coinsNum: 0.0,
         diamondNum: 0,
-        winnerGamePlayNum: 8,
-        fruitMatchPlayNum: 8,
-        chasingLuckPlayNum: 8,
-        casinoRushPlayNum: 8,
-        winOrLosePlayNum: 8,
-        luckyNumberPlayNum: 8,
-        bettingHighPlayNum: 8,
+        winnerGamePlayNum: 10,
+        fruitMatchPlayNum: 10,
+        chasingLuckPlayNum: 10,
+        casinoRushPlayNum: 10,
+        winOrLosePlayNum: 10,
+        luckyNumberPlayNum: 10,
+        bettingHighPlayNum: 10,
       );
       var id = await db.insert(SqlTableName.userInfoB, _userInfoBean?.toJson()??{});
       _userInfoBean?.id=id;
@@ -151,6 +151,18 @@ class UserInfoHep{
     if(!fromVideo){
       EventData(code: EventCode.updateUserCoinsB).send();
     }
+  }
+
+  addAllTypePlayNum()async{
+    _userInfoBean?.winnerGamePlayNum=(_userInfoBean?.winnerGamePlayNum??0)+1;
+    _userInfoBean?.fruitMatchPlayNum=(_userInfoBean?.fruitMatchPlayNum??0)+1;
+    _userInfoBean?.chasingLuckPlayNum=(_userInfoBean?.chasingLuckPlayNum??0)+1;
+    _userInfoBean?.casinoRushPlayNum=(_userInfoBean?.casinoRushPlayNum??0)+1;
+    _userInfoBean?.winOrLosePlayNum=(_userInfoBean?.winOrLosePlayNum??0)+1;
+    _userInfoBean?.luckyNumberPlayNum=(_userInfoBean?.luckyNumberPlayNum??0)+1;
+    _userInfoBean?.bettingHighPlayNum=(_userInfoBean?.bettingHighPlayNum??0)+1;
+    await _saveUserInfo();
+    EventData(code: EventCode.updatePlayNumB).send();
   }
 
   _saveUserInfo()async{

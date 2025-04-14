@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:fun_b/bean/home_bottom_bean.dart';
 import 'package:fun_b/hep/comment_hep.dart';
 import 'package:fun_b/hep/played_num_hep.dart';
 import 'package:fun_b/hep/storage/storage_bean.dart';
+import 'package:fun_b/hep/user_info_hep.dart';
 import 'package:fun_b/page/home/cards/cards_child.dart';
 import 'package:fun_b/page/home/cash/cash_child.dart';
 import 'package:fun_base/base/base_controller.dart';
@@ -22,6 +25,7 @@ class BHomeController extends BaseController{
   ];
   List<Widget> pageList=[CardsChild(),CashChild()];
   GlobalKey cashGlobalKey=GlobalKey();
+  Timer? _addPlayNumTimer;
 
   @override
   void onInit() {
@@ -34,6 +38,7 @@ class BHomeController extends BaseController{
     TbaPointHep.instance.pointEvent(CustomId.card_page,params: {"user_b":1});
     H5Hep.instance.methodB1();
     H5Hep.instance.methodB2();
+    _startAddPlayNum();
   }
 
   @override
@@ -76,4 +81,17 @@ class BHomeController extends BaseController{
       }
     },
   );
+
+  _startAddPlayNum(){
+    _addPlayNumTimer=Timer.periodic(const Duration(minutes: 1), (t){
+      UserInfoHep.instance.addAllTypePlayNum();
+    });
+  }
+
+  @override
+  void onClose() {
+    _addPlayNumTimer?.cancel();
+    _addPlayNumTimer=null;
+    super.onClose();
+  }
 }

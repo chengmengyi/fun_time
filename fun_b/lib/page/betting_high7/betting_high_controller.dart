@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:fun_b/hep/auto_scratch.dart';
 import 'package:fun_base/base/base_controller.dart';
 import 'package:fun_base/util/util.dart';
@@ -18,7 +20,7 @@ import 'package:fun_base/util/event/event_result.dart';
 import 'package:fun_base/util/voice_player.dart';
 
 class BettingHighController extends BaseController with GetTickerProviderStateMixin{
-  var startScratch=false,showDiamondAnimator=false,canPlay=true;
+  var startScratch=false,showDiamondAnimator=false,canPlay=true,showGuaKaFinger=true,noAnyOperate=true;
   WinnerType winnerType=WinnerType.bettingHigh;
   late WinnerBackBean _winnerBackBean;
   List<WinnerRewardBean> winnerRewardList=[];
@@ -33,6 +35,7 @@ class BettingHighController extends BaseController with GetTickerProviderStateMi
   Offset? iconOffset;
   AutoScratch? autoScratch;
   late AnimationController scaleController;
+  Timer? _showGuaKaFingerTimer;
 
   @override
   void onInit() {
@@ -112,6 +115,8 @@ class BettingHighController extends BaseController with GetTickerProviderStateMi
       );
       return;
     }
+    noAnyOperate=false;
+    _checkFirstGua();
     startScratch=true;
     if(canPlay){
       VoicePlayer.instance.playVoiceMp3();
@@ -139,7 +144,7 @@ class BettingHighController extends BaseController with GetTickerProviderStateMi
     if(_winnerBackBean.winNum>0){
       scaleController..reset()..forward();
     }
-    await Future.delayed(const Duration(milliseconds: 1600));
+    await Future.delayed(const Duration(milliseconds: 1000));
     _checkResult();
   }
 
@@ -200,6 +205,8 @@ class BettingHighController extends BaseController with GetTickerProviderStateMi
     key.currentState?.reset();
     autoScratch?.stopWhile=false;
     iconOffset=null;
+    noAnyOperate=true;
+    _startShowGuaKaFingerTimer();
     update(["gold_icon"]);
     await UserInfoHep.instance.updateCanPlayNum(-1,winnerType);
     update(["num"]);
@@ -218,8 +225,25 @@ class BettingHighController extends BaseController with GetTickerProviderStateMi
       );
       return;
     }
+    noAnyOperate=false;
+    _checkFirstGua();
     VoicePlayer.instance.playVoiceMp3();
     startScratch=true;
+  }
+
+  _checkFirstGua(){
+    showGuaKaFinger=false;
+    update(["gua_finger"]);
+  }
+
+  _startShowGuaKaFingerTimer(){
+    _showGuaKaFingerTimer?.cancel();
+    _showGuaKaFingerTimer=Timer(const Duration(milliseconds: 3000), (){
+      if(noAnyOperate){
+        showGuaKaFinger=true;
+        update(["gua_finger"]);
+      }
+    });
   }
 
   onScratchEnd(){
@@ -254,6 +278,8 @@ class BettingHighController extends BaseController with GetTickerProviderStateMi
   void onClose() {
     scaleController.dispose();
     diamondLottieController.dispose();
+    _showGuaKaFingerTimer?.cancel();
+    _showGuaKaFingerTimer=null;
     super.onClose();
   }
 }
